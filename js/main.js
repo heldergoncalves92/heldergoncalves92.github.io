@@ -113,7 +113,7 @@
 	function sentMessage(){
 		$('#btn_send').attr('disabled','');
 
-		$.post("sendMail.php",
+		$.post("http://heldergoncalves.esy.es/sendMail.php",
 	  	{	
 	    	name:$('#inputUser').val(),
 	    	mail:$('#inputMail').val(),
