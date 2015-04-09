@@ -6,6 +6,42 @@
 	var home_height;
 	var width, height;
 
+	/*******************  Mail Control  ********************/
+
+	var emailRegex = /^[a-z0-9\.\_\+\-]+\@([a-z]+\.)+[a-z]{2,4}$/;
+	var userRegex = /^[A-Za-zÀ-ú ]{3,}$/;
+	var messageRegex = /^[A-Za-zÀ-ú0-9 \!\?\.\~\^\,\;\:\-\ª\º\'\(\)\$\€\n]{6,}$/;
+
+	function testSend(){
+		if(userCheck==1 && mailCheck==1 && messageCheck==1)
+			$('#btn_send').removeAttr('disabled');
+		else
+			$('#btn_send').attr('disabled','');
+	}
+
+	function sentMessage(){
+		$('#btn_send').attr('disabled','');
+
+		$.post("http://heldergoncalves.esy.es/sendMail.php",
+	  	{	
+	    	name:$('#inputUser').val(),
+	    	mail:$('#inputMail').val(),
+	    	message:$('#inputMessage').val()
+	  	},
+	  	function(data,status){
+	  		if(data == 'SENT'){
+	  			$('#form-message').slideUp("slow");
+				$('#message').css('height','27em');
+				$('#message-sent').css('visibility','visible');
+			}
+			else{
+				$('#msg-alert').css('visibility','visible');
+			}
+	  	});
+
+	  	//Fail case
+	  	$('#btn_send').removeAttr('disabled');
+	}
 
 	$(document).ready(function() {
 		
@@ -37,15 +73,6 @@
 
 
 		
-		
-		
-
-/*******************  Mail Control  ********************/
-
-		var emailRegex = /^[a-z0-9\.\_\+\-]+\@([a-z]+\.)+[a-z]{2,4}$/;
-		var userRegex = /^[A-Za-zÀ-ú ]{3,}$/;
-		var messageRegex = /^[A-Za-zÀ-ú0-9 \!\?\.\~\^\,\;\:\-\ª\º\'\(\)\$\€\n]{6,}$/;
-
 		$('#inputUser').keyup(function(){
 			var value = $(this).val().replace(/( ){3,}/, ' ');
 			$(this).val(value);
@@ -103,36 +130,7 @@
 		
 
 
-	function testSend(){
-		if(userCheck==1 && mailCheck==1 && messageCheck==1)
-			$('#btn_send').removeAttr('disabled');
-		else
-			$('#btn_send').attr('disabled','');
-	}
-
-	function sentMessage(){
-		$('#btn_send').attr('disabled','');
-
-		$.post("http://heldergoncalves.esy.es/sendMail.php",
-	  	{	
-	    	name:$('#inputUser').val(),
-	    	mail:$('#inputMail').val(),
-	    	message:$('#inputMessage').val()
-	  	},
-	  	function(data,status){
-	  		if(data == 'SENT'){
-	  			$('#form-message').slideUp("slow");
-				$('#message').css('height','27em');
-				$('#message-sent').css('visibility','visible');
-			}
-			else{
-				$('#msg-alert').css('visibility','visible');
-			}
-	  	});
-
-	  	//Fail case
-	  	$('#btn_send').removeAttr('disabled');
-	}
+		
 
 	/************* ICON's **************/
 		$('#facebook')
