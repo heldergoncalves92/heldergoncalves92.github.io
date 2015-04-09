@@ -1,1 +1,217 @@
-Hello World
+<?php //include 'counter.php';?>
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+
+		<link rel="stylesheet" href="bootstrap/css/bootstrap.min.css"/>
+		<link rel="stylesheet" href="css/charts.css"/>
+		<link rel="stylesheet" href="css/main.css"/>
+		
+		<meta charset='utf8'/>
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
+		<meta name='author' content='Hélder José Alves Gonçalves'/>
+		<meta name='keywords' contend='Hélder, Gonçalves, developer, software, informatics, webpage, personal, profile, lei, universidade, minho, braga, engenheiro, informático, barcelos'>
+		<meta name='description' name="Hélder Gonçalves is am Informatics Enginneer graduated at University of Minho! Actualy, he's MSc Student Informatics Engineering. The passion for High Performance and Distributed Systems dictated my choices in profiles I am specializing.">
+		<title>Hélder Gonçalves - Informatics Engineer</title>
+
+	</head>	
+	<body>
+
+		<nav id='nav-main' class='navbar navbar-default navbar-fixed-top'>
+			<div class="container-fluid">
+		    <!-- Brand and toggle get grouped for better mobile display -->
+		    	<div class="navbar-header">
+		     		<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+		        		<span class="sr-only">Toggle navigation</span>
+		        		<span class="icon-bar"></span>
+		        		<span class="icon-bar"></span>
+		        		<span class="icon-bar"></span>
+		      		</button>
+		    		<!--  <a class="navbar-brand" href="#">Brand</a>-->
+		    	</div>
+
+		    	<ul id="navName" class="nav navbar-nav navbar-left">
+        
+       			 	<li class='name'>
+       			 		<p><strong>Hélder Gonçalves</strong> Informatics Engineer</p>
+       			 	</li>
+      			</ul>
+
+		    	<!-- Collect the nav links, forms, and other content for toggling -->
+		    	<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+		        	<ul class="nav navbar-nav navbar-right">
+			      		<li><a onclick='scrollToElem(body)'>Home</a></li>
+						<li><a onclick='scrollToElem(about)'>About</a></li>
+						<li><a onclick='scrollToElem(portfolio)'>Portfolio</a></li>
+						<li><a onclick='scrollToElem(contact)'>Contact</a></li>
+		      		</ul>
+		    	</div><!-- /.navbar-collapse -->
+		  	</div><!-- /.container-fluid -->
+		</nav>
+		<div id='smooth' class='smooth home-hmin'><div class='smooth2 home-hmin'></div></div>
+
+		<section id='home' class="home home-hmin container text-center">
+
+			<div class='middle row'>
+			  	<div id='imgHome' class='col-sm-12 col-md-5 '>
+					<img src="img/profile-square-flip.jpg" alt="profile" class="img-circle prim ">
+			  	</div>
+			  	<div id='welcomeHome' class='col-sm-12 col-md-7'>
+			  		<br>
+			  		<h1 class='padd-left hello'>Hello!!</h1>
+			  		<h1 class='padd-left'>Please, scroll to meet me..</h1>
+			  		
+			  			<div class='row'>
+				  			<div class='col-sm-4 col-lg-4 no-padd' align='center'><a href="#" onclick='scrollToElem(about)' class='middle color1'>About</a></div>
+				  			<div class='col-sm-4 col-lg-3 no-padd' align='center'><a href="#" onclick='scrollToElem(portfolio)' class='middle color2'>Portfolio</a></div>
+				  			<div class='col-sm-4 col-lg-4 no-padd' align='center'><a href="#" onclick='scrollToElem(contact)' class='middle color3'>Contact</a></div>
+			  			</div>	
+					
+			  	</div>
+	
+		  
+		  </div>		  
+
+		</section>	
+
+		<section id='main-contend'>
+
+			<section id='about' class='container text-center padTop'>
+				<h1 class='title '>About</h1>
+				<hr class='break'\>
+
+				<div class='row'>
+					<div class='col-xs-12 col-sm-offset-1 col-sm-10 col-md-offset-0 col-md-7'>
+						<p class='first'>
+							Hello, I'm <strong>Hélder Gonçalves</strong>!
+						</p>
+						<p>
+							Since early, I was curious about everything but see a little box doing unbelievable things was extremely interesting. In the beginning, I played games like a ordinary child, then I decided got to take a course of  Microsoft Office to feel a little more confortable with this tools. May not be a big deal, but I was fascinated. Over time, the desire to know more was increasing and when I got to the High School, I already knew what I would choose in College.
+						</p>
+						<p>
+							I have studied BSc in Informatics Engineering at <em>University of Minho</em>. These were the most important years in my formation, where I learned a new way of thinking before new problems and bases fundamentals. During these years, I followed some tutorials about Web Development that have  proved very useful in some projects I'm involved.
+
+						</p>
+						<p>
+							Presently, I'm MSc Student Informatics Engineering at <em>University of Minho</em>. The passion for High Performance and Distributed Systems dictated my choices in profiles I am specializing. 
+						</p>
+					</div>
+					<div class='col-xs-12 col-sm-offset-1 col-sm-10  col-md-offset-0 col-md-5'>
+
+						<img src="img/About-flip.jpg" alt="about" class="img-thumbnailo">
+					</div>
+				</div>
+			</section>
+
+			<div class="parallax-window" data-parallax="scroll" data-image-src="img/sky-wall.jpg">
+				<section id='skills' class='container text-center padTop'>
+					<h1 class='title2 posRelative'>Key Skills</h1>
+					<hr class='break2 posRelative'\>
+					<div class='row' >
+						<div id='div1' class='skill col-xs-offset-0 col-xs-12 col-sm-offset-0 col-sm-4 col-md-offset-1 col-md-2 '></div>
+						<div id='div2' class='skill col-xs-offset-0 col-xs-12 col-sm-offset-0 col-sm-4 col-md-offset-0 col-md-2'></div>
+						<div id='div3' class='skill col-xs-offset-0 col-xs-12 col-sm-offset-0 col-sm-4 col-md-offset-0 col-md-2'></div>
+						<div id='div4' class='skill col-xs-offset-0 col-xs-12 col-sm-offset-1 col-sm-5 col-md-offset-0 col-md-2'></div>
+						<div id='div5' class='skill col-xs-offset-0 col-xs-12 col-sm-offset-0 col-sm-5 col-md-offset-0 col-md-2'></div>
+						
+					</div>
+				</section>
+			</div>
+
+			<section id='portfolio' class='container text-center padTop'>
+				<h1 class='title'>Portfolio</h1>
+				<hr class='break'>
+				<img width='100%' src="img/coming_soon.png">
+			</section>
+
+			<div class="parallax-window" data-parallax="scroll" data-image-src="img/creative.jpg">
+				<h1 class='description'>Be <strong><em>CREATIVE</em></strong>!!</h1>
+			</div>
+		
+			<section id='contact' class='container text-center padTop'>
+				<h1 class='title'>Contact Me</h1>
+				<hr class='break'>
+				<div class='row'>
+					<div class='col-xs-offset-1 col-xs-10 col-md-offset-0 col-md-6'>
+						<img src="img/correio.gif">
+						<h3>Be free to say Hello!!</h3>
+					</div>
+					<div id='message' class='col-xs-offset-1 col-xs-10 col-md-offset-0 col-md-6'>
+						<form id='form-message'class='form-horizontal message'>
+							<div id='fUser' class="form-group">
+							    <div class="col-xs-12 col-sm-offset-1 col-sm-10">
+							    	<div class="input-group">
+							    		<span class="input-group-addon">
+							    			<span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+							    		</span>
+							      		<input type="text" class="form-control" id="inputUser" placeholder="Your Name (Ex: First Last)">
+							      	</div>
+							    </div>
+							</div>
+							<div id='fMail' class="form-group">
+							    <div class="col-xs-12 col-sm-offset-1 col-sm-10">
+							    	<div class="input-group ">
+							    		<span class="input-group-addon"> @ </span>
+							    		<input type="email" class="form-control" id="inputMail" placeholder="Your E-mail">
+							    	</div>
+							    </div>
+							</div>
+							<div id='fMessage' class="form-group">
+							    <div class="col-xs-12 col-sm-offset-1 col-sm-10">
+							    	<textarea id="inputMessage" class="form-control" rows="7" placeholder='Your Message'></textarea>
+							    </div>
+							</div>
+							<div class="form-group">
+							    <div class="col-xs-12 col-sm-offset-1 col-sm-1">
+							      	<div id='btn_send' class="btn btn-primary" onclick='sentMessage()' disabled>
+							      		<span class="glyphicon glyphicon-send" aria-hidden="true"></span>
+							      		 Send Message
+							      	</div>
+							    </div>
+							</div>
+							<div id='msg-alert' class="alert alert-danger" role="alert">Your message was <strong>not sent</strong> successfully. <strong>Try again!</strong></div>
+						</form>
+						<div id='message-sent'>
+							<h3>Message Sent. <strong>Thank You!</strong></h3>
+							<img width='100%' src="img/sent_successful.png">
+						</div>
+					</div>
+				</div><!--Close RowMessage-->
+			</section>	
+		</section>
+
+		<footer>
+			<div  class='container-fluid text-center'>
+				<h2>Let's Be Friends</h2>
+				<div class='row'>
+					<a href="https://www.facebook.com/helderjosegoncalves" target='_blank'><img id='facebook' width='100%' src="img/icon/facebook_gray.png"></a>
+					<a href="https://twitter.com/heldergon92" target='_blank'><img id='twitter' width='100%' src="img/icon/twitter_gray.png"></a>
+					<a href="http://pt.linkedin.com/in/helderjagoncalves/en" target='_blank'><img id='linkedin' width='100%' src="img/icon/linkedin_gray.png"></a>
+					<a href="https://github.com/HelderGoncalves92" target='_blank'><img id='github' width='100%' src="img/icon/github_gray.png"></a>
+				</div>
+			</div>
+			<div id='credits'>
+				<p class='right'>Developed by: <strong class='title3'>Hélder Gonçalves</strong></p>
+				<p>© Copyright 2015</p>
+			</div>
+		</footer>
+		<script src='js/jquery-1.11.min.js'></script>		
+		<script src="js/d3.min.js"></script>
+    	<script src="js/radialProgress.js"></script>
+
+		<script src='js/parallax.min.js'></script>
+		<script src='bootstrap/js/bootstrap.min.js'></script>
+		<script src='js/main.js'></script>
+
+		<script>
+		  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+		  ga('create', 'UA-51792409-2', 'auto');
+		  ga('send', 'pageview');
+
+		</script>
+	</body>
+</html>

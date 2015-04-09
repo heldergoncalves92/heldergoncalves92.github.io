@@ -1,0 +1,63 @@
+
+
+    .background {
+        fill: #FFFFFF;
+        fill-opacity: 0.01;
+        cursor: default;
+    }
+
+    .component {
+        fill: #e1e1e1;
+        fill-opacity: .3;
+        cursor: default;
+    }
+
+    .component .label {
+        text-anchor: middle;
+        font-size: 14pt;
+        fill: #1A1A1A;
+        fill-opacity: 1;
+    }
+
+    .arc {
+        
+        fill: #1A1A1A;
+        fill-opacity: 0.7;
+    }
+
+    .arc2 {
+        stroke-weight:0.9;
+        fill: yellow;
+    }
+
+
+    .label {
+        font-family:  Myriad, "Helvetic Neue", Helvetica, Arial;
+        text-anchor: middle;
+        cursor: default;
+        
+    }
+
+    .radial-svg{
+        width: 180px;
+        height: 13em;
+        position: relative;
+        cursor: default;
+        padding-left: 29px;
+        overflow: visible!important;
+    }
+
+/************* MEDIA QUERY **************/
+   /* @media only screen and (min-width: 768px ){
+        .radial-svg{lesft: 0px};
+    }
+    @media only screen and (min-width: 992px ){
+        .radial-svg{lesft: 5px};
+    }
+    @media only screen and (min-width: 1200px ){
+        .radial-svg{//left: 21px;
+            padding-left: 30px;};
+    }
+
+*/
+*/
