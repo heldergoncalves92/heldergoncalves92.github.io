@@ -64,7 +64,7 @@ function start() {
         var rp5 = radialProgress(document.getElementById('div2'))
                 .label("Security")
                 .diameter(150)
-                .value(78)
+                .value(87)
                 .render();
         
     }
