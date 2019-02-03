@@ -38,7 +38,7 @@
 function start() {
 
         var rp1 = radialProgress(document.getElementById('div1'))
-                .label("High Performance")
+                .label("Parallel Computing")
                 .diameter(150)
                 .value(92)
                 .render();

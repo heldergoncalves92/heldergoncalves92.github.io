@@ -1,38 +1,57 @@
-<?php include 'counter.php';?>
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-
-		<link rel="stylesheet" href="bootstrap/css/bootstrap.min.css"/>
-		<link rel="stylesheet" href="css/toolkit.css"/>
-		<link rel="stylesheet" href="css/charts.css"/>
-		<link rel="stylesheet" href="css/main.css"/>
+	<head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# object: http://ogp.me/ns/object# article: http://ogp.me/ns/article# profile: http://ogp.me/ns/profile#">
+        
+        <meta charset='utf-8'>
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+        
+		<link rel="stylesheet" href="css/bootstrap.min.css">
+		<link rel="stylesheet" href="css/main.css">
 		
+        <meta content="HelderGoncalves92" property="profile:username">
+        
+    	<meta property="og:type" content="profile">
+        <meta property="og:title" content="Hélder Gonçalves | MSc Informatics Engineer">
+        <meta property="og:url" content="http://heldergoncalves.esy.es">
+        <meta property="og:description" content="Hélder Gonçalves is an Informatics Engineer graduate at University of Minho! HelderGoncalves92 has several repositories developed in GitHub! Software developer">
+        <meta property="og:image" content="http://heldergoncalves.esy.es/img/profile-square-flip.jpg">
+        <meta property="og:image:type" content="image/jpeg" />
+        <meta property="og:video:width" content="390">
+        <meta property="og:video:height" content="390">
+        
+        <meta content="http://heldergoncalves.esy.es/img/profile-square-flip.jpg" name="twitter:image:src">
+        <meta content="@github" name="twitter:site">
+        <meta content="summary" name="twitter:card">
+        <meta content="HelderGoncalves92 (Hélder Gonçalves) | MSc Informatics Engineer" name="twitter:title">
+        <meta content="Hélder Gonçalves is an Informatics Engineer graduate at University of Minho! HelderGoncalves92 has several repositories developed in GitHub! Software developer" name="twitter:description">
+        
+        <meta name="google-analytics" content="UA-51792409-2">
+        
+        <meta name='author' content='Hélder José Alves Gonçalves'>
+		<meta name='keywords' content='heldergoncalves, developer, software, webpage, personal, profile, universidade, minho, braga, engenheiro, informatico'>
 		
-		<meta charset='utf-8'/>
-		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
-		<meta name='author' content='Hélder José Alves Gonçalves'/>
-		<meta name='keywords' content='Hélder, Gonçalves, developer, software, informatics, webpage, personal, profile, lei, universidade, minho, braga, engenheiro, informático, barcelos'>
-		<meta name='description' content="Hélder Gonçalves is am Informatics Enginneer graduated at University of Minho! Actualy, he's MSc Student Informatics Engineering. The passion for High Performance and Distributed Systems dictated my choices in profiles I am specializing.">
-		<title>Hélder Gonçalves - Informatics Engineer</title>
-
-		
-
-		<noscript id='noScriptWarning'>
-			<style>
-				html, body{
-					width: 100%;
-					height: 100%;
-					background-color: #FFEB99;
-				}
-				div{
-					width:90%;
-					margin: 0 auto;
-					text-align: center;
-				}
-				p{font-size: 13pt;}
-				hr{border-color: #888888}
-			</style>
+        <title>Hélder Gonçalves | MSc Informatics Engineer</title>
+        <meta name='description' content="Hélder Gonçalves is an Informatics Engineer graduate at University of Minho! HelderGoncalves92 has several repositories developed in GitHub! Software developer">
+        <noscript>
+            <style>
+                html, body{
+                    width: 100%;
+                    height: 100%;
+                    background-color: #FFEB99;
+                }
+                div{
+                    width:90%;
+                    margin: 0 auto;
+                    text-align: center;
+                }
+                p{font-size: 13pt;}
+                hr{border-color: #888888}
+            </style>
+        </noscript>
+	</head>	
+	<body>
+        
+        <noscript>
 			<div>
 				<hr>
 				<img alt='javascript' src="img/icon/js.png">
@@ -41,19 +60,13 @@
 				<p>Please, enable it in your browser</p>
 				<hr>
 				<h4>Contact</h4>
-			<button type="button" class="btn btn-default btn-lg">
-			  <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> 
-			  <a href="mailto:heldergoncalves92@live.com.pt?Subject=Webpage%20Contact" target="_top" style="text-decoration:none;color:#333;">
-					heldergoncalves92@live.com.pt
-				</a>
-			</button>
+			    <a class="btn btn-default btn-lg" href='mailto:heldergoncalves92@gmail.com?Subject=Webpage%20Contact' style="text-decoration:none;color:#333;">
+                     <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> 	
+                     heldergoncalves92@gmail.com
+                </a>
 			</div>
-
 		</noscript>
-
-	</head>	
-	<body>
-
+        
 		<nav id='nav-main' class='navbar navbar-default navbar-fixed-top noScript'>
 			<div class="container-fluid">
 		    <!-- Brand and toggle get grouped for better mobile display -->
@@ -70,7 +83,7 @@
 		    	<ul id="navName" class="nav navbar-nav navbar-left">
         
        			 	<li class='name'>
-       			 		<p><strong>Hélder Gonçalves</strong> Informatics Engineer</p>
+       			 		<p onclick="window.location.href='http://heldergoncalves.esy.es'"><strong>Hélder Gonçalves</strong> Informatics Engineer</p>
        			 	</li>
       			</ul>
 
@@ -78,13 +91,21 @@
 		    	<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 		        	<ul class="nav navbar-nav navbar-right">
 			      		<li id='btnHome'><a onclick='scrollToElem(body)'>Home</a></li>
-						<li id='btnAbout'><a onclick='scrollToElem(about)'>About</a></li>
+						<li id='btnAbout'>
+							<a onclick='scrollToElem(about)'>About</a>
+							<div id='AboutDropdown'>
+								<div><a class='subNavItem' onclick='scrollToElem(professional)'>Professional Activities</a></div>
+								<div><a class='subNavItem' onclick='scrollToElem(education)'>Education</a></div>
+								<div><a class='subNavItem' onclick='scrollToElem(keySkillsScrollPoint)'>Key Skills</a></div>
+							</div>
+						</li>
+						<li class='subNavItem'><a class='subNavItem' onclick='scrollToElem(professional)'>Professional Activities</a></li>
+						<li class='subNavItem'><a class='subNavItem' onclick='scrollToElem(education)'>Education</a></li>
+						<li class='subNavItem'><a class='subNavItem' onclick='scrollToElem(keySkillsScrollPoint)'>Key Skills</a></li>
+
 						<li id='btnPortfolio'><a onclick='scrollToElem(portfolio)'>Portfolio</a></li>
 						<li id='btnContact'><a onclick='scrollToElem(contact)'>Contact</a></li>
-						<li id='btnCV'><a href="https://www.dropbox.com/s/zn8s46t1klfjuyu/CV-Helder_Goncalves.pdf" target="_blank"><span class="glyphicon glyphicon-save" aria-hidden="true"></span> CV</a></li>
-
-
-
+						<li id='btnCV'><a href="https://uminho.academia.edu/HelderGoncalves/CurriculumVitae" target="_blank"><span class="glyphicon glyphicon-save" aria-hidden="true"></span> CV</a></li>
 		      		</ul>
 		    	</div><!-- /.navbar-collapse -->
 		  	</div><!-- /.container-fluid -->
@@ -99,15 +120,13 @@
 			  	</div>
 			  	<div id='welcomeHome' class='col-sm-12 col-md-7'>
 			  		<br>
-			  		<h1 class='padd-left hello'>Hello!!</h1>
-			  		<h1 class='padd-left'>Please, scroll to meet me..</h1>
+			  		<h3 class='padd-left'>My name is:</h3>
+			  		<h2 class='padd-left hello'><em>Hélder Gonçalves</em></h2>
 			  		
 			  			<div class='row'>
-				  			<div align='center' class='col-sm-4 no-padd'><a href="#" onclick='scrollToElem(about)' class='middle color1'>About</a></div>
-				  			
-				  			<div align='center' class='col-sm-4 no-padd'><a href="#" onclick='scrollToElem(portfolio)' class='middle color2'>Portfolio</a></div>
-
-				  			<div align='center' class='col-sm-4 no-padd'><a href="#" onclick='scrollToElem(contact)' class='middle color3'>Contact</a></div>
+				  			<div class='col-sm-4 no-padd'><div class="center1"><a href="#" onclick='scrollToElem(about)' class='middle color1'>About</a></div></div>
+				  			<div class='col-sm-4 no-padd'><div class="center1"><a href="#" onclick='scrollToElem(portfolio)' class='middle color2'>Portfolio</a></div></div>
+				  			<div class='col-sm-4 no-padd'><div class="center1"><a href="#" onclick='scrollToElem(contact)' class='middle color3'>Contact</a></div></div>
 			  			</div>	
 					
 			  	</div>
@@ -119,104 +138,128 @@
 
 		<section id='main-contend' class='noScript'>
 
+			<!-- 
+			**********************************************
+			**********************************************
+			******									******
+			******				About 				******
+			******									******
+			**********************************************
+			**********************************************	
+			-->
 			<section id='about' class='container text-center padTop'>
 				<h1 class='title '>About</h1>
 				<hr class='break'>
 
 				<div class='row'>
 					<div class='col-xs-12 col-sm-offset-1 col-sm-10 col-md-offset-0 col-md-7'>
-						<p class='first'>
-							Hello, I'm <strong>Hélder Gonçalves</strong>!
+						
+						<p>
+                            I am curious about everything since I remember and the will to learn more never disappears. In a world that is constantly changing, it is important to be always updated, especially when we talk about IT, where every day there are new technologies available.
 						</p>
 						<p>
-							Since early, I am curious about everything and 
-
-							but see a little box doing unbelievable things was extremely interesting. In the beginning, I played games like an ordinary child, then I decided got to take a course of  Microsoft Office to feel a little more confortable with this tools. May not be a big deal, but I was fascinated. Over time, the desire to know more was increasing and when I got to the High School, I already knew what I would choose in College.
+                            I have studied <span class="u">BSc in Informatics Engineering</span> at University of Minho. These were the most important years in my graduation, where I learned a new way of thinking before new problems. During these years, I followed some tutorials about <strong>Web Development</strong> that have proved very useful in some projects I was involved. 
 						</p>
 						<p>
-							I have studied BSc in Informatics Engineering at <em>University of Minho</em>. These were the most important years in my formation, where I learned a new way of thinking before new problems and bases fundamentals. During these years, I followed some tutorials about Web Development that have  proved very useful in some projects I'm involved.
-
+                            I am <span class="u">MSc Student Informatics Engineering</span> at University of Minho. My primary interest at the moment is <strong>High Performance Computing</strong> (HPC) in parallel architectures, which is the topic of my master thesis. But, I’m also interested in other topics like <strong>Computer Graphics</strong>, <strong>Distributed Systems</strong>, <strong>Web Development</strong> and <strong>Mobile</strong>. I believe that we must be prepared to face several problems, so that we can adapt ourselves to several work circumstances.
 						</p>
-						<p>
-							Presently, I'm MSc Student Informatics Engineering at <em>University of Minho</em>. The passion for High Performance and Distributed Systems dictated my choices in profiles I am specializing. 
-						</p>
-
 					</div>
 					<div class='col-xs-12 col-sm-offset-1 col-sm-10  col-md-offset-0 col-md-5 padTop'>
 
-						<img class='padTop' src="img/About-flip.png" alt="about">
+						<img class='padTop' src="./img/About-flip.png" alt="about">
 					</div>
 				</div>
 			</section>
 
 			<section id='professional' class='text-center mainActivity' style='background-color: #D3E0E5;'>
 				<div class='boxTitle'><div class="jj">Professional Activities</div></div>
-				<div class='startLeft borderRight borderBottom'> </div>
-				<div class='row activity borderLeft borderBottom'>
-				<br clear='both'> 
+				<div class='startRight borderLeft borderBottom'> </div>
+
+				<div class='activity borderRight borderBottom'>
+					<br class='clear'>
 					<div class='maxWidth'>
-						<a href="https://www.tacc.utexas.edu/-/a-portugal-austin-colaboration">
+						<a href="https://www.outsystems.com/company/careers/" target='blank'>
+							<h2>Software Engineer</h2>
+						</a>
+
+						<h3><em>OutSystems, Braga, Portugal<span class='duration'> - (October 2016 to Present)</span></em></h3> 
+
+						<a href="https://www.outsystems.com" target='blank'>
+						<img class="img-rounded img-max-width-xss uminhoIconLeft" alt='Logo da OutSystems' src="./img/outsystems-squarelogo.png" >
+						</a>
+						<p>
+							I am developing the core technological components of the OutSystems flagship product, the <strong>OutSystems Platform</strong>. I make part of a small team of top engineers, passionate about delivering high-quality software that evolves at the fast-pace of modern technology. 
+							<p>
+							At OutSystems I am facing a wide range of engineering challenges, from planning to implementation and testing, including language design, compiler optimizations, UX design, database design and tuning, web and mobile frontend development and much more.
+							</p>
+
+                    </div>
+					<br class='clear'>
+					<hr class='sep-activity'>
+				</div>
+
+
+				<div class='activity borderLeft borderBottom'>
+					<br class='clear'>
+					<br class='min-display-none'>
+					<div class='maxWidth'>
+						<a href="http://www.sc.informatik.tu-darmstadt.de/fg/sc/index.en.jsp" target='blank'>
 							<h2> Software Developer Internship</h2>
 						</a>
 
-						<h3><em>Darmstadt University of Technology, Damrstadt, Germany<span class='duration'> - (Since January 2016)</span></em></h3> 
+						<h3><em>Darmstadt University of Technology, Darmstadt, Germany<span class='duration'> - (January to August, 2016)</span></em></h3> 
 
-						<a  class='' href="#" target='blank'>
+						<a href="http://www.tu-darmstadt.de/index.en.jsp" target='blank'>
 						<img class="img-rounded img-max-width-sm uminhoIconRight" alt='Logo da TUDarmstadt' src="./img/TUDarmstadt_Logo.png" >
 						</a>
-						<p>Under the Erasmus+ program and the Institute for Scientific Computing, I had access to another opportunite to contact with new environments. It is a unique career opportunity where I will be tested beyond my limits.
-							<p>During these months I will develop efficient software modules under the theme <em><strong>"Multiple Precision in Efficient Lattice Redection Algoritms"</strong></em> . In the end, this work will be recycled to my master thesis.</p>
+						<p>Under the Erasmus+ program and the Institute for Scientific Computing, I had access to a great opportunity to contact with new cultural and work environments, where I tested my limits.
+						<p>During these months I developed efficient software modules under the theme <em><strong>"Multiple Precision in Efficient Lattice Reduction Algorithms"</strong></em>. Afterwards, the accomplished work was gathered resulting in my master's thesis.</p>
 
-						
+                    </div>
+					<br class='clear'>
+					<hr class='sep-activity'>
+				</div>
+				<div class='activity borderRight borderBottom'>
+					<br class='clear'>
+					<br class='min-display-none'>
+					<div class='maxWidth'>
+						<a href="https://www.tacc.utexas.edu/-/a-portugal-austin-colaboration">
+							<h2>2015 Summer Internship in ‘Advanced Computing Research’</h2>
+						</a>
+
+						<h3><em>The University at Austin, Texas, United States of America<span class='duration'> - (July to August, 2015)</span></em></h3> 
+
+						<p>For the 8th continuous year, 15 Portuguese students traded their summer vacations for an advanced computing internship at The University of Texas at Austin. The program, International Collaboratory for Emerging Technologies (Co Lab), is an international exchange between three Portuguese institutions, University of Minho (UM), University of Porto (UP), and the Instituto Superior Técnico (IST), and UTAustin.
+
+						For four to six weeks, graduate students developed joint research projects with experts at the Institute for Computational Sciences (ICES), UT's Department of Computer Science (CS), and the Texas Advanced Computing Center (TACC).</p>
+
+						<p>During the internship was assigned to the project <strong><em>'Graph Unified Irregular Distributed Environment'</em></strong> (GUIDE). I was responsible for the software development and optimization of a graph concept in a computing distributed network.
 
 						</p>
-						</div>
-						<br clear='both'>
+						<a class='' href="https://www.tacc.utexas.edu/-/a-portugal-austin-colaboration" target='blank'>
+							<img class="img-rounded img-max-width-lg" alt='Group Picture' src="./img/articleTexas.jpg">
+						</a>
+						<br class='clear'>
 						<hr class='sep-activity'>
-					
-					</div>
-				<div class='activity borderRight borderBottom'>
-				<br clear='both'> 
-				<br class='min-display-none'>
-				
-				<div class='maxWidth'>
-					<a href="https://www.tacc.utexas.edu/-/a-portugal-austin-colaboration">
-						<h2>2015 Summer Internship in ‘Advanced Computing Research’</h2>
-					</a>
-
-					<h3><em>The University at Austin, Texas, United States of America<span class='duration'> - (July to August, 2015)</span></em></h3> 
-
-					<p>For the 8th continuous year, 15 Portuguese students traded their summer vacations for an advanced computing internship at The University of Texas at Austin. The program, International Collaboratory for Emerging Technologies (Co Lab), is an international exchange between three Portuguese institutions, University of Minho (UM), University of Porto (UP), and the Instituto Superior Tecnico (IST), and UTAustin.
-
-					For four to six weeks, graduate students developed joint research projects with experts at the Institute for Computational Sciences (ICES), UT's Department of Computer Science (CS), and the Texas Advanced Computing Center (TACC).</p>
-
-					<p>During the internship was assigned to the project <strong><em>'Graph Unified Irregular Distributed Environment</em></strong> (GUIDE). I was responsible for the software development and optimization of a graph concept in a computing distributed network.
-
-					</p>
-					<a class='' href="https://www.tacc.utexas.edu/-/a-portugal-austin-colaboration" target='blank'>
-						<img class="img-rounded img-max-width-lg" alt='Group Picture' src="./img/articleTexas.jpg">
-					</a>
-					<br clear='both'>
-					<hr class='sep-activity'>
 					</div>
 				</div>
 				<div class='activity borderLeft'> 
-					<br clear='both'> 
+					<br class='clear'>
 					<div class='maxWidth'>
 						<br class='min-display-none'>
-						<a href="https://www.facebook.com/camposdeferiasafum" target='blank'>
+						<a href="http://www.afum.uminho.pt" target='blank'>
 							<h2>Summer Camp Monitor</h2>
 						</a>
 
 						<h3><em>AFUM, University of Minho, Braga<span class='duration'> - (July 2014)</span></em></h3>
 
-						<p>Every year, it is performed the 'Summer Camp' by AFUM at University of Minho. In order to give a new set of experiences to the children, the Summer Camp promoves and developts a several sporting, cultural and artistic activities dedicated to them.
-						<p>I worked as 'Summer Camp Monitor' during one month, where I was responsible for 10 children under 10 years old. I developed a huge set of soft skills, that were needed to handle with all possible situations. Among them, leadership and commutication were the most important skills developted during this experience.</p>
+						<p>Every year, it is performed the 'Summer Camp' by AFUM at University of Minho. In order to give a new set of experiences to the children, the Summer Camp promotes and develops several sports, cultural and artistic activities dedicated to them.
+						<p>I worked as 'Summer Camp Monitor' during one month, where I was responsible for <strong>10 children</strong> under 10 years old. I developed a huge set of soft skills, that were needed to handle with all possible situations. Among them, leadership and communication were the most important skills developed during this experience.</p>
 
-						<a href="https://www.facebook.com/camposdeferiasafum" target='blank'>
+						<a href="http://www.afum.uminho.pt" target='blank'>
 							<img class="img-rounded img-max-width-md" alt='Group Picture - AFUM 2014' src="./img/afum.jpg">
 						</a>
-						<br clear='both'>
+						<br class='clear'>
 					</div>		
 				</div>
 				<div class='endLeft borderTop borderRight'></div>
@@ -227,26 +270,22 @@
 				</div>
 				<div class='startRight borderLeft borderBottom'> </div>
 				<div class='activity borderRight borderBottom'> 
-					<br clear='both'> 
+					<br class='clear'>
 					<div class='maxWidth'>
-						<a href="#" target='blank'>
+						<a href="https://www.uminho.pt/" target='blank'>
 							<h2>Master's Degree in Informatics Engineering</h2>
 						</a>
 
-						<h3><em>University of Minho, Braga<span class='duration'> - (2015 to Present)</span></em></h3>
-
-						<a  class='' href="#" target='blank'>
-							<img class="img-rounded uminhoIconLeft img-max-width-sm" alt='Logo da UMinho e Engenharia' src="./img/icon/logo_um_eng.jpg" >
-						</a>
-						
-						<p>The <strong><em>Parallel and Distributed Computing</em></strong> profile has as objective the development of generic skills in the construction and testing of efficient parallel applications for the next generation of computing platforms, which use hybrid components based on heterogeneous architectures CPU's containing multi/many-core and specific computational units (currently in GPU and FPGA).</p>
+						<h3><em>University of Minho, Braga<span class='duration'> - (2014 to 2016)</span></em></h3>
+						<img class="img-rounded uminhoIconLeft img-max-width-sm" alt='Logo da UMinho e Engenharia' src="./img/icon/logo_um_eng.jpg" >
+						<p>The <strong><em>Parallel and Distributed Computing</em></strong> profile has as objective the development of generic skills in the construction and testing of efficient parallel applications for the next generation of computing platforms, which use hybrid components based on heterogeneous architectures CPU's containing multi/many-core and specific computational units (currently in GPU and FPGA). </p>
 					
-						<p>The <strong><em>Distributed Systems and Cryptography</em></strong> profile targets a background in classical distributed systems, with emphasis on object oriented technologies, transactional systems, and fault tolerance, but also addresses emerging areas like mobile and cloud computing. In addition also targets the security of the information and the reliability of IT systems.</p>
+						<p>The <strong><em>Distributed Systems and Cryptography</em></strong> profile targets a background in classical distributed systems, with emphasis on object oriented technologies, transactional systems, and fault tolerance, but also addresses emerging areas like mobile and cloud computing. In addition, also targets the security of the information and the reliability of IT systems.</p>
 
 						<p>The <strong><em>Computer Graphics</em></strong> profile includes aspects such as advanced programming technologies, computational geometry, computer vision, lighting techniques and image synthesis and the construction of virtual worlds with direct impact on application areas such as scientific visualization, simulation, among others.</p>
 						<hr>
 						
-						<h4 class='subtitsle'><strong><em>Workplan</em></strong></h4>
+						<h4 class='subtitle'><strong><em>Workplan</em></strong></h4>
 						
 						<div class='row'>
 							<div class='col-md-6'>
@@ -278,7 +317,20 @@
 							</div>
 							
 						</div>
-						<br clear='both'>
+						<hr>
+						<h4 class='subtitle'><strong><em>Master's Thesis</em></strong></h4>
+						<p>
+							My master's thesis was developed in <strong>High Performance  Computing</strong> (HPC) field, where it was supervised by <a href='http://algoritmi.uminho.pt/member-profile/alberto-jose-goncalves-carvalho-proenca/0000043/'><em><u>Prof. Alberto José Proença</u></em></a> (Adviser) and <a href='https://www.linkedin.com/in/artur-mariano-81449125/'><em><u>Artur Mariano</u></em></a> (Co-adviser). 
+
+							The thesis is entitled '<strong>Towards an efficient lattice basis reduction implementation</strong>'.
+						</p>
+						<img class="img-rounded img-max-width-md" alt='Logo da UMinho e Engenharia' src="./img/masterEnd.jpg" >
+						
+							<p>The security of most digital systems is under serious threats due to major technology breakthroughs we are experienced in nowadays. Lattice-based cryptosystems are one of the most promising post-quantum types of cryptography, since it is believed to be secure against quantum computer attacks. Their security is based on the hardness of the Shortest Vector Problem and Closest Vector Problem.
+						</p>
+						<a href="https://www.academia.edu/30899923/Towards_an_efficient_lattice_basis_reduction_implementation" target='_blank'><button class="btn btn-primary" type="button">Master's Thesis Document</button></a>
+						
+						<br class='clear'>
 						<hr class='sep-activity'>
 					</div> 
 				</div>
@@ -287,17 +339,17 @@
 					<br class='min-display-none'/>
 					<div class='maxWidth'>
 
-						<a href="#" target='blank'>
+						<a href="https://www.uminho.pt/" target='blank'>
 							<h2>Bachelor's Degree in Informatics Engineering</h2>
 						</a>
 
 						<h3><em>University of Minho, Braga<span class='duration'> - (2010 to 2014)</span></em></h3>
 
-						<a  class='' href="#" target='blank'>
-							<img class="img-rounded uminhoIconRight" alt='Logo da UMinho e Engenharia' src="./img/endBachelor.jpg" >
-						</a>
+						
+				        <img class="img-rounded uminhoIconRight modal-img" alt='Logo da UMinho e Engenharia' src="./img/endBachelor.jpg" >
+						
 
-						<p> The <strong><em>LEI</em></strong> aims to prepare software engineers, able at all stages currently recognized in the rigorous process of analysis, design and implementation of IT solutions, wherein their ultimate goal is to providehe course aims to provide a wide range of expertise and knowledge (theoretical and practical) needed to:</p>
+						<p>The bachelor aims to prepare software engineers, able at all stages currently recognized in the rigorous process of analysis, design and implementation of IT solutions, wherein their ultimate goal is to provide a wide range of expertise and knowledge (theoretical and practical) needed to:</p>
 						<ul>
 							<li>The analysis and specification of software systems requirements to be implemented;</li>
 							<li>Applying prototype construction techniques;</li>
@@ -305,11 +357,11 @@
 							<li>The implementation of computer communication networks and infrastructures support.</li>
 							<li>The management and implementation of IT projects, including the design and implementation of computer systems.</li>
 						</ul>	
-						
-						<br clear='both'>
+						<img class="img-rounded  mobile-show" alt='Logo da UMinho e Engenharia' src="./img/endBachelor.jpg" >
+						<br class='clear modal-img'>
 					</div>
 				</div>
-				<div class='endLeft borderTop borderRight'></div>
+				<div id='keySkillsScrollPoint' class='endLeft borderTop borderRight'></div>
 				<div id='lastBox' class='boxTitle clearr' style='background-color:#CBE3DC'><div class="jj">Key Skills</div></div>
 			</section>
 			<!--<section id='softskils' class=' text-center mainActivity mainActivityCont' style='background-color: #D3E0E5;'>
@@ -322,6 +374,7 @@
 				<div id='lastBox' class='boxTitle clearr' style='background-color:#CBE3DC'><div class="jj">Key Skills</div></div>
 			</section>-->
 
+			
 			<div class="parallax-window" data-parallax="scroll" data-image-src="img/sky-wall.jpg" style='background-color: #D3E0E5;'>
 				<section id='skills' class='container text-center paddTopSkills'>
 					<div class='row'>
@@ -330,9 +383,9 @@
 						<div id='div3' class='skill col-xs-offset-0 col-xs-12 col-sm-offset-0 col-sm-4 col-md-offset-0 col-md-2'></div>
 						<div id='div4' class='skill col-xs-offset-0 col-xs-12 col-sm-offset-1 col-sm-5 col-md-offset-0 col-md-2'></div>
 						<div id='div5' class='skill col-xs-offset-0 col-xs-12 col-sm-offset-0 col-sm-5 col-md-offset-0 col-md-2'></div>
-
 					</div>
 				</section>
+				<div id="skillsWarning"><strong>*Values for demonstration purposes</strong></div>
 			</div>
 			
 			<!--*********************************************
@@ -357,40 +410,38 @@
 					        <div class="qw">
 					          	<h5 class="ald">Sportgest</h5>
 
-					          	<img alt="Project's image" class='img-max-width-xs' src="img/port/logo_sportgest.jpg">
-					          	<br clear='both'>
-					          	<p><strong>Sportgest</strong> is an Android application that allows sports coaches to management of information relating to their squad.</p>
+					          	<img alt="Project's image" class='img-modal' src="img/port/logo_sportgest.jpg">
+					          	<br class='clear'>
+					          	<p><strong>Sportgest</strong> allows sports coaches to management of information relating to their squad.</p>
 					          	<button class="cg ts fx" data-toggle="modal" data-target="#modal-sportgest">Show More</button>
 					        </div>
 				      	</div>
 			      	</div>
 
 			      	<!-- Modal -->
-					<div class="modal fade" id="modal-sportgest" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-						<div class="modal-dialog" role="document">
+					<div class="modal fade" id="modal-sportgest" tabindex="-1" role="dialog" aria-labelledby="myModalSpotgest">
+						<div class="modal-dialog modal-lg" role="document">
 						    <div class="modal-content">
 						      	<div class="modal-header">
 						        	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-						        	<h4 class="modal-title" id="myModalLabel">Sportgest</h4>
+						        	<h4 class="modal-title" id='myModalSpotgest'>Sportgest</h4>
 						      	</div>
 						      	<div class="modal-body">
 						      		
-						      		<img alt="Project's image" class='img-max-width-xs modal-floatRight' src="img/port/logo_sportgest.jpg">
-						        	<p>Sportgest</strong> is an Android application that allows sports coaches to management of information relating to their squad. Suited to the technical teams of collective sports, simplifying the preparation of the next game. Its generic base adapts to each team, allowing the selection of the most important information both during training and during the games.
+						      		<img alt="Project's image" class='img-max-width-xs modal-img' src="img/port/logo_sportgest.jpg">
+						        	<p>Sportgest is an <strong>Android</strong> application that allows sports coaches to management of information relating to their squad. Suited to the technical teams of collective sports, simplifying the preparation of the next game. Its generic base adapts to each team, allowing the selection of the most important information both during training and during the games.
 						        	
-						        	<p>This project was following the course 'Project of Computer Engineering' of the 2nd year of the Masters in Informatics Engeneering, where we organize in relatively large teams (9 elements) to carry out a project within a limited time.
+						        	<p>This project was following the course 'Project of Computer Engineering' of the 2nd year of the Masters in Informatics Engineering, where we organize in relatively <strong>large teams</strong> (9 elements) to carry out a project within a limited time.
 
-						        	<p>At the end we acquire a set of skills that has not been properly explored in the previous academic record and that the market appreciates very evident. This set of skills are part of: <u>leadership, management, organization, requirements, design, test, communication, documentation, marketing, presentation, business and entrepreneurship</u>.
+						        	<p>At the end we acquire a set of skills that has not been properly explored in the previous academic record and that the market appreciates very evident. This set of skills are part of: <span class='u'>leadership, management, organization, requirements, design, test, communication, documentation, marketing, presentation, business and entrepreneurship</span>.
 
 						        	<p>We commit an iterative and incremental agile software development framework (<strong>SCRUM</strong>) to manage our project. As <strong>Product Owner</strong>, I was responsible for continuously communicate the vision and priorities to the development teams.
 						        	</p>
 						        	<hr>
 
-
-
 						        	<h4>Commercial</h4>
-						        	<div id='sportgest_video' align='center'>
-						        		<iframe width="560" height="315" src="https://www.youtube.com/embed/YBRLPbq3VFM" frameborder="0" allowfullscreen></iframe>
+						        	<div id='sportgest_video' class='center'>
+						        		<iframe class='modal-iframe' src="https://www.youtube.com/embed/YBRLPbq3VFM" allowfullscreen></iframe>
 						        	</div>
 						        	
 						      	</div>
@@ -400,13 +451,276 @@
 						    </div>
 						</div>
 					</div>
+
+				<!--*********************************************
+					********       Integrit        ********
+					*********************************************-->
+					<div class='col-sm-6 col-md-4 col-lg-3'>
+						<div class="qv rc alu element">
+					        <div class="qw">
+					          	<h5 class="ald">Integrit</h5>
+
+					          	<img alt="Project's image" class='img-modal' src="https://static.avast.com/11/web/min/i/business/business-icon-fss.png">
+					          	<br class='clear'>
+					          	<p><strong>Integrit</strong> is a Java Service that implements a File Verification System on Unix. </p>
+					          	<button class="cg ts fx" data-toggle="modal" data-target="#modal-Integrit">Show More</button>
+					        </div>
+				      	</div>
+			      	</div>
+
+			      	<!-- Modal -->
+					<div class="modal fade" id="modal-Integrit" tabindex="-1" role="dialog" aria-labelledby="myModalIntegrit">
+						<div class="modal-dialog" role="document">
+						    <div class="modal-content">
+						      	<div class="modal-header">
+						        	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						        	<h4 class="modal-title" id='myModalIntegrit'>Integrit</h4>
+						      	</div>
+						      	<div class="modal-body">
+						      		
+						      		<img alt="Project's image" class='img-max-width-xs modal-img' src="https://static.avast.com/11/web/min/i/business/business-icon-fss.png">
+						      		
+						        	<p>The project aims to implement a background <strong>Java Service</strong> that is started automatically when the system is turned on. It is a File Verification System on Unix. The service is also able to recover its previous state, by saving its state into a file. It can be started, paused, and stopped at any time with the use of <strong>system signals</strong>, i.e., HUP and INT.
+
+						        	<p>Every time that someone access a file or directory, it is left a trace. Thus, it is possible to prevent/avoid possible attacks to sensitive information. This project verifies:
+						        		<ul>
+						        			<li>Last access to a directory/file;</li>
+						        			<li>Last time a file was edited;</li>
+						        			<li>New directories/files;</li>
+						        			<li>Deleted directories/files;</li>
+						        			<li>Ownership's changes;</li>
+						        			<li>Group's changes;</li>
+						        			<li>Change of access permissions;</li>
+
+						        		</ul>
+
+						        		<p>Then, there are done system logs with different levels of danger.</p>
+						        	
+						      	</div>
+						      	<div class="modal-footer">
+						        	<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+						      	</div>
+						    </div>
+						</div>
+					</div>
+
+				<!--************************************************
+					********      Secure Chat-Server        ********
+					************************************************-->
+					<div class='col-sm-6 col-md-4 col-lg-3'>
+						<div class="qv rc alu element">
+					        <div class="qw">
+					          	<h5 class="ald">Secure Chat-Server</h5>
+
+					          	<img alt="Project's image" class='img-modal' src="http://1.bp.blogspot.com/-Lw5mcVND6po/UxbO6gOvv6I/AAAAAAAAab4/Js2E0KWdEOY/s1600/textsecure-chat.png">
+					          	<br class='clear'>
+					          	<p><strong>Secure Chat-Server</strong> is a simple chat-room that implements the best cryptographic tecniques.</p>
+					          	<button class="cg ts fx" data-toggle="modal" data-target="#modal-secure_room_chat">Show More</button>
+					        </div>
+				      	</div>
+			      	</div>
+
+			      	<!-- Modal -->
+					<div class="modal fade" id="modal-secure_room_chat" tabindex="-1" role="dialog" aria-labelledby="myModalSecureChat">
+						<div class="modal-dialog" role="document">
+						    <div class="modal-content">
+						      	<div class="modal-header">
+						        	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						        	<h4 class="modal-title" id='myModalSecureChat'>Secure Chat-Server</h4>
+						      	</div>
+						      	<div class="modal-body">
+						      		
+						          <img alt="Project's image" class='img-max-width-xs modal-img' src="http://1.bp.blogspot.com/-Lw5mcVND6po/UxbO6gOvv6I/AAAAAAAAab4/Js2E0KWdEOY/s1600/textsecure-chat.png">
+						        	
+                                    
+						          <p><strong>Secure Chat-Server</strong> is a simple chat-room that implements the best cryptographic techniques that should be implemented in secure everyday applications. This project is constituted by two main applications (Client-side and Server-side).
+                                    
+                                  <p>The messages are encrypted and decrypted by the chosen cryptosystem, i.e., CBC. At the beginning of each communication, the key is agreed by the two entities with the <strong>Diffie–Hellman</strong> key exchange protocol.  
+                                    
+                                  <p>Unfortunately, these techniques cannot avoid the well-known man-in-the-middle attack. Thus, it implements <strong>digital signatures</strong>, where we simulate a Certification Authority (CA) to generate and sign the digital certificates. These digital certificates are managed with <strong>X.509</strong> standard for a Public Key Infrastructure (PKI).
+                                    
+                                    
+						          </p>
+						        	
+						      	</div>
+						      	<div class="modal-footer">
+						        	<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+						      	</div>
+						    </div>
+						</div>
+					</div>
+                    
+                <!--***********************************************
+					********      Minium Social Bot        ********
+					***********************************************-->
+					<div class='col-sm-6 col-md-4 col-lg-3'>
+						<div class="qv rc alu element">
+					        <div class="qw">
+					          	<h5 class="ald">Minium Social Bot</h5>
+
+					          	<img alt="Project's image" class='img-rounded img-modal' src="./img/minium_vilt.jpg">
+					          	<br class='clear'>
+					          	<p><strong>Minium Social Bot</strong> is a bot that is capable to manage his social network, i.e., Twitter.</p>
+					          	<button class="cg ts fx" data-toggle="modal" data-target="#modal-minium_vilt">Show More</button>
+					        </div>
+				      	</div>
+			      	</div>
+
+			      	<!-- Modal -->
+					<div class="modal fade" id="modal-minium_vilt" tabindex="-1" role="dialog" aria-labelledby="myModalMinium">
+						<div class="modal-dialog " role="document">
+						    <div class="modal-content">
+						      	<div class="modal-header">
+						        	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						        	<h4 class="modal-title" id='myModalMinium'>Minium Social Bot</h4>
+						      	</div>
+						      	<div class="modal-body">
+						      		
+						          <img alt="Project's image" class='img-rounded img-max-width-xs modal-img' src="./img/minium_vilt.jpg">
+						        	
+                                    
+						          <p>Minium is a framework based in <strong>Selenium</strong> developed at VILT that helps you test your web application the same way a human would. It allows the creation of automatic tasks in the browser to be used in end-to-end testing of your web applications.
+                                
+                                  <p>In this challenge propose by <strong>VILT</strong>, I was responsible to teach him how to manage his social network, for instance, Twitter.
+                                      
+                                  <p>In this challenge, I added to Minium the following features:
+                                     <ul>
+                                        <li>Check and reply to personal mails in Gmail;</li>
+                                         <li>Check and reply to personal messages in Twitter;</li>
+                                         <li>Check and reply if exists new tweets;</li>
+                                         <li>Do multiple posts in Twitter like:
+                                         <ul>
+                                             <li>A music of Top 25 of the day;</li>
+                                             <li>A celebrity birthday today;</li>
+                                             <li>A news of Pplware or Público;</li>
+                                             <li>The weather of a random city;</li>
+                                             <li>What I have to do in my Google Calendar.</li>
+                                             </ul>
+                                         </li>
+                                    </ul>
+                                    
+                                    <p>PS: I was the <strong>winner</strong> of the Minium's challenge (<a href="http://minium.vilt.io" target='blank'>http://minium.vilt.io</a>) at '<strong>SEI</strong> - Semana da Engenharia Informática na Universidade do Minho 2015' (<a href="http://seium.org" target='blank'>http://seium.org</a>).
+                                 
+                                    
+                                    
+						          </p>
+						        	
+						      	</div>
+						      	<div class="modal-footer">
+						        	<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+						      	</div>
+						    </div>
+						</div>
+					</div>
+                    
+                <!--************************************************
+					********        3D Graphic Engine       ********
+					************************************************-->
+					<div class='col-sm-6 col-md-4 col-lg-3'>
+						<div class="qv rc alu element">
+					        <div class="qw">
+					          	<h5 class="ald">3D Graphics Engine</h5>
+
+					          	<img alt="Project's image" class='img-rounded img-modal' src="./img/engine3D.jpg">
+					          	<br class='clear'>
+					          	<p><strong>3D Graphics Engine</strong> is a C++ engine that is capable of rendering 2D and 3D graphics.</p>
+					          	<button class="cg ts fx" data-toggle="modal" data-target="#modal-motor3D">Show More</button>
+					        </div>
+				      	</div>
+			      	</div>
+
+			      	<!-- Modal -->
+					<div class="modal fade" id="modal-motor3D" tabindex="-1" role="dialog" aria-labelledby="myModal3DGraphicEngine">
+						<div class="modal-dialog modal-lg" role="document">
+						    <div class="modal-content">
+						      	<div class="modal-header">
+						        	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						        	<h4 class="modal-title" id='myModal3DGraphicEngine'>3D Graphics Engine</h4>
+						      	</div>
+						      	<div class="modal-body">
+                                    <img alt="Project's image" class='img-max-width-xs modal-img' src="./img/engine3D.jpg">
+						        	
+                                    <p>3D Graphics Engine is a C++ application that uses the <strong>OpenGL</strong> library. It was developed within the class of Computer Graphics. The project requires two main applications: (1) a generator that generates all the necessary points to render an arbitrary 3D object, i.e., sphere, cube, and (2) a graphics engine that renders the 3D objects from different sources.
+                                    
+                                    <p>These project aims to consolidate the knowledge learned during the classes. The generator is responsible for modelling objects, using surfaces defined analytically, where it generates a GLUT version and a Vertex Buffer Objects <strong>(VBO's)</strong> version to achieve better performance. In addition, it also generates <strong>cubic surfaces</strong>, such as Bézier surfaces. 
+                                      
+                                    <p>However, the most important techniques are implemented in the graphics engine, which implements geometric transformations, culling, <strong>Catmull-Rom curves</strong>, illumination effects, textures, <strong>atlas textures</strong>, pop-up menus, <strong>picking</strong>, different camera modes (explorer mode / first-person), <strong>View Frustum Culling</strong>.
+                                      
+                                    <p>The funny part of this project is the graphics engine, that loads all the information to render a scene from a <strong>XML</strong> file, where each object can have different properties without affect the others. 
+                                
+						            </p>
+                                    <img alt="Project's image" class='img-rounded hundred' src="./img/solar_system.jpg">
+						        	
+						      	</div>
+						      	<div class="modal-footer">
+						        	<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+						      	</div>
+						    </div>
+						</div>
+					</div>
+                    
+                <!--******************************************
+					********          DBLP            ********
+					******************************************-->
+					<div class='col-sm-6 col-md-4 col-lg-3'>
+						<div class="qv rc alu element">
+					        <div class="qw">
+					          	<h5 class="ald">DBLP</h5>
+
+					          	<img alt="Project's image" class='img-modal' src="img/dblplogo.jpg">
+					          	<br class='clear'>
+					          	<p><strong>DBLP</strong> is a C language application for statistical processing of bibliographic information.</p>
+					          	<button class="cg ts fx" data-toggle="modal" data-target="#modal-DBLP">Show More</button>
+					        </div>
+				      	</div>
+			      	</div>
+
+			      	<!-- Modal -->
+					<div class="modal fade" id="modal-DBLP" tabindex="-1" role="dialog" aria-labelledby="myModalDBLP">
+						<div class="modal-dialog modal-lg" role="document">
+						    <div class="modal-content">
+						      	<div class="modal-header">
+						        	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						        	<h4 class="modal-title" id='myModalDBLP'>DBLP</h4>
+						      	</div>
+						      	<div class="modal-body">
+						      		
+						        	<img alt="Project's image" class='img-max-width-xs modal-img' src="./img/dblplogo.jpg">
+						        	
+                                    <p>The DBLP Computer Science Bibliography (<a href="http://dblp.org/db/" target='blank'>http://dblp.org/db/</a>) is a website for non-commercial purposes to store and view bibliographic information on scientific articles (in journals and conferences) in IT. It is intended to develop an application in <strong>C language</strong> that allows to statistical processing of bibliographic information obtained in DBLP for articles published in a number of magazines and/or conferences.
+ 
+                                        
+                                    <p>One of the goals of this project is to exercise <strong>best practices</strong> and <strong>techniques</strong> acquired in a practical case study of medium size, where the construction of the project follows some important principles, such as:</p>
+                                        <ul>
+                                            <li>The choice of <strong>data structures</strong> for representation and processing of information that addresses the problem, i.e., Hash tables, AVL trees and linked lists;</li>
+                                            <li> The use of algorithms and settings showed in Imperative Programming and Algorithms and Complexity, i.e., binary searches;</li>
+                                            <li> Writing <span class='u'>generic, modular, reusable code</span>, which can be utilized in other future projects;</li>
+                                            <li>The analysis and <strong>optimization</strong> of application performance, using the matter addressed in Computer Architecture.</li>
+                                        </ul>
+                                    <hr>
+
+						        	<h4>Project Architecture</h4>
+						        	<div id='DBLP-architecture'>
+                                        <a href="http://heldergoncalves.esy.es/ARQ_PROJ_C.pdf">Click here!</a>
+                                    </div>
+						      	</div>
+						      	<div class="modal-footer">
+						        	<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+						      	</div>
+						    </div>
+						</div>
+					</div>
+
+				<!--*********************************************
+					********         Illuminatus         ********
+					*********************************************-->
 					<div class='col-sm-6 col-md-4 col-lg-3'>
 						<div class="qv rc alu element">
 					        <div class="qw">
 					          	<h5 class="ald">Illuminatus</h5>
 
-					          	<img alt="Project's image" class='img-max-width-xs' src="img/port/Illuminatus.png">
-					          	<br clear='both'>
+					          	<img alt="Project's image" class='img-modal' src="img/port/Illuminatus.png">
+					          	<br class='clear'>
 					          	<p><strong>Illuminatus</strong> is a puzzle game that aims to light up all unlocked cells in the board. </p>
 					          	<button class="cg ts fx" data-toggle="modal" data-target="#modal-illuminatus">Show More</button>
 					        </div>
@@ -414,12 +728,12 @@
 			      	</div>
 
 			      	<!-- Modal -->
-					<div class="modal fade" id="modal-illuminatus" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+					<div class="modal fade" id="modal-illuminatus" tabindex="-1" role="dialog" aria-labelledby="myModalIlluminatus">
 						<div class="modal-dialog" role="document">
 						    <div class="modal-content">
 						      	<div class="modal-header">
 						        	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-						        	<h4 class="modal-title" id="myModalLabel">Illuminatus</h4>
+						        	<h4 class="modal-title" id='myModalIlluminatus'>Illuminatus</h4>
 						      	</div>
 						      	<div class="modal-body">
 						      		
@@ -429,9 +743,9 @@
 						        			<li>Have a lamp in the same row or column and n to be no locked house between the house and that continued in the lamp.</li>
 						        		</ul>
 
-						        		<p> The application was developted in the C programming language on Linux operating system, where it was necessary to study several strategies to solve the puzzle.
+						        		<p> The application was developed in the <strong>C</strong> programming language on Linux operating system, where it was necessary to study several strategies to solve the puzzle.
 						        		 </p>
-						        	<div align='center'>
+						        	<div class='center'>
 						        		<img alt="Project's image" class='img-max-width-xs' src="img/port/Illuminatus.png">
 						        	</div>
 						      	</div>
@@ -465,15 +779,13 @@
 				<hr class='break'>
 				<div class='row'>
 					<div id='btn-mailito'>
-						<button type="button" class="btn btn-default btn-lg" >
-								<span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> 
-								<a href="mailto:heldergoncalves92@live.com.pt?Subject=Webpage%20Contact" target="_top" style="text-decoration:none;color:#333;">
-									heldergoncalves92@live.com.pt
-								</a>
-							</button>
-						<!--<h4><strong>OR</strong></h4>-->
+						<button type="button" class="btn btn-default btn-lg" onclick="window.location.href='mailto:heldergoncalves92@gmail.com?Subject=Webpage%20Contact'" style="text-decoration:none;color:#333;">
+				            <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> 	
+                            heldergoncalves92@gmail.com
+				        </button>
+						<h4><strong>OR</strong></h4>
 					</div>
-					<!--<div id='message' class='col-xs-offset-0 col-xs-12 col-sm-offset-1 col-sm-10 col-md-offset-2 col-md-8'>
+					<div id='message' class='col-xs-offset-0 col-xs-12 col-sm-offset-1 col-sm-10 col-md-offset-2 col-md-8'>
 						<form id='form-message' class='form-horizontal messagee'>
 							<div id='fUser' class="form-group">
 							    <div class="col-xs-12 col-sm-offset-1 col-sm-10">
@@ -509,11 +821,10 @@
 							<div id='msg-alert' class="alert alert-danger" role="alert">Your message was <strong>not sent</strong> successfully. <strong>Try again!</strong></div>
 						</form>
 						<div id='message-sent'>
-							<h3>Message Sent. <strong>Thank You!</strong></h3>
 							<img alt='Sent' src="img/sent_successful.png">
+                            <h3>Message Sent. <strong>Thank You!</strong></h3>
 						</div>
-					</div>-->
-					<br><br>
+					</div>
 				</div><!--Close RowMessage-->
 			</section>	
 		</section>
@@ -522,21 +833,21 @@
 			<div  class='container-fluid text-center'>
 				<h2>Let's Be Friends</h2>
 				<div class='row'>
-					<a href="https://www.facebook.com/helderjosegoncalves" target='_blank'><img id='facebook' alt='Facebook' src="img/icon/facebook_gray.png"></a>
-					<a href="https://twitter.com/heldergon92" target='_blank'><img id='twitter' alt='Twitter' src="img/icon/twitter_gray.png"></a>
-					<a href="http://pt.linkedin.com/in/helderjagoncalves/en" target='_blank'><img id='linkedin' alt='Linkedin' src="img/icon/linkedin_gray.png"></a>
-					<a href="https://github.com/HelderGoncalves92" target='_blank'><img id='github' alt='Github' src="img/icon/github_gray.png"></a>
+					<a href="https://www.facebook.com/helderjosegoncalves" target='_blank'><img id='facebook' class='img-rounded' alt='Facebook' src="img/icon/facebook_gray.png"></a>
+					<a href="https://twitter.com/heldergon92" target='_blank'><img id='twitter' alt='Twitter' class='img-rounded' src="img/icon/twitter_gray.jpg"></a>
+					<a href="http://pt.linkedin.com/in/helderjgoncalves/en" target='_blank'><img id='linkedin' class='img-rounded' alt='Linkedin' src="img/icon/linkedin_gray.png"></a>
+					<a href="https://github.com/HelderGoncalves92" target='_blank'><img id='github' class='img-rounded' alt='Github' src="img/icon/github_gray.jpg"></a>
 				</div>
 				<div style='display:none;'>
 					<a href="#"><img alt='Facebook' src="img/icon/facebook.png"></a>
-					<a href="#"><img alt='Twitter' src="img/icon/twitter.png"></a>
+					<a href="#"><img alt='Twitter' src="img/icon/twitter.jpg"></a>
 					<a href="#"><img alt='Linkedin' src="img/icon/linkedin.png"></a>
-					<a href="#"><img alt='Github' src="img/icon/github.png"></a>
+					<a href="#"><img alt='Github' src="img/icon/github.jpg"></a>
 				</div>
 			</div>
 			<div id='credits'>
 				<p class='right'>Developed by: <strong class='title3'>Hélder Gonçalves</strong></p>
-				<p>© Copyright 2015</p>
+				<p>© Copyright 2016</p>
 			</div>
 		</footer>
 
@@ -546,9 +857,27 @@
     	<script src="js/radialProgress.js"></script>
 
 		<script src='js/parallax.min.js'></script>
-		<script src='bootstrap/js/bootstrap.min.js'></script>
+		<script src='js/bootstrap.min.js'></script>
 		<script src='js/main.js'></script>
-
+        <script type="application/ld+json">
+        {
+          "@context": "http://schema.org",
+          "@type": "Person",
+          "url": "http://heldergoncalves.esy.es",
+          "image": "http://heldergoncalves.esy.es/img/profile-square-flip.jpg",
+          "givenName": "Hélder",
+          "familyName": "Gonçalves",
+          "gender": "Male",
+          "nationality": {"@type": "http://schema.org/Country",
+          "name": "Portugal"},
+          "homeLocation": {"@type": "http://schema.org/PostalAddress",
+          "addressLocality": "Braga","addressCountry": {"@type": "http://schema.org/Country", "name": "Portugal"}},
+          "description": "Hélder Gonçalves is a young graduate computer engineer at the Universidade do Minho.",
+          "affiliation": {"@type": "http://schema.org/Organization", "legalName": "Universidade do Minho", "location": {"@type": "http://schema.org/PostalAddress",
+          "addressLocality": "Braga","addressCountry": {"@type": "http://schema.org/Country", "name": "Portugal"}}},
+          "jobTitle": "Software Engineer"
+        }
+        </script>
 		<script>
 		  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
 		  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -559,5 +888,25 @@
 		  ga('send', 'pageview');
 
 		</script>
+        <div class="vcard">
+            <span class="fn">Hélder Gonçalves</span>
+            <span class='title'>Software Developer at Technische Universität Darmstadt</span>
+            <div class="n">
+                <span class="honorific-prefix">Eng.</span>
+                <span class="given-name">Hélder</span>
+                <abbr class="additional-name">José</abbr>
+                <span class="family-name">Gonçalves</span>
+
+                <div class="org">Universidade do Minho</div>
+                <img class="photo" alt='Profile photo' src="http://heldergoncalves.esy.es/img/profile-square-flip.jpg"/>
+                <a class="url" href="http://heldergoncalves.esy.es"></a>
+                <a class="email" href="mailto:heldergoncalves92@gmail.com"></a>
+                <div class="adr">
+                    <span class="locality">Braga Area, Portugal</span>
+                    <div class="country-name">Portugal</div>
+                </div>
+                <div class="category">Software Engineer</div>
+            </div>
+        </div>
 	</body>
 </html>
