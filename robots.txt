@@ -1,2 +1,0 @@
-User-agent: *
-Sitemap: http://heldergoncalves92.github.io/sitemap.xml
