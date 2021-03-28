@@ -14,21 +14,21 @@ export enum Routes {
   Contact = "/contact",
 }
 
-const InnerNavbar = () => {
+const AppNavbar = () => {
   return <Navbar bg="light" expand="lg">
     <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
-      <Nav className="mr-auto">
-        <Nav.Link><Link to={Routes.Home}> Home </Link></Nav.Link>
-        <Nav.Link ><Link to={Routes.Contact} >Contact</Link></Nav.Link>
-        <Nav.Link><Link to={Routes.About} >About</Link></Nav.Link>
-      </Nav>     
-    </Navbar>;
+    <Nav className="mr-auto">
+      <Nav.Link><Link to={Routes.Home}> Home </Link></Nav.Link>
+      <Nav.Link ><Link to={Routes.Contact} >Contact</Link></Nav.Link>
+      <Nav.Link><Link to={Routes.About} >About</Link></Nav.Link>
+    </Nav>     
+  </Navbar>;
 }
 
 function App() {
   return (
       <Router>
-
+        <AppNavbar />
         
          
           <hr />
