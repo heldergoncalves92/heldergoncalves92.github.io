@@ -1,7 +1,7 @@
 # Hélder Gonçalves — Personal Landing Page
 
 A static React + TypeScript + SASS landing page built with Vite, deployed to
-GitHub Pages at [heldergoncalves92.github.io](https://heldergoncalves92.github.io).
+GitHub Pages at [helderjgoncalves.github.io](https://helderjgoncalves.github.io).
 Mirrors the CV content as a single-page site with a sticky nav, subtle
 scroll-reveal animations, and a clean blue/white palette that matches the
 printed CV.
@@ -90,7 +90,7 @@ runner: `actions/checkout@v6`, `actions/setup-node@v6`,
 
 ### One-time setup
 
-1. Push this project to your `heldergoncalves92.github.io` repository.
+1. Push this project to your `helderjgoncalves.github.io` repository.
 2. Open the repo on GitHub → **Settings → Pages**.
 3. Under **Build and deployment**, set **Source** to **GitHub Actions**.
 4. Push to your default branch (or trigger the workflow manually from the
@@ -117,7 +117,7 @@ If you publish under a project repo (e.g. `github.com/you/cv`), edit
 ## Project structure
 
 ```
-heldergoncalves92.github.io/
+helderjgoncalves.github.io/
 ├── .github/workflows/deploy.yml
 ├── public/
 │   ├── favicon.svg

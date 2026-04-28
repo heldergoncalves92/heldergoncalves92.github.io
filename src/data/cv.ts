@@ -12,8 +12,8 @@ export const cv: CvData = {
     ],
     contacts: [
       { label: 'heldergoncalves92@gmail.com', href: 'mailto:heldergoncalves92@gmail.com', icon: 'email' },
-      { label: 'linkedin.com/in/helderjagoncalves', href: 'https://linkedin.com/in/helderjagoncalves', icon: 'linkedin' },
-      { label: 'github.com/heldergoncalves92', href: 'https://github.com/heldergoncalves92', icon: 'github' },
+      { label: 'linkedin.com/in/helderjgoncalves', href: 'https://linkedin.com/in/helderjgoncalves', icon: 'linkedin' },
+      { label: 'github.com/helderjgoncalves', href: 'https://github.com/helderjgoncalves', icon: 'github' },
     ],
   },
 

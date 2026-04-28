@@ -31,11 +31,11 @@ export default function App() {
         <div className="container">
           <p>
             © {new Date().getFullYear()} {cv.profile.name} ·{' '}
-            <a href="https://github.com/heldergoncalves92" target="_blank" rel="noopener noreferrer">
+            <a href="https://github.com/helderjgoncalves" target="_blank" rel="noopener noreferrer">
               GitHub
             </a>{' '}
             ·{' '}
-            <a href="https://linkedin.com/in/helderjagoncalves" target="_blank" rel="noopener noreferrer">
+            <a href="https://linkedin.com/in/helderjgoncalves" target="_blank" rel="noopener noreferrer">
               LinkedIn
             </a>
           </p>
