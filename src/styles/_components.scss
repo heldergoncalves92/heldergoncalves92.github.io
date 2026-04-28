@@ -111,7 +111,7 @@
     color: $color-text-muted;
 
     span + span::before {
-      content: '· ';
+      content: ' · ';
       color: $color-text-muted;
     }
   }
@@ -243,6 +243,14 @@
       font-style: normal;
       color: $color-text-muted;
       font-size: $fs-sm;
+    }
+
+    // The issuer span starts with "· " — the dot has built-in whitespace
+    // around its glyph that combines with the flex gap to make the gap
+    // before the bullet look bigger than the surrounding ones. Pull the
+    // span back into the gap so the visible spacing matches the rest.
+    > span {
+      margin-left: -0.25rem;
     }
   }
 }
