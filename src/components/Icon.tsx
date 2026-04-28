@@ -14,7 +14,8 @@ type IconName =
   | 'globe'
   | 'badge'
   | 'user'
-  | 'languages';
+  | 'languages'
+  | 'download';
 
 interface IconProps extends SVGProps<SVGSVGElement> {
   name: IconName;
@@ -91,6 +92,13 @@ const PATHS: Record<IconName, JSX.Element> = {
     <>
       <path d="M4 5h7M7.5 5v2c0 4-3.5 7-3.5 7" />
       <path d="M5 11c1 2 4 4 7 4M13 21l5-12 5 12M14.5 17h7" />
+    </>
+  ),
+  download: (
+    <>
+      <path d="M12 4v11" />
+      <path d="M7 11l5 5 5-5" />
+      <path d="M5 20h14" />
     </>
   ),
 };

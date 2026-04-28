@@ -82,6 +82,15 @@ The shape is defined in `src/types.ts` — the compiler will catch missing
 fields when adding new entries. If you genuinely need a new field, update
 `types.ts` first, then `cv.ts`, then the component that renders it.
 
+### Downloadable CV (`public/helder-goncalves-cv.pdf`)
+
+The Nav exposes a "Download CV" button that links to
+`/helder-goncalves-cv.pdf`, served verbatim from `public/`. **`cv.ts` is the
+canonical source**; the PDF is a printable mirror of it. When the content of
+`cv.ts` changes in any user-visible way, regenerate or replace the PDF so
+both stay in sync. Keep the filename stable (`helder-goncalves-cv.pdf`) —
+versioned names like `CV-2026-v2.pdf` would break the saved download URL.
+
 ## Styling rules
 
 SASS partials in `src/styles/`:

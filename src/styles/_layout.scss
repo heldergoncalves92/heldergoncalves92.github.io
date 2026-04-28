@@ -68,11 +68,102 @@
   }
 }
 
+// ---- Download CV (sits in the nav, just before the theme toggle) ----
+//
+// Mobile: 36px circular icon-only button matching the theme toggle.
+// Desktop: icon + text pill in the brand-blue palette so it reads as the
+// nav's primary action without competing with the section links.
+//
+// The auto left margin lives here (rather than on .theme-toggle) because
+// .nav__cv is the first nav item after the (hidden-on-mobile) links list,
+// so it owns pushing the trailing items to the right edge.
+.nav__cv {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: 1px solid $color-rule;
+  border-radius: 50%;
+  background: transparent;
+  color: $color-text-soft;
+  font-size: $fs-sm;
+  font-weight: 600;
+  white-space: nowrap;
+  transition:
+    color $dur-fast $ease,
+    background $dur-fast $ease,
+    border-color $dur-fast $ease,
+    transform $dur-fast $ease;
+
+  svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  // Visually hide the label on mobile but keep it for assistive tech.
+  > span {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  &:hover {
+    color: $color-accent;
+    border-color: color-mix(in srgb, $color-accent 40%, transparent);
+    background: $color-accent-soft;
+  }
+
+  &:focus-visible { @include focus-ring; }
+
+  &:active { transform: scale(0.97); }
+
+  @include md-up {
+    margin-left: 0;
+    width: auto;
+    height: auto;
+    padding: 0.4rem 0.85rem;
+    border-radius: $radius-pill;
+    border-color: color-mix(in srgb, $color-accent 25%, transparent);
+    background: $color-accent-soft;
+    color: $color-accent-dark;
+
+    svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    > span {
+      position: static;
+      width: auto;
+      height: auto;
+      margin: 0;
+      padding: 0;
+      overflow: visible;
+      clip: auto;
+      white-space: nowrap;
+      border: 0;
+    }
+
+    &:hover {
+      color: $color-accent-dark;
+      background: color-mix(in srgb, $color-accent 18%, transparent);
+      border-color: color-mix(in srgb, $color-accent 50%, transparent);
+    }
+  }
+}
+
 // ---- Theme toggle (sits in the nav) ----
 .theme-toggle {
-  // On mobile the nav__links is hidden, so the toggle is the only item
-  // after the brand — push it to the right edge.
-  margin-left: auto;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -89,10 +180,6 @@
     background $dur-fast $ease,
     border-color $dur-fast $ease,
     transform $dur-fast $ease;
-
-  @include md-up {
-    margin-left: 0;
-  }
 
   &:hover {
     color: $color-accent;
