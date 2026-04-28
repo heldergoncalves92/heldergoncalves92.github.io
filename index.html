@@ -7,9 +7,24 @@
     <meta name="theme-color" content="#3a6ea5" />
     <link rel="canonical" href="https://heldergoncalves92.github.io/" />
     <meta name="description" content="Lead Software Engineer at OutSystems with 10+ years building developer tools, integrating Generative AI, and architecting cloud-native React/AWS systems." />
+    <meta name="author" content="Hélder Gonçalves" />
+    <!--
+      Opt in to richer Google SERP treatment: large image previews, no
+      character cap on text snippets, no cap on video previews. Default
+      "index, follow" is implicit but stating it explicitly is harmless.
+    -->
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+
+    <!--
+      rel="me" links are read by Google (Knowledge Graph identity verification),
+      Mastodon (profile verification), and IndieWeb tooling. They assert that
+      this page and the linked profiles represent the same person.
+    -->
+    <link rel="me" href="https://github.com/heldergoncalves92" />
+    <link rel="me" href="https://www.linkedin.com/in/helderjagoncalves" />
 
     <!-- Open Graph (LinkedIn, Slack, Facebook, etc.) -->
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content="profile" />
     <meta property="og:url" content="https://heldergoncalves92.github.io/" />
     <meta property="og:title" content="Hélder Gonçalves — Lead Software Engineer" />
     <meta property="og:description" content="Lead Software Engineer at OutSystems with 10+ years building developer tools, integrating Generative AI, and architecting cloud-native React/AWS systems." />
@@ -18,6 +33,9 @@
     <meta property="og:image:height" content="600" />
     <meta property="og:image:alt" content="Portrait photo of Hélder Gonçalves" />
     <meta property="og:locale" content="en_GB" />
+    <meta property="profile:first_name" content="Hélder" />
+    <meta property="profile:last_name" content="Gonçalves" />
+    <meta property="profile:username" content="heldergoncalves92" />
 
     <!-- Twitter / X -->
     <meta name="twitter:card" content="summary" />
@@ -29,56 +47,62 @@
     <title>Hélder Gonçalves — Lead Software Engineer | Developer Tools & GenAI</title>
 
     <!--
-      JSON-LD Person schema: tells search engines (and AI assistants that
-      read structured data) exactly who this page is about. Used by Google
-      for the Knowledge Panel, "people also search for", and to disambiguate
-      from other people with the same name.
+      JSON-LD ProfilePage + Person: tells search engines (and AI assistants
+      that read structured data) exactly who this page is about and that
+      the page itself is a profile. Used by Google for the Knowledge Panel,
+      "people also search for", richer profile-page SERP treatment, and to
+      disambiguate from other people with the same name.
     -->
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
-        "@type": "Person",
-        "name": "Hélder Gonçalves",
-        "givenName": "Hélder",
-        "familyName": "Gonçalves",
-        "jobTitle": "Lead Software Engineer",
-        "description": "Lead Software Engineer at OutSystems with 10+ years building developer tools, integrating Generative AI, and architecting cloud-native React/AWS systems.",
+        "@type": "ProfilePage",
         "url": "https://heldergoncalves92.github.io/",
-        "image": "https://heldergoncalves92.github.io/portrait.jpg",
-        "email": "mailto:heldergoncalves92@gmail.com",
-        "sameAs": [
-          "https://www.linkedin.com/in/helderjagoncalves",
-          "https://github.com/heldergoncalves92"
-        ],
-        "worksFor": {
-          "@type": "Organization",
-          "name": "OutSystems",
-          "url": "https://www.outsystems.com"
-        },
-        "alumniOf": {
-          "@type": "CollegeOrUniversity",
-          "name": "Universidade do Minho",
-          "url": "https://www.uminho.pt"
-        },
-        "knowsAbout": [
-          "Developer Tools",
-          "Generative AI",
-          "Large Language Models",
-          "Cloud-Native Architecture",
-          "React",
-          "TypeScript",
-          "Node.js",
-          ".NET",
-          "AWS",
-          "Site Reliability Engineering",
-          "Software Architecture",
-          "Design Systems",
-          "Technical Leadership"
-        ],
-        "knowsLanguage": [
-          { "@type": "Language", "name": "Portuguese" },
-          { "@type": "Language", "name": "English" }
-        ]
+        "name": "Hélder Gonçalves — Lead Software Engineer",
+        "mainEntity": {
+          "@type": "Person",
+          "name": "Hélder Gonçalves",
+          "givenName": "Hélder",
+          "familyName": "Gonçalves",
+          "jobTitle": "Lead Software Engineer",
+          "description": "Lead Software Engineer at OutSystems with 10+ years building developer tools, integrating Generative AI, and architecting cloud-native React/AWS systems.",
+          "url": "https://heldergoncalves92.github.io/",
+          "image": "https://heldergoncalves92.github.io/portrait.jpg",
+          "email": "mailto:heldergoncalves92@gmail.com",
+          "sameAs": [
+            "https://www.linkedin.com/in/helderjagoncalves",
+            "https://github.com/heldergoncalves92"
+          ],
+          "worksFor": {
+            "@type": "Organization",
+            "name": "OutSystems",
+            "url": "https://www.outsystems.com"
+          },
+          "alumniOf": {
+            "@type": "CollegeOrUniversity",
+            "name": "Universidade do Minho",
+            "url": "https://www.uminho.pt"
+          },
+          "knowsAbout": [
+            "Developer Tools",
+            "Generative AI",
+            "Large Language Models",
+            "Cloud-Native Architecture",
+            "React",
+            "TypeScript",
+            "Node.js",
+            ".NET",
+            "AWS",
+            "Site Reliability Engineering",
+            "Software Architecture",
+            "Design Systems",
+            "Technical Leadership"
+          ],
+          "knowsLanguage": [
+            { "@type": "Language", "name": "Portuguese" },
+            { "@type": "Language", "name": "English" }
+          ]
+        }
       }
     </script>
   </head>
