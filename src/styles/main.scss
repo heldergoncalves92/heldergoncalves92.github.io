@@ -1,0 +1,15 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+@use 'reset';
+@use 'layout';
+@use 'components';
+
+// Web font
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+// Print: hide nav and footer, expand backgrounds for paper
+@media print {
+  .nav, .footer { display: none; }
+  body { background: white; }
+  .hero { background: $blue-700 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}

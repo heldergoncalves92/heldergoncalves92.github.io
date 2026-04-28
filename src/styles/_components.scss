@@ -1,0 +1,307 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+
+// ---- Pill ----
+.pill {
+  @include pill;
+
+  &--ghost {
+    background: $color-accent-soft;
+    color: $color-accent-dark;
+  }
+}
+
+.pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 0.5rem;
+}
+
+// ---- Profile (intro paragraphs under hero) ----
+.profile {
+  &__paragraph {
+    font-size: $fs-md;
+    color: $color-text-soft;
+    line-height: 1.65;
+    margin-top: 0.85rem;
+
+    &:first-child { margin-top: 0; }
+
+    strong {
+      color: $color-text;
+      font-weight: 600;
+    }
+  }
+}
+
+// ---- Timeline (work + internships + education) ----
+.timeline {
+  position: relative;
+  padding-left: 1.6rem;
+
+  &::before {
+    content: '';
+    position: absolute;
+    left: 5px;
+    top: 4px;
+    bottom: 4px;
+    width: 2px;
+    background: linear-gradient(180deg, $color-accent 0%, rgba($color-accent, 0.25) 100%);
+    border-radius: 2px;
+  }
+
+  &__item {
+    position: relative;
+    padding-bottom: 2rem;
+
+    &:last-child { padding-bottom: 0; }
+
+    &::before {
+      content: '';
+      position: absolute;
+      left: -1.6rem;
+      top: 6px;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: $color-card;
+      border: 2px solid $color-accent;
+      box-shadow: 0 0 0 4px rgba($color-accent, 0.12);
+    }
+  }
+}
+
+// ---- Experience entry ----
+.entry {
+  position: relative;
+
+  &__head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.5rem;
+    margin-bottom: 0.25rem;
+  }
+
+  &__title {
+    font-size: $fs-md;
+    font-weight: 700;
+    color: $color-text;
+  }
+
+  &__org {
+    font-size: $fs-sm;
+    color: $color-accent-dark;
+    font-weight: 600;
+  }
+
+  &__period {
+    font-size: $fs-sm;
+    color: $color-text-muted;
+  }
+
+  &__history {
+    margin-top: 0.15rem;
+    font-size: $fs-sm;
+    color: $color-text-muted;
+
+    span + span::before {
+      content: '· ';
+      color: $color-text-muted;
+    }
+  }
+
+  &__paragraph {
+    margin-top: 0.7rem;
+    color: $color-text-soft;
+    line-height: 1.6;
+  }
+}
+
+// ---- Group (within work experience) ----
+.group {
+  margin-top: 1.4rem;
+
+  &__heading {
+    font-size: $fs-sm;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: $color-accent-dark;
+    margin-bottom: 0.6rem;
+  }
+
+  &__list {
+    display: grid;
+    gap: 0.65rem;
+  }
+
+  &__item {
+    position: relative;
+    padding-left: 1.1rem;
+    color: $color-text-soft;
+    line-height: 1.6;
+
+    &::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0.6em;
+      width: 5px;
+      height: 5px;
+      background: $color-accent;
+      border-radius: 50%;
+    }
+
+    strong {
+      color: $color-text;
+      font-weight: 600;
+      margin-right: 0.25rem;
+    }
+  }
+}
+
+// ---- Side project card ----
+.project {
+  @include card;
+  padding: 1.5rem;
+
+  & + & { margin-top: 1rem; }
+
+  &__title {
+    font-size: $fs-md;
+    font-weight: 700;
+    color: $color-text;
+  }
+
+  &__subtitle {
+    font-size: $fs-sm;
+    color: $color-text-muted;
+    margin-top: 0.15rem;
+  }
+
+  &__description {
+    margin-top: 0.85rem;
+    color: $color-text-soft;
+    line-height: 1.65;
+  }
+
+  &__pills {
+    margin-top: 1rem;
+  }
+}
+
+// ---- Languages ----
+.languages {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+
+  &__item {
+    @include pill;
+    background: $color-accent-soft;
+    color: $color-accent-dark;
+    font-size: $fs-sm;
+    padding: 0.4rem 0.85rem;
+  }
+}
+
+// ---- Certifications ----
+.certifications {
+  display: grid;
+  gap: 0.6rem;
+
+  &__item {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.5rem;
+    color: $color-text-soft;
+
+    &::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: $color-accent;
+      flex-shrink: 0;
+      margin-right: 0.15rem;
+      align-self: center;
+    }
+
+    strong {
+      color: $color-text;
+      font-weight: 600;
+    }
+
+    em {
+      font-style: normal;
+      color: $color-text-muted;
+      font-size: $fs-sm;
+    }
+  }
+}
+
+// ---- Awards ----
+.awards {
+  display: grid;
+  gap: 0.85rem;
+
+  &__item {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.2rem;
+    padding: 0.85rem 1rem;
+    background: $color-card;
+    border-left: 3px solid $color-accent;
+    border-radius: 0 $radius-md $radius-md 0;
+    box-shadow: $shadow-card;
+
+    @include sm-up {
+      grid-template-columns: 1fr auto;
+      align-items: baseline;
+    }
+  }
+
+  &__title {
+    font-weight: 700;
+    color: $color-text;
+
+    em {
+      font-style: normal;
+      font-weight: 500;
+      color: $color-text-muted;
+    }
+  }
+
+  &__year {
+    font-size: $fs-sm;
+    color: $color-text-muted;
+  }
+
+  &__desc {
+    font-size: $fs-sm;
+    color: $color-text-soft;
+    grid-column: 1 / -1;
+    margin-top: 0.15rem;
+  }
+}
+
+// ---- Reveal-on-scroll ----
+.reveal {
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity $dur-slow $ease, transform $dur-slow $ease;
+
+  &.is-visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}

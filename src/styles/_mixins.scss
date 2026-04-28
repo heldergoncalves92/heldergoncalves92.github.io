@@ -1,0 +1,41 @@
+@use 'variables' as *;
+
+// Media query helpers
+@mixin sm-up { @media (min-width: $bp-sm) { @content; } }
+@mixin md-up { @media (min-width: $bp-md) { @content; } }
+@mixin lg-up { @media (min-width: $bp-lg) { @content; } }
+
+@mixin md-down { @media (max-width: ($bp-md - 1)) { @content; } }
+
+// Utilities
+@mixin focus-ring {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba($blue-600, 0.35);
+}
+
+@mixin section-rule {
+  position: relative;
+  padding-bottom: 0.4rem;
+  border-bottom: 1px solid $color-rule;
+}
+
+@mixin card {
+  background: $color-card;
+  border-radius: $radius-lg;
+  box-shadow: $shadow-card;
+}
+
+@mixin pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.28rem 0.7rem;
+  background: $color-accent;
+  color: $white;
+  font-size: $fs-xs;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  border-radius: $radius-pill;
+  white-space: nowrap;
+  line-height: 1;
+}

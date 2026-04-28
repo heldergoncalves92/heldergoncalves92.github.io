@@ -1,0 +1,349 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+
+.container {
+  max-width: $container-max;
+  margin: 0 auto;
+  // Side padding scales with viewport: 20px on phones up to 40px on
+  // tablet/desktop, never less than the device's safe-area inset.
+  padding-left: max(clamp(1.25rem, 4vw, 2.5rem), env(safe-area-inset-left));
+  padding-right: max(clamp(1.25rem, 4vw, 2.5rem), env(safe-area-inset-right));
+}
+
+// ---- Top navigation ----
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  backdrop-filter: saturate(140%) blur(10px);
+  -webkit-backdrop-filter: saturate(140%) blur(10px);
+  background: rgba($white, 0.78);
+  border-bottom: 1px solid $color-rule;
+
+  &__inner {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    // Vertical-only longhand: shorthand `padding: x 0` would clobber the
+    // horizontal padding inherited from the `.container` class on this same element.
+    padding-top: 0.6rem;
+    padding-bottom: 0.6rem;
+
+    @include md-up {
+      padding-top: 0.85rem;
+      padding-bottom: 0.85rem;
+    }
+  }
+
+  &__brand {
+    flex-shrink: 0;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    color: $color-accent-dark;
+    font-size: $fs-md;
+    padding: 0.25rem 0;
+  }
+
+  // Hidden on mobile (CV reads linearly; tap-strip is unnecessary noise),
+  // shown as a right-aligned row from md and up.
+  &__links {
+    display: none;
+
+    @include md-up {
+      flex: 1;
+      display: flex;
+      justify-content: flex-end;
+      gap: 1.5rem;
+    }
+
+    a {
+      white-space: nowrap;
+      font-size: $fs-sm;
+      color: $color-text-soft;
+      transition: color $dur-fast $ease;
+      padding: 0.4rem 0;
+
+      &:hover { color: $color-accent; }
+    }
+  }
+}
+
+// ---- Hero (header card) ----
+.hero {
+  position: relative;
+  padding: 2.25rem 0 3rem;
+  background:
+    radial-gradient(1200px 400px at 80% -20%, rgba($blue-500, 0.18), transparent 60%),
+    linear-gradient(180deg, $blue-700 0%, $blue-600 100%);
+  color: $white;
+  overflow: hidden;
+
+  @include md-up {
+    padding: 3.5rem 0 3.5rem;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: auto 0 -1px 0;
+    height: 32px;
+    background: linear-gradient(180deg, transparent, $color-bg);
+    pointer-events: none;
+  }
+
+  &__inner {
+    display: grid;
+    gap: 1.25rem;
+    grid-template-columns: 1fr;
+    align-items: center;
+    text-align: center;
+    justify-items: center;
+
+    @include md-up {
+      grid-template-columns: auto 1fr auto;
+      gap: 2.5rem;
+      text-align: left;
+      justify-items: stretch;
+    }
+  }
+
+  &__photo {
+    width: 96px;
+    height: 96px;
+    border-radius: 50%;
+    background: rgba($white, 0.18);
+    border: 3px solid rgba($white, 0.3);
+    overflow: hidden;
+    display: grid;
+    place-items: center;
+    font-size: 2rem;
+    font-weight: 700;
+    color: $white;
+
+    @include md-up {
+      width: 120px;
+      height: 120px;
+      font-size: 2.5rem;
+    }
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  &__name {
+    font-size: clamp(2rem, 7.5vw, $fs-3xl);
+    line-height: 1.05;
+    letter-spacing: -0.01em;
+    font-weight: 800;
+    // Names must never break mid-word. Allow whole-word wrapping only.
+    overflow-wrap: normal;
+    word-break: keep-all;
+
+    @include md-up {
+      // Scale smoothly between md (~820px) and large desktop (~1333px+)
+      // so the name never has to fight for room with the contacts column.
+      font-size: clamp($fs-3xl, 4.5vw, $fs-4xl);
+    }
+  }
+
+  &__title {
+    margin-top: 0.4rem;
+    font-size: clamp(1.05rem, 4vw, $fs-lg);
+    font-weight: 400;
+    color: rgba($white, 0.9);
+  }
+
+  // Mobile: horizontal row of icon-only buttons.
+  // Desktop: vertical list of icon + text links.
+  &__contacts {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.6rem;
+    font-size: $fs-sm;
+    max-width: 100%;
+
+    @include md-up {
+      flex-direction: column;
+      flex-wrap: nowrap;
+      align-items: flex-end;
+      justify-content: flex-start;
+      gap: 0.4rem;
+    }
+  }
+
+  &__contact {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba($white, 0.95);
+
+    // Mobile-first: round icon-only button.
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: rgba($white, 0.12);
+    border: 1px solid rgba($white, 0.22);
+    transition:
+      color $dur-fast $ease,
+      background $dur-fast $ease,
+      border-color $dur-fast $ease,
+      transform $dur-fast $ease;
+
+    svg {
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+      opacity: 0.95;
+    }
+
+    // Visually hide the label on mobile but keep it for assistive tech.
+    > span {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    &:hover {
+      color: $white;
+      background: rgba($white, 0.22);
+      border-color: rgba($white, 0.35);
+      transform: translateY(-1px);
+    }
+
+    &:active {
+      transform: translateY(0);
+      background: rgba($white, 0.28);
+    }
+
+    // Desktop: revert to inline icon + text link.
+    @include md-up {
+      width: auto;
+      height: auto;
+      min-height: 32px;
+      padding: 0.25rem 0;
+      gap: 0.55rem;
+      background: transparent;
+      border: 0;
+      border-radius: 0;
+      overflow-wrap: anywhere;
+      word-break: break-word;
+
+      svg {
+        width: 16px;
+        height: 16px;
+        opacity: 0.85;
+      }
+
+      > span {
+        position: static;
+        width: auto;
+        height: auto;
+        margin: 0;
+        padding: 0;
+        overflow: visible;
+        clip: auto;
+        white-space: normal;
+        border: 0;
+      }
+
+      &:hover {
+        background: transparent;
+        border-color: transparent;
+      }
+
+      &:active {
+        background: transparent;
+      }
+    }
+
+    &--button {
+      align-self: flex-start;
+      margin-top: 0.4rem;
+      padding: 0.5rem 0.85rem;
+      background: rgba($white, 0.14);
+      border: 1px solid rgba($white, 0.25);
+      border-radius: $radius-pill;
+
+      @include md-up { align-self: flex-end; }
+
+      &:hover { background: rgba($white, 0.22); }
+    }
+  }
+}
+
+// ---- Section wrapper ----
+.section {
+  padding: 2rem 0 0.5rem;
+
+  &:first-of-type { padding-top: 1.75rem; }
+
+  @include md-up {
+    padding: 3rem 0 1rem;
+
+    &:first-of-type { padding-top: 2.5rem; }
+  }
+
+  &__header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1.25rem;
+    @include section-rule;
+
+    @include md-up { margin-bottom: 1.4rem; }
+  }
+
+  &__title {
+    font-size: $fs-lg;
+    font-weight: 700;
+    color: $color-accent-dark;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+
+    @include md-up { font-size: $fs-xl; }
+  }
+
+  &__icon {
+    width: 20px;
+    height: 20px;
+    color: $color-accent;
+    flex-shrink: 0;
+
+    @include md-up {
+      width: 22px;
+      height: 22px;
+    }
+  }
+}
+
+// Footer
+.footer {
+  padding: 2.25rem 0 calc(1.75rem + env(safe-area-inset-bottom));
+  text-align: center;
+  color: $color-text-muted;
+  font-size: $fs-sm;
+  border-top: 1px solid $color-rule;
+  margin-top: 2.5rem;
+
+  @include md-up {
+    padding-top: 3rem;
+    padding-bottom: calc(2.5rem + env(safe-area-inset-bottom));
+    margin-top: 3rem;
+  }
+
+  a {
+    color: $color-accent;
+    &:hover { color: $color-accent-dark; }
+  }
+}
