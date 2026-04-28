@@ -17,7 +17,7 @@
   z-index: 50;
   backdrop-filter: saturate(140%) blur(10px);
   -webkit-backdrop-filter: saturate(140%) blur(10px);
-  background: rgba($white, 0.78);
+  background: $color-nav-bg;
   border-bottom: 1px solid $color-rule;
 
   &__inner {
@@ -68,13 +68,60 @@
   }
 }
 
+// ---- Theme toggle (sits in the nav) ----
+.theme-toggle {
+  // On mobile the nav__links is hidden, so the toggle is the only item
+  // after the brand — push it to the right edge.
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: 1px solid $color-rule;
+  border-radius: 50%;
+  background: transparent;
+  color: $color-text-soft;
+  cursor: pointer;
+  transition:
+    color $dur-fast $ease,
+    background $dur-fast $ease,
+    border-color $dur-fast $ease,
+    transform $dur-fast $ease;
+
+  @include md-up {
+    margin-left: 0;
+  }
+
+  &:hover {
+    color: $color-accent;
+    border-color: color-mix(in srgb, $color-accent 40%, transparent);
+    background: $color-accent-soft;
+  }
+
+  &:focus-visible { @include focus-ring; }
+
+  &:active { transform: scale(0.95); }
+
+  &[disabled] {
+    cursor: default;
+    opacity: 0.55;
+  }
+
+  svg {
+    width: 18px;
+    height: 18px;
+  }
+}
+
 // ---- Hero (header card) ----
 .hero {
   position: relative;
   padding: 2.25rem 0 3rem;
   background:
-    radial-gradient(1200px 400px at 80% -20%, rgba($blue-500, 0.18), transparent 60%),
-    linear-gradient(180deg, $blue-700 0%, $blue-600 100%);
+    radial-gradient(1200px 400px at 80% -20%, var(--hero-glow), transparent 60%),
+    linear-gradient(180deg, var(--hero-from) 0%, var(--hero-to) 100%);
   color: $white;
   overflow: hidden;
 

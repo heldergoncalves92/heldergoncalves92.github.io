@@ -7,6 +7,16 @@
     <meta name="robots" content="noindex" />
     <title>Page not found · Hélder Gonçalves</title>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <script>
+      (function () {
+        try {
+          var t = localStorage.getItem('theme');
+          if (t === 'light' || t === 'dark') {
+            document.documentElement.setAttribute('data-theme', t);
+          }
+        } catch (e) {}
+      })();
+    </script>
     <style>
       :root {
         --bg: #ffffff;
@@ -14,8 +24,14 @@
         --muted: #5a6783;
         --accent: #3a6ea5;
       }
+      :root[data-theme='dark'] {
+        --bg: #0e1320;
+        --fg: #e8edf7;
+        --muted: #9aa6c0;
+        --accent: #6fa3da;
+      }
       @media (prefers-color-scheme: dark) {
-        :root {
+        :root:not([data-theme='light']) {
           --bg: #0e1320;
           --fg: #e8edf7;
           --muted: #9aa6c0;

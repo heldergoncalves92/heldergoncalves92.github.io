@@ -1,7 +1,9 @@
-// ---- Palette (matches the CV) ----
+// ---- Raw palette (SASS, still used where colours are intentionally fixed:
+//      hero gradient, focus-ring rgba(), ::selection, etc.) ----
 $blue-700: #2c557f;
 $blue-600: #3a6ea5;
 $blue-500: #4a85c2;
+$blue-400: #6fa3da;
 $blue-100: #e5edf6;
 $blue-050: #f3f7fb;
 
@@ -9,22 +11,89 @@ $ink-900:  #1c2330;
 $ink-700:  #2f3947;
 $ink-500:  #54627a;
 $ink-300:  #8e98ab;
+$ink-200:  #b3bccd;
 $ink-100:  #d6dbe4;
 $ink-050:  #eef1f5;
 
 $white:    #ffffff;
 $canvas:   #f7f9fc;
 
-// Semantic
-$color-text:        $ink-900;
-$color-text-muted:  $ink-500;
-$color-text-soft:   $ink-700;
-$color-accent:      $blue-600;
-$color-accent-dark: $blue-700;
-$color-accent-soft: $blue-100;
-$color-rule:        $ink-100;
-$color-bg:          $canvas;
-$color-card:        $white;
+// ---- Theme tokens (CSS custom properties so they switch at runtime) ----
+//
+// Default = light. Dark is selected either via an explicit
+// `data-theme="dark"` attribute on <html> (set by the toggle/anti-FOIT script
+// when the user has chosen dark or persisted that choice), or via the OS
+// `prefers-color-scheme: dark` when no explicit preference is set.
+//
+// `:root:not([data-theme="light"])` inside the dark media query lets a user
+// who has explicitly chosen "light" override the OS preference.
+
+:root {
+  --color-bg:           #{$canvas};
+  --color-card:         #{$white};
+  --color-text:         #{$ink-900};
+  --color-text-soft:    #{$ink-700};
+  --color-text-muted:   #{$ink-500};
+  --color-rule:         #{$ink-100};
+
+  --color-accent:       #{$blue-600};
+  --color-accent-dark:  #{$blue-700};
+  --color-accent-soft:  #{$blue-100};
+
+  --nav-bg:             rgba(255, 255, 255, 0.78);
+
+  --shadow-card:        0 1px 2px rgba(28, 35, 48, 0.04), 0 8px 24px rgba(28, 35, 48, 0.06);
+  --shadow-hover:       0 2px 4px rgba(28, 35, 48, 0.06), 0 12px 32px rgba(28, 35, 48, 0.10);
+
+  // Hero gradient — bright brand blue on light, deeper/muted navy on dark so
+  // it doesn't read as a luminous billboard against the dark page bg.
+  --hero-from:          #{$blue-700};
+  --hero-to:            #{$blue-600};
+  --hero-glow:          #{rgba($blue-500, 0.18)};
+}
+
+@mixin _theme-dark {
+  --color-bg:           #0e131c;
+  --color-card:         #161d2c;
+  --color-text:         #e8edf7;
+  --color-text-soft:    #c2cad9;
+  --color-text-muted:   #8e98ab;
+  --color-rule:         #2a3242;
+
+  --color-accent:       #{$blue-400};
+  --color-accent-dark:  #{$blue-500};
+  --color-accent-soft:  #1e2c43;
+
+  --nav-bg:             rgba(14, 19, 28, 0.78);
+
+  --shadow-card:        0 1px 2px rgba(0, 0, 0, 0.30), 0 8px 24px rgba(0, 0, 0, 0.25);
+  --shadow-hover:       0 2px 4px rgba(0, 0, 0, 0.35), 0 12px 32px rgba(0, 0, 0, 0.40);
+
+  --hero-from:          #182236;
+  --hero-to:            #233a59;
+  --hero-glow:          #{rgba($blue-500, 0.10)};
+}
+
+:root[data-theme='dark'] { @include _theme-dark; }
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) { @include _theme-dark; }
+}
+
+// ---- Semantic SASS aliases (resolve to CSS vars) ----
+$color-text:        var(--color-text);
+$color-text-muted:  var(--color-text-muted);
+$color-text-soft:   var(--color-text-soft);
+$color-accent:      var(--color-accent);
+$color-accent-dark: var(--color-accent-dark);
+$color-accent-soft: var(--color-accent-soft);
+$color-rule:        var(--color-rule);
+$color-bg:          var(--color-bg);
+$color-card:        var(--color-card);
+$color-nav-bg:      var(--nav-bg);
+
+$shadow-card:  var(--shadow-card);
+$shadow-hover: var(--shadow-hover);
 
 // ---- Typography ----
 $font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
@@ -48,9 +117,6 @@ $radius-sm: 4px;
 $radius-md: 8px;
 $radius-lg: 14px;
 $radius-pill: 999px;
-
-$shadow-card: 0 1px 2px rgba(28, 35, 48, 0.04), 0 8px 24px rgba(28, 35, 48, 0.06);
-$shadow-hover: 0 2px 4px rgba(28, 35, 48, 0.06), 0 12px 32px rgba(28, 35, 48, 0.10);
 
 // ---- Motion ----
 $ease: cubic-bezier(0.2, 0.7, 0.2, 1);

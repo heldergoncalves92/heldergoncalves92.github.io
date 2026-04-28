@@ -7,9 +7,27 @@
 // Web font
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 
-// Print: hide nav and footer, expand backgrounds for paper
+// Print: hide nav and footer, expand backgrounds for paper, and force the
+// light palette regardless of the user's chosen theme so the printout is
+// always legible on white paper.
 @media print {
-  .nav, .footer { display: none; }
-  body { background: white; }
-  .hero { background: $blue-700 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  :root,
+  :root[data-theme='dark'] {
+    --color-bg: #{$white};
+    --color-card: #{$white};
+    --color-text: #{$ink-900};
+    --color-text-soft: #{$ink-700};
+    --color-text-muted: #{$ink-500};
+    --color-rule: #{$ink-100};
+    --shadow-card: none;
+    --shadow-hover: none;
+  }
+
+  .nav, .footer, .theme-toggle { display: none; }
+  body { background: $white; }
+  .hero {
+    background: $blue-700 !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
 }

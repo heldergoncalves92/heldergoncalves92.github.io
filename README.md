@@ -42,15 +42,33 @@ the data, so the compiler will catch missing fields if you add new entries.
 
 SASS partials live in `src/styles/`:
 
-- `_variables.scss` — palette, typography, breakpoints, motion tokens
+- `_variables.scss` — raw palette, theme tokens (CSS custom properties for
+  light + dark), typography, breakpoints, motion tokens
 - `_mixins.scss` — reusable patterns (pill, focus ring, section rule, media queries)
 - `_reset.scss` — minimal CSS reset
-- `_layout.scss` — nav, hero, sections, footer
+- `_layout.scss` — nav, hero, sections, footer, theme-toggle button
 - `_components.scss` — pills, profile, timeline, entries, project cards, awards
 - `main.scss` — entry point that imports the partials
 
 Change the brand colour by editing `$blue-600` (primary) and `$blue-700`
 (accent-dark) in `_variables.scss`. Everything else cascades.
+
+### Theming (light / dark)
+
+Colour tokens are CSS custom properties (e.g. `--color-bg`, `--color-text`)
+defined on `:root`. The dark palette is applied either explicitly via
+`<html data-theme="dark">` (set by the theme toggle in the nav and persisted
+to `localStorage`) or implicitly via `@media (prefers-color-scheme: dark)`
+when no explicit preference is stored.
+
+A small inline script in `index.html` runs synchronously in `<head>` to apply
+the persisted theme **before** first paint, so users never see a flash of the
+wrong theme during hydration. The `ThemeToggle` React component cycles
+auto → light → dark on click; the brand-blue hero stays consistent across
+both themes.
+
+Print stylesheets force the light palette regardless of the chosen theme so
+PDF export stays legible on white paper.
 
 ## Adding a portrait
 

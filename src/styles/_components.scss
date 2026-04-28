@@ -46,7 +46,11 @@
     top: 4px;
     bottom: 4px;
     width: 2px;
-    background: linear-gradient(180deg, $color-accent 0%, rgba($color-accent, 0.25) 100%);
+    background: linear-gradient(
+      180deg,
+      $color-accent 0%,
+      color-mix(in srgb, $color-accent 25%, transparent) 100%
+    );
     border-radius: 2px;
   }
 
@@ -66,7 +70,7 @@
       border-radius: 50%;
       background: $color-card;
       border: 2px solid $color-accent;
-      box-shadow: 0 0 0 4px rgba($color-accent, 0.12);
+      box-shadow: 0 0 0 4px color-mix(in srgb, $color-accent 12%, transparent);
     }
   }
 }
