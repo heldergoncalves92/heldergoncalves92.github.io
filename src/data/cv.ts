@@ -155,7 +155,6 @@ export const cv: CvData = {
         'Observability',
       ],
       caseStudyHref: '/homelab/',
-      href: 'https://github.com/helderjgoncalves/Homelab-Infrastructure',
     },
   ],
 
