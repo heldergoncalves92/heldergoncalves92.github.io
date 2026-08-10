@@ -17,6 +17,25 @@ export function SideProjects({ items }: SideProjectsProps) {
           <div className="project__pills">
             <Pills items={project.techPills} />
           </div>
+          {(project.caseStudyHref || project.href) && (
+            <div className="project__actions">
+              {project.caseStudyHref && (
+                <a className="project__link project__link--primary" href={project.caseStudyHref}>
+                  View case study
+                </a>
+              )}
+              {project.href && (
+                <a
+                  className="project__link"
+                  href={project.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  View on GitHub
+                </a>
+              )}
+            </div>
+          )}
         </article>
       ))}
     </Section>

@@ -9,8 +9,25 @@ import { SideProjects } from './components/SideProjects';
 import { Languages } from './components/Languages';
 import { Certifications } from './components/Certifications';
 import { LeadershipAwards } from './components/LeadershipAwards';
+import { HomelabPage } from './components/HomelabPage';
+import { Footer } from './components/Footer';
 
-export default function App() {
+export function normalizePath(path: string): string {
+  if (!path || path === '/') return '/';
+  const trimmed = path.replace(/\/+$/, '');
+  return trimmed || '/';
+}
+
+export function isHomelabPath(path: string): boolean {
+  return normalizePath(path) === '/homelab';
+}
+
+interface AppProps {
+  /** Pathname used for SSR / prerender; client falls back to location. */
+  path?: string;
+}
+
+function HomePage() {
   return (
     <>
       <Nav />
@@ -27,20 +44,18 @@ export default function App() {
         <LeadershipAwards items={cv.awards} />
       </main>
 
-      <footer className="footer">
-        <div className="container">
-          <p>
-            © {new Date().getFullYear()} {cv.profile.name} ·{' '}
-            <a href="https://github.com/helderjgoncalves" target="_blank" rel="noopener noreferrer">
-              GitHub
-            </a>{' '}
-            ·{' '}
-            <a href="https://linkedin.com/in/helderjgoncalves" target="_blank" rel="noopener noreferrer">
-              LinkedIn
-            </a>
-          </p>
-        </div>
-      </footer>
+      <Footer />
     </>
   );
+}
+
+export default function App({ path }: AppProps) {
+  const pathname =
+    path ?? (typeof window !== 'undefined' ? window.location.pathname : '/');
+
+  if (isHomelabPath(pathname)) {
+    return <HomelabPage />;
+  }
+
+  return <HomePage />;
 }

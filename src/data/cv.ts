@@ -141,10 +141,10 @@ export const cv: CvData = {
       title: 'Self-Hosted Home Lab',
       subtitle: 'Personal infrastructure (ongoing)',
       description:
-        'NAS-based private cloud serving the whole family with self-hosted services (Immich, Plex / Plexamp, OpenCloud), most running in Docker containers managed via Portainer, exposed through Cloudflare Tunnel and a reverse proxy. Custom DNS via Pi-hole with local rewrites mapping public hostnames to internal services. Zero-trust access enforced with mTLS, OAuth, service tokens, and Cloudflare Access policies; HTTPS everywhere; uptime monitoring, centralised logging, and alerting. Full stack declaratively configured and versioned in Git for reproducibility.',
+        'NAS-based private cloud serving the whole family with self-hosted services (Immich, Plex / Plexamp, OpenCloud), most running in Docker containers managed via Dockge, exposed through Cloudflare Tunnel and a reverse proxy. Custom DNS via Pi-hole with local rewrites mapping public hostnames to internal services. Zero-trust access enforced with mTLS, OAuth, service tokens, and Cloudflare Access policies; HTTPS everywhere; uptime monitoring and alerting. Full stack declaratively configured and versioned in Git for reproducibility.',
       techPills: [
         'Docker',
-        'Portainer',
+        'Dockge',
         'Cloudflare Zero Trust',
         'Pi-hole',
         'mTLS',
@@ -154,6 +154,8 @@ export const cv: CvData = {
         'Self-Hosted',
         'Observability',
       ],
+      caseStudyHref: '/homelab/',
+      href: 'https://github.com/helderjgoncalves/Homelab-Infrastructure',
     },
   ],
 

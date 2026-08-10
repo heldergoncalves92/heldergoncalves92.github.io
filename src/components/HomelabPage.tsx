@@ -1,0 +1,117 @@
+import type { ReactNode } from 'react';
+import { homelab } from '../data/homelab';
+import { HomelabArchitecture } from './HomelabArchitecture';
+import { Icon } from './Icon';
+import { ThemeToggle } from './ThemeToggle';
+import { Footer } from './Footer';
+import { useReveal } from '../hooks/useReveal';
+
+function RevealSection({
+  id,
+  title,
+  children,
+}: {
+  id: string;
+  title: string;
+  children: ReactNode;
+}) {
+  const ref = useReveal();
+  return (
+    <section id={id} className="section reveal" ref={ref}>
+      <div className="container">
+        <div className="section__header">
+          <h2 className="section__title">{title}</h2>
+        </div>
+        {children}
+      </div>
+    </section>
+  );
+}
+
+export function HomelabPage() {
+  const { title, thesis, intro, decisions, stack, ctas } = homelab;
+
+  return (
+    <>
+      <nav className="nav" aria-label="Site navigation">
+        <div className="container nav__inner">
+          <a href="/" className="nav__brand" aria-label="Back home">
+            HG.
+          </a>
+          <ThemeToggle />
+        </div>
+      </nav>
+
+      <header className="homelab-hero">
+        <div className="container homelab-hero__inner">
+          <p className="homelab-hero__eyebrow">Side project · case study</p>
+          <h1 className="homelab-hero__title">{title}</h1>
+          <p className="homelab-hero__thesis">{thesis}</p>
+          <p className="homelab-hero__intro">{intro}</p>
+          <div className="homelab-hero__actions">
+            {ctas.map((cta) => (
+              <a
+                key={cta.href + cta.label}
+                className={
+                  cta.primary ? 'homelab-cta homelab-cta--primary' : 'homelab-cta'
+                }
+                href={cta.href}
+                target={cta.external ? '_blank' : undefined}
+                rel={cta.external ? 'noopener noreferrer' : undefined}
+              >
+                {cta.primary && <Icon name="github" />}
+                <span>{cta.label}</span>
+              </a>
+            ))}
+          </div>
+        </div>
+      </header>
+
+      <main>
+        <RevealSection id="architecture" title="Architecture">
+          <HomelabArchitecture />
+        </RevealSection>
+
+        <RevealSection id="decisions" title="Design decisions">
+          <ol className="homelab-decisions">
+            {decisions.map((decision, index) => (
+              <li key={decision.title} className="homelab-decisions__item">
+                <span className="homelab-decisions__index" aria-hidden="true">
+                  {String(index + 1).padStart(2, '0')}
+                </span>
+                <div>
+                  <h3 className="homelab-decisions__title">{decision.title}</h3>
+                  <p className="homelab-decisions__desc">{decision.description}</p>
+                </div>
+              </li>
+            ))}
+          </ol>
+        </RevealSection>
+
+        <RevealSection id="stack" title="Stack">
+          <ul className="homelab-stack">
+            {stack.map((item) => (
+              <li key={item.name} className="homelab-stack__item">
+                <strong className="homelab-stack__name">{item.name}</strong>
+                <span className="homelab-stack__purpose">{item.purpose}</span>
+              </li>
+            ))}
+          </ul>
+          <p className="homelab-stack__note">
+            Depth lives in the{' '}
+            <a
+              href="https://github.com/helderjgoncalves/Homelab-Infrastructure"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Homelab Infrastructure
+            </a>{' '}
+            README — this page is the portfolio view.
+          </p>
+        </RevealSection>
+      </main>
+
+      <Footer />
+    </>
+  );
+}

@@ -164,6 +164,10 @@
 
 // ---- Theme toggle (sits in the nav) ----
 .theme-toggle {
+  // Push to the right edge when there is no .nav__cv ahead of it (e.g. Homelab).
+  // On the CV page .nav__cv already owns margin-left: auto; a second auto here
+  // just keeps the toggle flush against the CV button.
+  margin-left: auto;
   display: inline-flex;
   align-items: center;
   justify-content: center;

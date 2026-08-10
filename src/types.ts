@@ -57,6 +57,10 @@ export interface SideProject {
   subtitle: string;
   description: string;
   techPills: string[];
+  /** Primary CTA — typically the case-study page on this site. */
+  caseStudyHref?: string;
+  /** Secondary CTA — typically the source repository. */
+  href?: string;
 }
 
 export interface Certification {

@@ -194,6 +194,292 @@
   &__pills {
     margin-top: 1rem;
   }
+
+  &__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.65rem 1rem;
+    margin-top: 1.15rem;
+  }
+
+  &__link {
+    font-size: $fs-sm;
+    font-weight: 600;
+    color: $color-accent-dark;
+    text-decoration: none;
+    border-bottom: 1px solid color-mix(in srgb, $color-accent 35%, transparent);
+    padding-bottom: 0.05rem;
+    transition: color $dur-fast $ease, border-color $dur-fast $ease;
+
+    &:hover,
+    &:focus-visible {
+      color: $color-accent;
+      border-color: $color-accent;
+    }
+
+    &--primary {
+      color: $color-accent;
+      border-bottom-width: 2px;
+    }
+  }
+}
+
+// ---- Homelab case study ----
+.homelab-hero {
+  position: relative;
+  padding: 2.5rem 0 3rem;
+  background:
+    radial-gradient(900px 320px at 15% -10%, var(--hero-glow), transparent 55%),
+    linear-gradient(180deg, var(--hero-from) 0%, var(--hero-to) 100%);
+  color: $white;
+  overflow: hidden;
+
+  @include md-up {
+    padding: 3.75rem 0 3.75rem;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: auto 0 -1px 0;
+    height: 32px;
+    background: linear-gradient(180deg, transparent, $color-bg);
+    pointer-events: none;
+  }
+
+  &__eyebrow {
+    font-size: $fs-sm;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: rgba($white, 0.72);
+    margin: 0 0 0.85rem;
+  }
+
+  &__title {
+    font-size: clamp(1.85rem, 6vw, $fs-3xl);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    font-weight: 800;
+    margin: 0;
+  }
+
+  &__thesis {
+    margin-top: 1rem;
+    font-size: clamp(1.05rem, 3.2vw, $fs-lg);
+    line-height: 1.45;
+    font-weight: 500;
+    color: rgba($white, 0.95);
+  }
+
+  &__intro {
+    margin-top: 0.85rem;
+    font-size: $fs-md;
+    line-height: 1.65;
+    color: rgba($white, 0.82);
+  }
+
+  &__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.65rem;
+    margin-top: 1.75rem;
+  }
+}
+
+.homelab-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.55rem 1.1rem;
+  border-radius: $radius-pill;
+  font-size: $fs-sm;
+  font-weight: 600;
+  text-decoration: none;
+  color: $white;
+  background: rgba($white, 0.12);
+  border: 1px solid rgba($white, 0.28);
+  transition: background $dur-fast $ease, transform $dur-fast $ease;
+
+  svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  &:hover,
+  &:focus-visible {
+    background: rgba($white, 0.2);
+    transform: translateY(-1px);
+  }
+
+  &--primary {
+    background: $white;
+    color: $blue-700;
+    border-color: $white;
+
+    &:hover,
+    &:focus-visible {
+      background: rgba($white, 0.92);
+    }
+  }
+}
+
+.homelab-arch {
+  margin: 0;
+
+  &__svg {
+    width: 100%;
+    height: auto;
+    display: block;
+    max-width: 44rem;
+    margin-inline: auto;
+  }
+
+  &__boundary {
+    fill: color-mix(in srgb, $color-accent 6%, $color-card);
+    stroke: color-mix(in srgb, $color-accent 28%, $color-rule);
+    stroke-width: 1.5;
+  }
+
+  &__boundary-label {
+    fill: $color-text-muted;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+  }
+
+  &__box {
+    fill: $color-card;
+    stroke: $color-rule;
+    stroke-width: 1.25;
+
+    &--edge,
+    &--cf {
+      fill: color-mix(in srgb, $color-accent 10%, $color-card);
+      stroke: color-mix(in srgb, $color-accent 40%, $color-rule);
+    }
+
+    &--accent {
+      fill: color-mix(in srgb, $color-accent 14%, $color-card);
+      stroke: color-mix(in srgb, $color-accent 45%, $color-rule);
+    }
+  }
+
+  &__label {
+    fill: $color-text;
+    font-size: 13px;
+    font-weight: 700;
+  }
+
+  &__sub {
+    fill: $color-text-muted;
+    font-size: 11px;
+  }
+
+  &__line {
+    stroke: color-mix(in srgb, $color-accent 55%, $color-rule);
+    stroke-width: 1.5;
+  }
+
+  &__caption {
+    fill: $color-text-muted;
+    font-size: 10px;
+  }
+
+  &__caption-text {
+    margin-top: 0.85rem;
+    text-align: center;
+    font-size: $fs-sm;
+    color: $color-text-muted;
+  }
+}
+
+.homelab-decisions {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 1rem;
+
+  &__item {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0.85rem 1rem;
+    padding: 1rem 1.1rem;
+    background: $color-card;
+    border-radius: $radius-md;
+    box-shadow: $shadow-card;
+    border-left: 3px solid $color-accent;
+  }
+
+  &__index {
+    font-size: $fs-sm;
+    font-weight: 700;
+    color: $color-accent;
+    font-variant-numeric: tabular-nums;
+    line-height: 1.4;
+  }
+
+  &__title {
+    margin: 0;
+    font-size: $fs-md;
+    font-weight: 700;
+    color: $color-text;
+  }
+
+  &__desc {
+    margin: 0.35rem 0 0;
+    font-size: $fs-sm;
+    line-height: 1.6;
+    color: $color-text-soft;
+  }
+}
+
+.homelab-stack {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.65rem;
+  grid-template-columns: 1fr;
+
+  @include sm-up {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  &__item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    padding: 0.85rem 1rem;
+    background: $color-card;
+    border-radius: $radius-md;
+    box-shadow: $shadow-card;
+  }
+
+  &__name {
+    font-size: $fs-sm;
+    font-weight: 700;
+    color: $color-text;
+  }
+
+  &__purpose {
+    font-size: $fs-sm;
+    color: $color-text-soft;
+    line-height: 1.45;
+  }
+
+  &__note {
+    margin-top: 1.25rem;
+    font-size: $fs-sm;
+    color: $color-text-muted;
+    line-height: 1.55;
+
+    a {
+      color: $color-accent-dark;
+      font-weight: 600;
+    }
+  }
 }
 
 // ---- Languages ----

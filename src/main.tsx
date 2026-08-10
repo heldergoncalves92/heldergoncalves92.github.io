@@ -10,7 +10,7 @@ if (!rootElement) {
 
 const tree = (
   <StrictMode>
-    <App />
+    <App path={window.location.pathname} />
   </StrictMode>
 );
 
