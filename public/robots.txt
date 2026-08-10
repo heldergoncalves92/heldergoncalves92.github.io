@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://helderjgoncalves.github.io/sitemap.xml
+Sitemap: https://hgoncalves.uk/sitemap.xml
