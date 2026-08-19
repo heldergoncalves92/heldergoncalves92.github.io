@@ -19,6 +19,12 @@ const templatePath = path.join(distDir, 'index.html');
 
 const ROOT_PLACEHOLDER = '<div id="root"></div>';
 
+const { render, homelab } = await import(pathToFileURL(ssrEntry).href);
+
+// Routing (output path, JSON-LD handling) belongs to the build; the copy
+// belongs to the data layer. The homelab strings therefore come from
+// src/data/homelab.ts. The home route has no equivalent field on CvData yet,
+// so its metadata still lives inline here.
 /** @type {{ path: string, out: string, title: string, description: string, canonical: string, ogType?: string, keepJsonLd?: boolean }[]} */
 const pages = [
   {
@@ -34,16 +40,14 @@ const pages = [
   {
     path: '/homelab',
     out: path.join('homelab', 'index.html'),
-    title: 'Self-Hosted Home Lab · Hélder Gonçalves',
-    description:
-      'Case study of a NAS-based private cloud: Cloudflare Tunnel, zero-trust Access, Pi-hole, Immich, OpenCloud, and layered monitoring — all declarative in Git.',
-    canonical: 'https://hgoncalves.uk/homelab/',
+    title: homelab.meta.title,
+    description: homelab.meta.description,
+    canonical: homelab.meta.canonical,
     ogType: 'website',
     keepJsonLd: false,
   },
 ];
 
-const { render } = await import(pathToFileURL(ssrEntry).href);
 const template = await fs.readFile(templatePath, 'utf-8');
 
 if (!template.includes(ROOT_PLACEHOLDER)) {

@@ -96,7 +96,7 @@
 
   &__org {
     font-size: $fs-sm;
-    color: $color-accent-dark;
+    color: $color-heading;
     font-weight: 600;
   }
 
@@ -132,7 +132,7 @@
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.06em;
-    color: $color-accent-dark;
+    color: $color-heading;
     margin-bottom: 0.6rem;
   }
 
@@ -205,7 +205,7 @@
   &__link {
     font-size: $fs-sm;
     font-weight: 600;
-    color: $color-accent-dark;
+    color: $color-heading;
     text-decoration: none;
     border-bottom: 1px solid color-mix(in srgb, $color-accent 35%, transparent);
     padding-bottom: 0.05rem;
@@ -312,6 +312,9 @@
     transform: translateY(-1px);
   }
 
+  // Sits on the blue homelab hero, so the themed accent ring would vanish.
+  &:focus-visible { @include focus-ring($white); }
+
   &--primary {
     background: $white;
     color: $blue-700;
@@ -330,9 +333,28 @@
   &__svg {
     width: 100%;
     height: auto;
-    display: block;
-    max-width: 44rem;
     margin-inline: auto;
+  }
+
+  // Two layouts of the same diagram, one visible at a time. `display: none`
+  // also removes the hidden one from the accessibility tree, so assistive tech
+  // encounters a single figure rather than a duplicated description.
+  &__svg--narrow {
+    display: block;
+    max-width: 26rem;
+
+    @include md-up { display: none; }
+  }
+
+  &__svg--wide {
+    display: none;
+    // Sized against the 1080px container rather than an arbitrary cap: at 44rem
+    // the 13px labels rendered at 12.7px, i.e. smaller than the $fs-sm copy
+    // beside them. 56rem scales the whole viewBox up so labels land near 16px
+    // while still leaving margin inside the column.
+    max-width: 56rem;
+
+    @include md-up { display: block; }
   }
 
   &__boundary {
@@ -341,6 +363,9 @@
     stroke-width: 1.5;
   }
 
+  // The narrow layout's 360-unit viewBox renders close to 1:1 on a phone, so
+  // these nominal sizes arrive intact rather than at the ~44% the landscape
+  // viewBox produced. Only the smallest label needs a nudge there.
   &__boundary-label {
     fill: $color-text-muted;
     font-size: 12px;
@@ -381,9 +406,17 @@
     stroke-width: 1.5;
   }
 
+  // Markers don't inherit the referencing line's stroke, so this repeats the
+  // connector colour rather than relying on patchy `context-stroke` support.
+  &__arrowhead {
+    fill: color-mix(in srgb, $color-accent 55%, $color-rule);
+  }
+
   &__caption {
     fill: $color-text-muted;
     font-size: 10px;
+
+    @include md-down { font-size: 11px; }
   }
 
   &__caption-text {
@@ -476,7 +509,7 @@
     line-height: 1.55;
 
     a {
-      color: $color-accent-dark;
+      color: $color-accent;
       font-weight: 600;
     }
   }
@@ -587,17 +620,26 @@
 }
 
 // ---- Reveal-on-scroll ----
+//
+// The hidden start state is gated behind `scripting: enabled`, because only
+// useReveal can add `.is-visible`. Applying `opacity: 0` unconditionally made
+// the entire pre-rendered payload invisible whenever scripts don't run — no-JS
+// visitors, a failed bundle, or a crawler that applies CSS without executing
+// JS — which defeated the point of pre-rendering it. Browsers without the
+// media feature just skip the animation and show the content.
 .reveal {
-  opacity: 0;
-  transform: translateY(8px);
   transition: opacity $dur-slow $ease, transform $dur-slow $ease;
+}
 
-  &.is-visible {
-    opacity: 1;
-    transform: none;
+@media (scripting: enabled) {
+  .reveal:not(.is-visible) {
+    opacity: 0;
+    transform: translateY(8px);
   }
+}
 
-  @media (prefers-reduced-motion: reduce) {
+@media (prefers-reduced-motion: reduce) {
+  .reveal:not(.is-visible) {
     opacity: 1;
     transform: none;
     transition: none;

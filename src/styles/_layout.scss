@@ -39,7 +39,7 @@
     flex-shrink: 0;
     font-weight: 700;
     letter-spacing: 0.02em;
-    color: $color-accent-dark;
+    color: $color-heading;
     font-size: $fs-md;
     padding: 0.25rem 0;
   }
@@ -123,8 +123,6 @@
     background: $color-accent-soft;
   }
 
-  &:focus-visible { @include focus-ring; }
-
   &:active { transform: scale(0.97); }
 
   @include md-up {
@@ -190,8 +188,6 @@
     border-color: color-mix(in srgb, $color-accent 40%, transparent);
     background: $color-accent-soft;
   }
-
-  &:focus-visible { @include focus-ring; }
 
   &:active { transform: scale(0.95); }
 
@@ -359,6 +355,9 @@
       transform: translateY(-1px);
     }
 
+    // Sits on the blue hero, so the themed accent ring would vanish.
+    &:focus-visible { @include focus-ring($white); }
+
     &:active {
       transform: translateY(0);
       background: rgba($white, 0.28);
@@ -445,7 +444,7 @@
   &__title {
     font-size: $fs-lg;
     font-weight: 700;
-    color: $color-accent-dark;
+    color: $color-heading;
     letter-spacing: 0.02em;
     text-transform: uppercase;
 

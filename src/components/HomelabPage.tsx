@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react';
 import { homelab } from '../data/homelab';
 import { HomelabArchitecture } from './HomelabArchitecture';
-import { Icon } from './Icon';
+import { Icon, type IconName } from './Icon';
 import { ThemeToggle } from './ThemeToggle';
 import { Footer } from './Footer';
 import { useReveal } from '../hooks/useReveal';
@@ -9,10 +9,12 @@ import { useReveal } from '../hooks/useReveal';
 function RevealSection({
   id,
   title,
+  icon,
   children,
 }: {
   id: string;
   title: string;
+  icon: IconName;
   children: ReactNode;
 }) {
   const ref = useReveal();
@@ -20,6 +22,7 @@ function RevealSection({
     <section id={id} className="section reveal" ref={ref}>
       <div className="container">
         <div className="section__header">
+          <Icon name={icon} className="section__icon" />
           <h2 className="section__title">{title}</h2>
         </div>
         {children}
@@ -68,11 +71,11 @@ export function HomelabPage() {
       </header>
 
       <main>
-        <RevealSection id="architecture" title="Architecture">
+        <RevealSection id="architecture" title="Architecture" icon="globe">
           <HomelabArchitecture />
         </RevealSection>
 
-        <RevealSection id="decisions" title="Design decisions">
+        <RevealSection id="decisions" title="Design decisions" icon="lab">
           <ol className="homelab-decisions">
             {decisions.map((decision, index) => (
               <li key={decision.title} className="homelab-decisions__item">
@@ -88,7 +91,7 @@ export function HomelabPage() {
           </ol>
         </RevealSection>
 
-        <RevealSection id="stack" title="Stack">
+        <RevealSection id="stack" title="Stack" icon="code">
           <ul className="homelab-stack">
             {stack.map((item) => (
               <li key={item.name} className="homelab-stack__item">

@@ -1,6 +1,6 @@
 import type { JSX, SVGProps } from 'react';
 
-type IconName =
+export type IconName =
   | 'email'
   | 'phone'
   | 'linkedin'

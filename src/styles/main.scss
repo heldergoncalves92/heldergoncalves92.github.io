@@ -19,8 +19,23 @@
     --color-text-soft: #{$ink-700};
     --color-text-muted: #{$ink-500};
     --color-rule: #{$ink-100};
+    // Accents included so a visitor printing in dark mode doesn't get the
+    // light-on-dark accent blues, which are near-invisible on white paper.
+    --color-accent: #{$blue-600};
+    --color-accent-dark: #{$blue-700};
+    --color-accent-soft: #{$blue-100};
+    --color-heading: #{$blue-700};
+    --pill-bg: #{$blue-600};
+    --pill-text: #{$white};
     --shadow-card: none;
     --shadow-hover: none;
+  }
+
+  // Sections only gain `.is-visible` once they scroll into view, so everything
+  // below the fold would otherwise print as blank space.
+  .reveal:not(.is-visible) {
+    opacity: 1;
+    transform: none;
   }
 
   .nav, .footer, .theme-toggle, .nav__cv { display: none; }

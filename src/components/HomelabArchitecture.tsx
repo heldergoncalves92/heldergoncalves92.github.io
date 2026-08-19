@@ -1,108 +1,283 @@
 /** Architecture overview as an accessible SVG (mirrors the Homelab README diagram). */
+
+// Both layouts read their copy from here so the wide and narrow diagrams can
+// never drift apart. Only the geometry differs between them.
+const TEXT = {
+  title: 'Homelab architecture',
+  desc:
+    'Internet traffic reaches Cloudflare edge for DNS, WAF, TLS, and Access, then enters the ' +
+    'homelab through a Cloudflare Tunnel to a reverse proxy that routes to self-hosted ' +
+    'services. Pi-hole, Dockge, and monitoring run alongside, outside the request path.',
+  internet: 'Internet',
+  httpsOnly: 'HTTPS only',
+  cloudflare: 'Cloudflare (Edge)',
+  cloudflareAuth: 'DNS · WAF / TLS · Access (OAuth / SSO)',
+  cloudflareMtls: 'mTLS · service tokens',
+  tunnel: 'Cloudflare Tunnel',
+  boundary: 'Homelab (NAS)',
+  cloudflared: 'cloudflared',
+  cloudflaredSub: 'tunnel',
+  proxy: 'Reverse proxy',
+  proxySub: 'NPM · HTTPS',
+  services: 'Self-hosted services',
+  servicesSub: 'Immich · OpenCloud · ntfy · …',
+  supporting: 'Supporting services · not in the request path',
+  pihole: 'Pi-hole',
+  piholeSub: 'DNS + LAN rewrites',
+  dockge: 'Dockge',
+  dockgeSub: 'stack management',
+  monitoring: 'Monitoring',
+  monitoringSub: 'Kuma · Beszel → ntfy',
+} as const;
+
+/**
+ * Arrowhead for the connectors. Defined per layout because a marker inside a
+ * `display: none` SVG is not reliably referenceable from a sibling one. refX
+ * puts the tip on the line's end point, so it meets the target box edge
+ * without overshooting into it.
+ */
+function ArrowMarker({ id }: { id: string }) {
+  return (
+    <defs>
+      <marker
+        id={id}
+        viewBox="0 0 10 10"
+        refX="9"
+        refY="5"
+        markerWidth="5"
+        markerHeight="5"
+        orient="auto"
+      >
+        <path className="homelab-arch__arrowhead" d="M 0 1 L 9 5 L 0 9 z" />
+      </marker>
+    </defs>
+  );
+}
+
+/**
+ * Landscape layout, shown from the md breakpoint up. Its 720-unit viewBox
+ * scales with the container, so it is only used where there is enough width to
+ * keep the 10–13px type readable.
+ */
+function WideDiagram() {
+  const arrow = 'url(#homelab-arrow-wide)';
+  return (
+    <svg
+      className="homelab-arch__svg homelab-arch__svg--wide"
+      viewBox="0 0 720 420"
+      role="img"
+      aria-labelledby="homelab-arch-title-wide homelab-arch-desc-wide"
+    >
+      <title id="homelab-arch-title-wide">{TEXT.title}</title>
+      <desc id="homelab-arch-desc-wide">{TEXT.desc}</desc>
+      <ArrowMarker id="homelab-arrow-wide" />
+
+      <rect className="homelab-arch__box homelab-arch__box--edge" x="260" y="8" width="200" height="40" rx="8" />
+      <text className="homelab-arch__label" x="360" y="33" textAnchor="middle">
+        {TEXT.internet}
+      </text>
+
+      <line className="homelab-arch__line" x1="360" y1="48" x2="360" y2="72" markerEnd={arrow} />
+      <text className="homelab-arch__caption" x="372" y="66">
+        {TEXT.httpsOnly}
+      </text>
+
+      <rect className="homelab-arch__box homelab-arch__box--cf" x="200" y="72" width="320" height="72" rx="8" />
+      <text className="homelab-arch__label" x="360" y="96" textAnchor="middle">
+        {TEXT.cloudflare}
+      </text>
+      <text className="homelab-arch__sub" x="360" y="116" textAnchor="middle">
+        {TEXT.cloudflareAuth}
+      </text>
+      <text className="homelab-arch__sub" x="360" y="132" textAnchor="middle">
+        {TEXT.cloudflareMtls}
+      </text>
+
+      <line className="homelab-arch__line" x1="360" y1="144" x2="360" y2="176" markerEnd={arrow} />
+      <text className="homelab-arch__caption" x="372" y="168">
+        {TEXT.tunnel}
+      </text>
+
+      <rect className="homelab-arch__boundary" x="24" y="176" width="672" height="228" rx="12" />
+      <text className="homelab-arch__boundary-label" x="44" y="198">
+        {TEXT.boundary}
+      </text>
+
+      <rect className="homelab-arch__box" x="48" y="216" width="140" height="56" rx="8" />
+      <text className="homelab-arch__label" x="118" y="240" textAnchor="middle">
+        {TEXT.cloudflared}
+      </text>
+      <text className="homelab-arch__sub" x="118" y="258" textAnchor="middle">
+        {TEXT.cloudflaredSub}
+      </text>
+
+      <line className="homelab-arch__line" x1="188" y1="244" x2="220" y2="244" markerEnd={arrow} />
+
+      <rect className="homelab-arch__box" x="220" y="216" width="150" height="56" rx="8" />
+      <text className="homelab-arch__label" x="295" y="240" textAnchor="middle">
+        {TEXT.proxy}
+      </text>
+      <text className="homelab-arch__sub" x="295" y="258" textAnchor="middle">
+        {TEXT.proxySub}
+      </text>
+
+      <line className="homelab-arch__line" x1="370" y1="244" x2="402" y2="244" markerEnd={arrow} />
+
+      <rect className="homelab-arch__box homelab-arch__box--accent" x="402" y="208" width="270" height="72" rx="8" />
+      <text className="homelab-arch__label" x="537" y="236" textAnchor="middle">
+        {TEXT.services}
+      </text>
+      <text className="homelab-arch__sub" x="537" y="256" textAnchor="middle">
+        {TEXT.servicesSub}
+      </text>
+
+      {/* Deliberately unconnected: these sit beside the ingress path, not in it. */}
+      <text className="homelab-arch__boundary-label" x="48" y="302">
+        {TEXT.supporting}
+      </text>
+
+      <rect className="homelab-arch__box" x="48" y="312" width="180" height="64" rx="8" />
+      <text className="homelab-arch__label" x="138" y="338" textAnchor="middle">
+        {TEXT.pihole}
+      </text>
+      <text className="homelab-arch__sub" x="138" y="356" textAnchor="middle">
+        {TEXT.piholeSub}
+      </text>
+
+      <rect className="homelab-arch__box" x="252" y="312" width="180" height="64" rx="8" />
+      <text className="homelab-arch__label" x="342" y="338" textAnchor="middle">
+        {TEXT.dockge}
+      </text>
+      <text className="homelab-arch__sub" x="342" y="356" textAnchor="middle">
+        {TEXT.dockgeSub}
+      </text>
+
+      <rect className="homelab-arch__box" x="456" y="312" width="216" height="64" rx="8" />
+      <text className="homelab-arch__label" x="564" y="338" textAnchor="middle">
+        {TEXT.monitoring}
+      </text>
+      <text className="homelab-arch__sub" x="564" y="356" textAnchor="middle">
+        {TEXT.monitoringSub}
+      </text>
+    </svg>
+  );
+}
+
+/**
+ * Portrait layout for narrow viewports. The 360-unit viewBox is close to the
+ * rendered pixel width on a phone, so type stays near its nominal size instead
+ * of being scaled to roughly 44% as the landscape version was. The three
+ * supporting services stack rather than sitting in a row.
+ */
+function NarrowDiagram() {
+  const arrow = 'url(#homelab-arrow-narrow)';
+  return (
+    <svg
+      className="homelab-arch__svg homelab-arch__svg--narrow"
+      viewBox="0 0 360 624"
+      role="img"
+      aria-labelledby="homelab-arch-title-narrow homelab-arch-desc-narrow"
+    >
+      <title id="homelab-arch-title-narrow">{TEXT.title}</title>
+      <desc id="homelab-arch-desc-narrow">{TEXT.desc}</desc>
+      <ArrowMarker id="homelab-arrow-narrow" />
+
+      <rect className="homelab-arch__box homelab-arch__box--edge" x="90" y="8" width="180" height="36" rx="8" />
+      <text className="homelab-arch__label" x="180" y="31" textAnchor="middle">
+        {TEXT.internet}
+      </text>
+
+      <line className="homelab-arch__line" x1="180" y1="44" x2="180" y2="72" markerEnd={arrow} />
+      <text className="homelab-arch__caption" x="188" y="62">
+        {TEXT.httpsOnly}
+      </text>
+
+      <rect className="homelab-arch__box homelab-arch__box--cf" x="8" y="72" width="344" height="76" rx="8" />
+      <text className="homelab-arch__label" x="180" y="96" textAnchor="middle">
+        {TEXT.cloudflare}
+      </text>
+      <text className="homelab-arch__sub" x="180" y="118" textAnchor="middle">
+        {TEXT.cloudflareAuth}
+      </text>
+      <text className="homelab-arch__sub" x="180" y="138" textAnchor="middle">
+        {TEXT.cloudflareMtls}
+      </text>
+
+      <line className="homelab-arch__line" x1="180" y1="148" x2="180" y2="180" markerEnd={arrow} />
+      <text className="homelab-arch__caption" x="188" y="168">
+        {TEXT.tunnel}
+      </text>
+
+      <rect className="homelab-arch__boundary" x="8" y="180" width="344" height="432" rx="12" />
+      <text className="homelab-arch__boundary-label" x="24" y="202">
+        {TEXT.boundary}
+      </text>
+
+      <rect className="homelab-arch__box" x="24" y="216" width="312" height="48" rx="8" />
+      <text className="homelab-arch__label" x="180" y="237" textAnchor="middle">
+        {TEXT.cloudflared}
+      </text>
+      <text className="homelab-arch__sub" x="180" y="254" textAnchor="middle">
+        {TEXT.cloudflaredSub}
+      </text>
+
+      <line className="homelab-arch__line" x1="180" y1="264" x2="180" y2="284" markerEnd={arrow} />
+
+      <rect className="homelab-arch__box" x="24" y="284" width="312" height="48" rx="8" />
+      <text className="homelab-arch__label" x="180" y="305" textAnchor="middle">
+        {TEXT.proxy}
+      </text>
+      <text className="homelab-arch__sub" x="180" y="322" textAnchor="middle">
+        {TEXT.proxySub}
+      </text>
+
+      <line className="homelab-arch__line" x1="180" y1="332" x2="180" y2="352" markerEnd={arrow} />
+
+      <rect className="homelab-arch__box homelab-arch__box--accent" x="24" y="352" width="312" height="52" rx="8" />
+      <text className="homelab-arch__label" x="180" y="374" textAnchor="middle">
+        {TEXT.services}
+      </text>
+      <text className="homelab-arch__sub" x="180" y="392" textAnchor="middle">
+        {TEXT.servicesSub}
+      </text>
+
+      {/* Deliberately unconnected: these sit beside the ingress path, not in it. */}
+      <text className="homelab-arch__boundary-label" x="24" y="424">
+        {TEXT.supporting}
+      </text>
+
+      <rect className="homelab-arch__box" x="24" y="436" width="312" height="48" rx="8" />
+      <text className="homelab-arch__label" x="180" y="457" textAnchor="middle">
+        {TEXT.pihole}
+      </text>
+      <text className="homelab-arch__sub" x="180" y="474" textAnchor="middle">
+        {TEXT.piholeSub}
+      </text>
+
+      <rect className="homelab-arch__box" x="24" y="492" width="312" height="48" rx="8" />
+      <text className="homelab-arch__label" x="180" y="513" textAnchor="middle">
+        {TEXT.dockge}
+      </text>
+      <text className="homelab-arch__sub" x="180" y="530" textAnchor="middle">
+        {TEXT.dockgeSub}
+      </text>
+
+      <rect className="homelab-arch__box" x="24" y="548" width="312" height="48" rx="8" />
+      <text className="homelab-arch__label" x="180" y="569" textAnchor="middle">
+        {TEXT.monitoring}
+      </text>
+      <text className="homelab-arch__sub" x="180" y="586" textAnchor="middle">
+        {TEXT.monitoringSub}
+      </text>
+    </svg>
+  );
+}
+
 export function HomelabArchitecture() {
   return (
     <figure className="homelab-arch">
-      <svg
-        className="homelab-arch__svg"
-        viewBox="0 0 720 420"
-        role="img"
-        aria-labelledby="homelab-arch-title homelab-arch-desc"
-      >
-        <title id="homelab-arch-title">Homelab architecture</title>
-        <desc id="homelab-arch-desc">
-          Internet traffic reaches Cloudflare edge for DNS, WAF, TLS, and Access, then enters the
-          homelab through a Cloudflare Tunnel to a reverse proxy that routes to self-hosted
-          services. Pi-hole, Dockge, and monitoring run alongside on the NAS.
-        </desc>
-
-        {/* Internet */}
-        <rect className="homelab-arch__box homelab-arch__box--edge" x="260" y="8" width="200" height="40" rx="8" />
-        <text className="homelab-arch__label" x="360" y="33" textAnchor="middle">
-          Internet
-        </text>
-
-        <line className="homelab-arch__line" x1="360" y1="48" x2="360" y2="72" />
-        <text className="homelab-arch__caption" x="372" y="66">
-          HTTPS only
-        </text>
-
-        {/* Cloudflare */}
-        <rect className="homelab-arch__box homelab-arch__box--cf" x="200" y="72" width="320" height="72" rx="8" />
-        <text className="homelab-arch__label" x="360" y="96" textAnchor="middle">
-          Cloudflare (Edge)
-        </text>
-        <text className="homelab-arch__sub" x="360" y="116" textAnchor="middle">
-          DNS · WAF / TLS · Access (OAuth / SSO)
-        </text>
-        <text className="homelab-arch__sub" x="360" y="132" textAnchor="middle">
-          mTLS · service tokens
-        </text>
-
-        <line className="homelab-arch__line" x1="360" y1="144" x2="360" y2="176" />
-        <text className="homelab-arch__caption" x="372" y="168">
-          Cloudflare Tunnel
-        </text>
-
-        {/* Homelab boundary */}
-        <rect className="homelab-arch__boundary" x="24" y="176" width="672" height="228" rx="12" />
-        <text className="homelab-arch__boundary-label" x="44" y="198">
-          Homelab (NAS)
-        </text>
-
-        {/* cloudflared → proxy → services */}
-        <rect className="homelab-arch__box" x="48" y="216" width="140" height="56" rx="8" />
-        <text className="homelab-arch__label" x="118" y="240" textAnchor="middle">
-          cloudflared
-        </text>
-        <text className="homelab-arch__sub" x="118" y="258" textAnchor="middle">
-          tunnel
-        </text>
-
-        <line className="homelab-arch__line" x1="188" y1="244" x2="220" y2="244" />
-
-        <rect className="homelab-arch__box" x="220" y="216" width="150" height="56" rx="8" />
-        <text className="homelab-arch__label" x="295" y="240" textAnchor="middle">
-          Reverse proxy
-        </text>
-        <text className="homelab-arch__sub" x="295" y="258" textAnchor="middle">
-          NPM · HTTPS
-        </text>
-
-        <line className="homelab-arch__line" x1="370" y1="244" x2="402" y2="244" />
-
-        <rect className="homelab-arch__box homelab-arch__box--accent" x="402" y="208" width="270" height="72" rx="8" />
-        <text className="homelab-arch__label" x="537" y="236" textAnchor="middle">
-          Self-hosted services
-        </text>
-        <text className="homelab-arch__sub" x="537" y="256" textAnchor="middle">
-          Immich · OpenCloud · ntfy · …
-        </text>
-
-        {/* Bottom row */}
-        <rect className="homelab-arch__box" x="48" y="312" width="180" height="64" rx="8" />
-        <text className="homelab-arch__label" x="138" y="338" textAnchor="middle">
-          Pi-hole
-        </text>
-        <text className="homelab-arch__sub" x="138" y="356" textAnchor="middle">
-          DNS + LAN rewrites
-        </text>
-
-        <rect className="homelab-arch__box" x="252" y="312" width="180" height="64" rx="8" />
-        <text className="homelab-arch__label" x="342" y="338" textAnchor="middle">
-          Dockge
-        </text>
-        <text className="homelab-arch__sub" x="342" y="356" textAnchor="middle">
-          stack management
-        </text>
-
-        <rect className="homelab-arch__box" x="456" y="312" width="216" height="64" rx="8" />
-        <text className="homelab-arch__label" x="564" y="338" textAnchor="middle">
-          Monitoring
-        </text>
-        <text className="homelab-arch__sub" x="564" y="356" textAnchor="middle">
-          Kuma · Beszel → ntfy
-        </text>
-      </svg>
+      <NarrowDiagram />
+      <WideDiagram />
       <figcaption className="homelab-arch__caption-text">
         Outbound tunnel only — no ports opened on the home router.
       </figcaption>
