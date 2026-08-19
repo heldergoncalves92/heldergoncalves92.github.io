@@ -18,24 +18,37 @@
       })();
     </script>
     <style>
+      /*
+        This page is served verbatim by GitHub Pages and cannot @use the SASS
+        tokens, so the palette is mirrored by hand from src/styles/_variables.scss.
+        Keep the two in step — the values below are $canvas / $ink-900 / $ink-500 /
+        $blue-600 on light, and the dark theme's bg / $ink-300 / $blue-400.
+
+        --on-accent is the label colour for anything sitting *on* --accent. It is
+        not always white: on dark, white over $blue-400 is only 2.65:1, which is
+        why the main stylesheet splits --pill-text out per theme.
+      */
       :root {
-        --bg: #ffffff;
-        --fg: #1a2742;
-        --muted: #5a6783;
+        --bg: #f7f9fc;
+        --fg: #1c2330;
+        --muted: #54627a;
         --accent: #3a6ea5;
+        --on-accent: #ffffff;
       }
       :root[data-theme='dark'] {
-        --bg: #0e1320;
+        --bg: #0e131c;
         --fg: #e8edf7;
-        --muted: #9aa6c0;
+        --muted: #8e98ab;
         --accent: #6fa3da;
+        --on-accent: #1c2330;
       }
       @media (prefers-color-scheme: dark) {
         :root:not([data-theme='light']) {
-          --bg: #0e1320;
+          --bg: #0e131c;
           --fg: #e8edf7;
-          --muted: #9aa6c0;
+          --muted: #8e98ab;
           --accent: #6fa3da;
+          --on-accent: #1c2330;
         }
       }
       * {
@@ -84,7 +97,7 @@
         padding: 0.6rem 1.25rem;
         border-radius: 999px;
         background: var(--accent);
-        color: #fff;
+        color: var(--on-accent);
         text-decoration: none;
         font-weight: 500;
         transition: transform 120ms ease, opacity 120ms ease;
@@ -97,6 +110,15 @@
       a.home:focus-visible {
         outline: 2px solid var(--accent);
         outline-offset: 3px;
+      }
+      @media (prefers-reduced-motion: reduce) {
+        a.home {
+          transition: none;
+        }
+        a.home:hover,
+        a.home:focus-visible {
+          transform: none;
+        }
       }
     </style>
   </head>
