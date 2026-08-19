@@ -12,12 +12,20 @@ crawlers see real content before hydration.
 
 ## Stack
 
-- **React 19** + **TypeScript** (strict; `tsc -b` is the lint step)
+- **React 19** + **TypeScript 7** (strict; `tsc -b` is the lint step)
 - **Vite 8** (dev server, client build, SSR build)
 - **SASS** with the modern `@use` module system — never reintroduce `node-sass`
   or `@import` for partials
 - **Inline SVG** icons via `src/components/Icon.tsx` — do not add an icon library
 - **Node ≥ 24** (matches CI; `package.json` `engines.node`)
+
+TypeScript 7 is the native compiler: `tsc` is a Go binary delivered through
+per-platform `@typescript/typescript-<os>-<arch>` optional dependencies. Never
+install with `--no-optional` or `--omit=optional` — that leaves no `tsc` to run,
+and CI resolves `typescript-linux-x64` from the lockfile. The old JavaScript
+compiler API is also gone: `import 'typescript'` now yields only version fields,
+with the real surface behind `typescript/unstable/*` subpaths. Nothing here uses
+it, and it shouldn't need to.
 
 ## Common commands
 
