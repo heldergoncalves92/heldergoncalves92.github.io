@@ -27,6 +27,7 @@ npm run dev      # vite dev server at http://localhost:5173 (CSR-only)
 npm run build    # tsc -b → vite build → vite SSR build → prerender → dist/
 npm run preview  # serve ./dist at http://localhost:4173 (matches production)
 npm run lint     # tsc -b --noEmit (no ESLint configured)
+npm run cards    # re-render public/og-*.png from scripts/og-cards/ (manual)
 ```
 
 There is no test runner. Verification = `npm run lint` and a manual
@@ -45,6 +46,14 @@ There is no test runner. Verification = `npm run lint` and a manual
    `<div id="root"></div>` placeholder in `dist/index.html` with the rendered
    markup, then deletes `dist/server/`
 
+Step 4 also owns all per-route `<head>` metadata and **generates
+`dist/sitemap.xml`** from its own `pages` table — that table is the single
+source of truth for which routes exist, so there is no committed sitemap to
+keep in step. Its tag rewrites throw if a tag they target disappears from
+`index.html`, rather than silently shipping a page that describes the wrong
+route. The CI checkout uses `fetch-depth: 0` because `lastmod` and the case
+study's `dateModified` come from commit dates.
+
 `src/main.tsx` checks `rootElement.hasChildNodes()` and calls `hydrateRoot`
 in production (markup present) or `createRoot().render()` in dev (root empty).
 Don't break that branching when editing `main.tsx`.
@@ -62,8 +71,9 @@ src/
   hooks/useReveal.ts      # IntersectionObserver scroll-reveal
   styles/                 # SASS partials (see below)
   vite-env.d.ts
-public/                   # static assets copied verbatim (favicon, portrait, robots, sitemap, 404)
-scripts/prerender.mjs     # post-build SSR injection
+public/                   # static assets copied verbatim (favicon, portrait, og cards, robots, 404)
+scripts/prerender.mjs     # post-build SSR injection + head metadata + sitemap
+scripts/og-cards/         # HTML sources for the social cards + `npm run cards`
 .github/workflows/deploy.yml  # GitHub Pages deploy on push to main
 index.html                # source entry (loaded by `vite dev`); pre-rendered at build
 vite.config.ts            # base = '/' (user/org GitHub Pages site)
@@ -90,6 +100,16 @@ canonical source**; the PDF is a printable mirror of it. When the content of
 `cv.ts` changes in any user-visible way, regenerate or replace the PDF so
 both stay in sync. Keep the filename stable (`helder-goncalves-cv.pdf`) —
 versioned names like `CV-2026-v2.pdf` would break the saved download URL.
+
+### Social cards (`public/og-home.png`, `public/og-homelab.png`)
+
+Both are 1200×630 and committed. Their sources are plain HTML in
+`scripts/og-cards/`, rendered by `npm run cards`, which screenshots them with
+an already-installed Chrome (override with `CHROME=/path/to/binary`). This is
+deliberately *not* part of `npm run build`: no headless-browser dependency gets
+added for an asset that changes a few times a year. The card copy duplicates a
+little of `cv.ts` / `homelab.ts` by necessity — when a name, role, or thesis
+changes there, update the template and re-run `npm run cards`.
 
 ## Styling rules
 

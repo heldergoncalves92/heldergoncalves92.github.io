@@ -1,0 +1,62 @@
+<!doctype html>
+<!--
+  Source for public/og-homelab.png (1200x630 social card).
+  Copy here mirrors src/data/homelab.ts — keep them in step and regenerate
+  with `npm run cards`.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&display=swap" rel="stylesheet"/>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 1200px; height: 630px; }
+  body {
+    font-family: Inter, sans-serif;
+    background: linear-gradient(135deg, #2c557f 0%, #3a6ea5 100%);
+    color: #fff; display: flex; flex-direction: column; justify-content: center;
+    padding: 0 84px; overflow: hidden; position: relative;
+  }
+  body::after {
+    content: ''; position: absolute; width: 560px; height: 560px;
+    right: -200px; bottom: -240px; border-radius: 50%;
+    background: rgba(255,255,255,.06);
+  }
+  .inner { position: relative; z-index: 1; }
+  .eyebrow {
+    font-size: 22px; font-weight: 600; letter-spacing: .10em;
+    text-transform: uppercase; color: rgba(255,255,255,.72); margin-bottom: 24px;
+  }
+  h1 { font-size: 76px; font-weight: 800; letter-spacing: -.025em; line-height: 1.05; }
+  .thesis {
+    font-size: 29px; font-weight: 400; color: rgba(255,255,255,.9);
+    line-height: 1.45; margin-top: 22px; max-width: 940px;
+  }
+  .chips { display: flex; flex-wrap: wrap; gap: 13px; margin-top: 42px; }
+  .chip {
+    font-size: 21px; font-weight: 500; padding: 11px 22px; border-radius: 999px;
+    background: rgba(255,255,255,.14); border: 1px solid rgba(255,255,255,.24);
+  }
+  .byline { font-size: 23px; font-weight: 500; color: rgba(255,255,255,.7); margin-top: 44px; }
+</style>
+</head>
+<body>
+  <div class="inner">
+    <div class="eyebrow">Case study · hgoncalves.uk/homelab</div>
+    <h1>Self-Hosted Home Lab</h1>
+    <div class="thesis">
+      NAS private cloud — no inbound ports, zero-trust at the edge,
+      declarative and versioned in Git.
+    </div>
+    <div class="chips">
+      <span class="chip">Cloudflare Tunnel</span>
+      <span class="chip">Zero-trust Access</span>
+      <span class="chip">Docker Compose</span>
+      <span class="chip">Pi-hole</span>
+      <span class="chip">Immich</span>
+    </div>
+    <div class="byline">Hélder Gonçalves</div>
+  </div>
+</body>
+</html>

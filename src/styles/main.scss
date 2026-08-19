@@ -4,8 +4,9 @@
 @use 'layout';
 @use 'components';
 
-// Web font
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+// The Inter @font-face request lives in index.html, not here: a CSS @import is
+// only discovered once this stylesheet has downloaded, so loading it from the
+// document head keeps the font off the tail of the critical path.
 
 // Print: hide nav and footer, expand backgrounds for paper, and force the
 // light palette regardless of the user's chosen theme so the printout is

@@ -1,0 +1,57 @@
+<!doctype html>
+<!--
+  Source for public/og-home.png (1200x630 social card).
+  Regenerate with `npm run cards` after changing the copy here.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&display=swap" rel="stylesheet"/>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 1200px; height: 630px; }
+  body {
+    font-family: Inter, sans-serif;
+    /* Mirrors --hero-from / --hero-to so the card reads as the same surface
+       as the site's hero. */
+    background: linear-gradient(135deg, #2c557f 0%, #3a6ea5 100%);
+    color: #fff; display: flex; align-items: center;
+    padding: 0 76px; gap: 64px; overflow: hidden; position: relative;
+  }
+  body::after {
+    content: ''; position: absolute; width: 620px; height: 620px;
+    right: -180px; top: -220px; border-radius: 50%;
+    background: rgba(255,255,255,.06);
+  }
+  .text { flex: 1; position: relative; z-index: 1; }
+  .eyebrow {
+    font-size: 22px; font-weight: 600; letter-spacing: .10em;
+    text-transform: uppercase; color: rgba(255,255,255,.72); margin-bottom: 26px;
+  }
+  h1 { font-size: 82px; font-weight: 800; letter-spacing: -.025em; line-height: 1.02; }
+  .role {
+    font-size: 37px; font-weight: 600; color: #cfe0f2;
+    margin-top: 16px; letter-spacing: -.01em;
+  }
+  .rule { width: 92px; height: 5px; background: rgba(255,255,255,.55); border-radius: 3px; margin: 34px 0 26px; }
+  /* Line break is explicit: automatic wrapping split "Generative AI". */
+  .tag { font-size: 24px; font-weight: 400; color: rgba(255,255,255,.88); line-height: 1.5; }
+  .photo { position: relative; z-index: 1; flex-shrink: 0; }
+  .photo img {
+    width: 340px; height: 340px; border-radius: 50%; object-fit: cover;
+    border: 7px solid rgba(255,255,255,.22);
+  }
+</style>
+</head>
+<body>
+  <div class="text">
+    <div class="eyebrow">hgoncalves.uk</div>
+    <h1>Hélder Gonçalves</h1>
+    <div class="role">Lead Software Engineer</div>
+    <div class="rule"></div>
+    <div class="tag">Developer tools · Generative AI<br/>Cloud-native React &amp; AWS</div>
+  </div>
+  <div class="photo"><img src="../../public/portrait.jpg" alt=""/></div>
+</body>
+</html>

@@ -27,6 +27,7 @@ npm run dev          # local dev at http://localhost:5173
 npm run build        # type-check + production build into ./dist
 npm run preview      # serve the production build at http://localhost:4173
 npm run lint         # type-check only (tsc -b --noEmit)
+npm run cards        # re-render the social cards into public/ (needs Chrome)
 ```
 
 ## Editing content
@@ -121,7 +122,12 @@ helderjgoncalves.github.io/
 ├── .github/workflows/deploy.yml
 ├── public/
 │   ├── favicon.svg
+│   ├── og-home.png        # 1200x630 social cards (see scripts/og-cards)
+│   ├── og-homelab.png
 │   └── portrait.jpg
+├── scripts/
+│   ├── og-cards/          # HTML sources for the social cards (`npm run cards`)
+│   └── prerender.mjs      # SSR injection, head metadata, sitemap.xml
 ├── src/
 │   ├── components/        # one component per CV section + Nav, Hero, Pill, Icon, Section
 │   ├── data/cv.ts         # all CV content

@@ -26,6 +26,10 @@ export interface HomelabPageData {
     title: string;
     description: string;
     canonical: string;
+    /** Absolute URL of the 1200x630 social card for this page. */
+    image: string;
+    /** ISO date the page first went live. Feeds TechArticle.datePublished. */
+    datePublished: string;
   };
 }
 
@@ -95,5 +99,7 @@ export const homelab: HomelabPageData = {
     description:
       'Case study of a NAS-based private cloud: Cloudflare Tunnel, zero-trust Access, Pi-hole, Immich, OpenCloud, and layered monitoring — all declarative in Git.',
     canonical: 'https://hgoncalves.uk/homelab/',
+    image: 'https://hgoncalves.uk/og-homelab.png',
+    datePublished: '2026-08-10',
   },
 };

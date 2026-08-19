@@ -1,5 +1,6 @@
 // Renders each route to static HTML and injects it into the matching
 // dist/*.html so visitors (and crawlers) see real markup before hydration.
+// Also emits dist/sitemap.xml from the same route table.
 //
 // Pipeline (driven by `npm run build`):
 //   1. vite build                                    → dist/ (client assets + index.html)
@@ -8,6 +9,7 @@
 
 import fs from 'node:fs/promises';
 import path from 'node:path';
+import { execFileSync } from 'node:child_process';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -18,14 +20,92 @@ const ssrEntry = path.join(ssrDir, 'entry-server.js');
 const templatePath = path.join(distDir, 'index.html');
 
 const ROOT_PLACEHOLDER = '<div id="root"></div>';
+const SITE = 'https://hgoncalves.uk';
+const PERSON_ID = `${SITE}/#person`;
 
 const { render, homelab } = await import(pathToFileURL(ssrEntry).href);
 
-// Routing (output path, JSON-LD handling) belongs to the build; the copy
-// belongs to the data layer. The homelab strings therefore come from
+/**
+ * Last commit date touching any of `paths`, as an ISO string. Falls back to the
+ * build time when git is unavailable or the checkout is too shallow to know —
+ * a slightly late `lastmod` is harmless, a missing one costs crawl scheduling.
+ *
+ * @param {string[]} paths
+ * @returns {string}
+ */
+function lastModified(paths) {
+  try {
+    const out = execFileSync('git', ['log', '-1', '--format=%cI', '--', ...paths], {
+      cwd: projectRoot,
+      encoding: 'utf-8',
+      stdio: ['ignore', 'pipe', 'ignore'],
+    }).trim();
+    if (out) return out;
+  } catch {
+    // Not a git checkout (e.g. a tarball build) — fall through.
+  }
+  return new Date().toISOString();
+}
+
+/**
+ * Structured data for the case study. Derived from src/data/homelab.ts so the
+ * copy still has a single home; only the schema shape lives here.
+ *
+ * `author`/`publisher` point at the same @id the ProfilePage on / assigns to
+ * the Person, which is what ties the two pages into one entity rather than two
+ * unrelated documents.
+ *
+ * @param {string} dateModified
+ */
+function homelabJsonLd(dateModified) {
+  const url = homelab.meta.canonical;
+  return {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'TechArticle',
+        '@id': `${url}#article`,
+        headline: homelab.title,
+        name: homelab.meta.title,
+        description: homelab.meta.description,
+        abstract: homelab.thesis,
+        url,
+        image: homelab.meta.image,
+        datePublished: homelab.meta.datePublished,
+        dateModified,
+        inLanguage: 'en-GB',
+        keywords: homelab.stack.map((item) => item.name).join(', '),
+        author: {
+          '@type': 'Person',
+          '@id': PERSON_ID,
+          name: 'Hélder Gonçalves',
+          url: `${SITE}/`,
+        },
+        publisher: { '@id': PERSON_ID },
+      },
+      {
+        '@type': 'BreadcrumbList',
+        '@id': `${url}#breadcrumb`,
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'Home', item: `${SITE}/` },
+          { '@type': 'ListItem', position: 2, name: homelab.title, item: url },
+        ],
+      },
+    ],
+  };
+}
+
+// Routing (output path, structured data, social card) belongs to the build; the
+// copy belongs to the data layer. The homelab strings therefore come from
 // src/data/homelab.ts. The home route has no equivalent field on CvData yet,
 // so its metadata still lives inline here.
-/** @type {{ path: string, out: string, title: string, description: string, canonical: string, ogType?: string, keepJsonLd?: boolean }[]} */
+/**
+ * @type {{
+ *   path: string, out: string, title: string, description: string,
+ *   canonical: string, ogType: string, image: string, imageAlt: string,
+ *   sources: string[], jsonLd?: unknown,
+ * }[]}
+ */
 const pages = [
   {
     path: '/',
@@ -33,9 +113,13 @@ const pages = [
     title: 'Hélder Gonçalves — Lead Software Engineer | Developer Tools & GenAI',
     description:
       'Lead Software Engineer at OutSystems with 10+ years building developer tools, integrating Generative AI, and architecting cloud-native React/AWS systems.',
-    canonical: 'https://hgoncalves.uk/',
+    canonical: `${SITE}/`,
     ogType: 'profile',
-    keepJsonLd: true,
+    image: `${SITE}/og-home.png`,
+    imageAlt: 'Hélder Gonçalves — Lead Software Engineer at OutSystems',
+    sources: ['index.html', 'src', 'public'],
+    // Keeps the ProfilePage + Person block already inlined in index.html.
+    jsonLd: undefined,
   },
   {
     path: '/homelab',
@@ -43,8 +127,16 @@ const pages = [
     title: homelab.meta.title,
     description: homelab.meta.description,
     canonical: homelab.meta.canonical,
-    ogType: 'website',
-    keepJsonLd: false,
+    ogType: 'article',
+    image: homelab.meta.image,
+    imageAlt:
+      'Self-Hosted Home Lab case study — a NAS private cloud with no inbound ports and zero-trust access at the edge',
+    sources: [
+      'src/data/homelab.ts',
+      'src/components/HomelabPage.tsx',
+      'src/components/HomelabArchitecture.tsx',
+    ],
+    jsonLd: 'homelab',
   },
 ];
 
@@ -58,66 +150,158 @@ if (!template.includes(ROOT_PLACEHOLDER)) {
 }
 
 /**
+ * Replace a single meta/link tag, failing loudly if the tag it targets has been
+ * renamed in index.html. A silent no-op here would ship a page describing the
+ * wrong route, which is the exact class of bug this script exists to avoid.
+ *
  * @param {string} html
- * @param {{ title: string, description: string, canonical: string, ogType?: string, keepJsonLd?: boolean }} meta
+ * @param {RegExp} pattern
+ * @param {string} replacement
+ * @param {string} label
  */
-function applyMeta(html, meta) {
+function replaceTag(html, pattern, replacement, label) {
+  if (!pattern.test(html)) {
+    throw new Error(`prerender: no ${label} tag matched in index.html`);
+  }
+  // Replacer function, not a string: copy legitimately contains `$`-prefixed
+  // sequences that String.replace would otherwise treat as capture references.
+  return html.replace(pattern, () => replacement);
+}
+
+/**
+ * @param {string} html
+ * @param {(typeof pages)[number]} meta
+ * @param {string} dateModified
+ */
+function applyMeta(html, meta, dateModified) {
   let next = html;
-  next = next.replace(/<title>[^<]*<\/title>/, `<title>${meta.title}</title>`);
-  next = next.replace(
+
+  next = replaceTag(next, /<title>[^<]*<\/title>/, `<title>${meta.title}</title>`, 'title');
+  next = replaceTag(
+    next,
     /<link rel="canonical" href="[^"]*" \/>/,
     `<link rel="canonical" href="${meta.canonical}" />`,
+    'canonical',
   );
-  next = next.replace(
+  next = replaceTag(
+    next,
     /<meta name="description" content="[^"]*" \/>/,
     `<meta name="description" content="${meta.description}" />`,
+    'description',
   );
-  next = next.replace(
+  next = replaceTag(
+    next,
     /<meta property="og:url" content="[^"]*" \/>/,
     `<meta property="og:url" content="${meta.canonical}" />`,
+    'og:url',
   );
-  next = next.replace(
+  next = replaceTag(
+    next,
     /<meta property="og:title" content="[^"]*" \/>/,
     `<meta property="og:title" content="${meta.title}" />`,
+    'og:title',
   );
-  next = next.replace(
+  next = replaceTag(
+    next,
     /<meta property="og:description" content="[^"]*" \/>/,
     `<meta property="og:description" content="${meta.description}" />`,
+    'og:description',
   );
-  next = next.replace(
+  next = replaceTag(
+    next,
     /<meta property="og:type" content="[^"]*" \/>/,
-    `<meta property="og:type" content="${meta.ogType ?? 'website'}" />`,
+    `<meta property="og:type" content="${meta.ogType}" />`,
+    'og:type',
   );
-  next = next.replace(
+  next = replaceTag(
+    next,
+    /<meta property="og:image" content="[^"]*" \/>/,
+    `<meta property="og:image" content="${meta.image}" />`,
+    'og:image',
+  );
+  next = replaceTag(
+    next,
+    /<meta property="og:image:alt" content="[^"]*" \/>/,
+    `<meta property="og:image:alt" content="${meta.imageAlt}" />`,
+    'og:image:alt',
+  );
+  next = replaceTag(
+    next,
     /<meta name="twitter:title" content="[^"]*" \/>/,
     `<meta name="twitter:title" content="${meta.title}" />`,
+    'twitter:title',
   );
-  next = next.replace(
+  next = replaceTag(
+    next,
     /<meta name="twitter:description" content="[^"]*" \/>/,
     `<meta name="twitter:description" content="${meta.description}" />`,
+    'twitter:description',
   );
-  if (meta.keepJsonLd === false) {
-    // Only strip the ProfilePage JSON-LD block (and its own comment). Do not
-    // match from an earlier <!-- … --> — a greedy/cross-comment match would
-    // delete the theme anti-FOIT script and the rest of <head>.
-    next = next.replace(
-      /\s*<!--\s*\n\s*JSON-LD[\s\S]*?-->\s*<script type="application\/ld\+json">[\s\S]*?<\/script>/,
-      '',
-    );
+  next = replaceTag(
+    next,
+    /<meta name="twitter:image" content="[^"]*" \/>/,
+    `<meta name="twitter:image" content="${meta.image}" />`,
+    'twitter:image',
+  );
+  next = replaceTag(
+    next,
+    /<meta name="twitter:image:alt" content="[^"]*" \/>/,
+    `<meta name="twitter:image:alt" content="${meta.imageAlt}" />`,
+    'twitter:image:alt',
+  );
+
+  // profile:* is only meaningful alongside og:type="profile". Leaving it on the
+  // case study would describe that page as a person.
+  if (meta.ogType !== 'profile') {
+    next = next.replace(/\s*<meta property="profile:[^"]*" content="[^"]*" \/>/g, '');
   }
+
+  if (meta.jsonLd) {
+    // Replace the ProfilePage block (and its own comment) with this route's
+    // structured data. Do not match from an earlier <!-- … --> — a greedy or
+    // cross-comment match would delete the theme anti-FOIT script and the rest
+    // of <head>.
+    const block =
+      /\s*<!--\s*\n\s*JSON-LD[\s\S]*?-->\s*<script type="application\/ld\+json">[\s\S]*?<\/script>/;
+    if (!block.test(next)) {
+      throw new Error('prerender: could not find the JSON-LD block to replace');
+    }
+    const data = JSON.stringify(homelabJsonLd(dateModified), null, 2);
+    const script = `\n    <script type="application/ld+json">\n${data}\n    </script>`;
+    next = next.replace(block, () => script);
+  }
+
   return next;
 }
 
+const sitemapEntries = [];
+
 for (const page of pages) {
+  const dateModified = lastModified(page.sources);
   const appHtml = render(page.path);
-  const withMeta = applyMeta(template, page);
+  const withMeta = applyMeta(template, page, dateModified);
   const html = withMeta.replace(ROOT_PLACEHOLDER, `<div id="root">${appHtml}</div>`);
   const outPath = path.join(distDir, page.out);
   await fs.mkdir(path.dirname(outPath), { recursive: true });
   await fs.writeFile(outPath, html);
 
+  sitemapEntries.push({ loc: page.canonical, lastmod: dateModified.slice(0, 10) });
+
   const sizeKb = (Buffer.byteLength(appHtml, 'utf-8') / 1024).toFixed(1);
   console.log(`✓ Pre-rendered ${page.out} (${sizeKb} KB of inlined markup)`);
 }
+
+// Generated rather than committed so the route list has one source of truth and
+// lastmod stays honest. changefreq/priority are omitted: Google has ignored
+// both for years, and a wrong hint is worse than none.
+const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${sitemapEntries
+  .map((e) => `  <url>\n    <loc>${e.loc}</loc>\n    <lastmod>${e.lastmod}</lastmod>\n  </url>`)
+  .join('\n')}
+</urlset>
+`;
+await fs.writeFile(path.join(distDir, 'sitemap.xml'), sitemap);
+console.log(`✓ Wrote sitemap.xml (${sitemapEntries.length} URLs)`);
 
 await fs.rm(ssrDir, { recursive: true, force: true });

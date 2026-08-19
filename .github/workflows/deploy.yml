@@ -19,6 +19,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
+        with:
+          # scripts/prerender.mjs derives sitemap <lastmod> and the case study's
+          # dateModified from commit dates. The default shallow clone only knows
+          # about the tip commit, which would date every page to this deploy.
+          fetch-depth: 0
 
       - name: Setup Node
         uses: actions/setup-node@v6
