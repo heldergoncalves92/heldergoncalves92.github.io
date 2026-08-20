@@ -31,7 +31,9 @@ export function Nav() {
           aria-label="Download CV (PDF)"
         >
           <Icon name="download" />
-          <span>Download CV</span>
+          <span>
+            <span className="nav__cv-verb">Download </span>CV
+          </span>
         </a>
         <ThemeToggle />
       </div>
