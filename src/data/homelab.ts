@@ -89,10 +89,6 @@ export const homelab: HomelabPageData = {
       href: 'https://status.hgoncalves.uk',
       external: true,
     },
-    {
-      label: 'Back home',
-      href: '/',
-    },
   ],
   meta: {
     title: 'Self-Hosted Home Lab · Hélder Gonçalves',
