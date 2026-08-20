@@ -77,7 +77,10 @@
 //
 // The auto left margin lives here (rather than on .theme-toggle) because
 // .nav__cv is the first nav item after the (hidden-on-mobile) links list,
-// so it owns pushing the trailing items to the right edge.
+// so it owns pushing the trailing items to the right edge. It has to stay auto
+// at every width: on the CV page the flexible links list eats the free space
+// from md up, but the homelab nav has no links list, so the margin is the only
+// thing keeping the trailing pair off the brand.
 .nav__cv {
   margin-left: auto;
   display: inline-flex;
@@ -111,7 +114,6 @@
   &:active { transform: scale(0.97); }
 
   @include md-up {
-    margin-left: 0;
     padding: 0.4rem 0.85rem;
   }
 }

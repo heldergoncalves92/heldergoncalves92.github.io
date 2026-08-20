@@ -2,6 +2,7 @@ import type { ReactNode } from 'react';
 import { homelab } from '../data/homelab';
 import { HomelabArchitecture } from './HomelabArchitecture';
 import { Icon, type IconName } from './Icon';
+import { CvDownload } from './CvDownload';
 import { ThemeToggle } from './ThemeToggle';
 import { Footer } from './Footer';
 import { useReveal } from '../hooks/useReveal';
@@ -41,6 +42,7 @@ export function HomelabPage() {
           <a href="/" className="nav__brand" aria-label="Back home">
             HG.
           </a>
+          <CvDownload />
           <ThemeToggle />
         </div>
       </nav>

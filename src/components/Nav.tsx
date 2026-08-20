@@ -1,4 +1,4 @@
-import { Icon } from './Icon';
+import { CvDownload } from './CvDownload';
 import { ThemeToggle } from './ThemeToggle';
 
 const LINKS = [
@@ -8,9 +8,6 @@ const LINKS = [
   { href: '#education', label: 'Education' },
   { href: '#awards', label: 'Awards' },
 ];
-
-const CV_HREF = '/helder-goncalves-cv.pdf';
-const CV_DOWNLOAD = 'helder-goncalves-cv.pdf';
 
 export function Nav() {
   return (
@@ -24,17 +21,7 @@ export function Nav() {
             </a>
           ))}
         </div>
-        <a
-          className="nav__cv"
-          href={CV_HREF}
-          download={CV_DOWNLOAD}
-          aria-label="Download CV (PDF)"
-        >
-          <Icon name="download" />
-          <span>
-            <span className="nav__cv-verb">Download </span>CV
-          </span>
-        </a>
+        <CvDownload />
         <ThemeToggle />
       </div>
     </nav>
