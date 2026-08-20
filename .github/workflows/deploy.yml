@@ -37,6 +37,11 @@ jobs:
       - name: Build
         run: npm run build
 
+      # Asserts the built pages describe their own routes before anything is
+      # published — the deploy goes straight to production with no staging step.
+      - name: Verify build output
+        run: npm test
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v5
         with:

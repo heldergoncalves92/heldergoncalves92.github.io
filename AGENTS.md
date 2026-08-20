@@ -35,10 +35,18 @@ npm run dev      # vite dev server at http://localhost:5173 (CSR-only)
 npm run build    # tsc -b → vite build → vite SSR build → prerender → dist/
 npm run preview  # serve ./dist at http://localhost:4173 (matches production)
 npm run lint     # tsc -b --noEmit (no ESLint configured)
+npm test         # node --test scripts/dist.test.mjs — checks ./dist (after build)
 npm run cards    # re-render public/og-*.png from scripts/og-cards/ (manual)
 ```
 
-There is no test runner. Verification = `npm run lint` and a manual
+`npm test` asserts the *build output*, not the source: per-route agreement
+between canonical, `og:url` and the path the file is served from; non-empty
+pre-rendered markup; one parseable JSON-LD block per page; distinct markup per
+route; `sitemap.xml` listing exactly the built canonicals; `robots.txt`
+advertising it. The domain is read from `dist/CNAME` rather than hard-coded, so
+metadata is checked against the host Pages actually serves. It needs
+`npm run build` to have run first. There is no unit-test runner and no ESLint —
+verification is `npm run lint`, `npm run build && npm test`, and a manual
 `npm run preview` check after non-trivial changes.
 
 ## Build pipeline (important)
@@ -81,6 +89,7 @@ src/
   vite-env.d.ts
 public/                   # static assets copied verbatim (favicon, portrait, og cards, robots, 404)
 scripts/prerender.mjs     # post-build SSR injection + head metadata + sitemap
+scripts/dist.test.mjs     # post-build assertions on dist/ (`npm test`)
 scripts/og-cards/         # HTML sources for the social cards + `npm run cards`
 .github/workflows/deploy.yml  # GitHub Pages deploy on push to main
 index.html                # source entry (loaded by `vite dev`); pre-rendered at build
@@ -154,7 +163,10 @@ Conventions:
 ## Deployment
 
 `.github/workflows/deploy.yml` builds on push to `main` (or
-`workflow_dispatch`) and publishes `./dist` via the GitHub Pages action.
+`workflow_dispatch`), runs `npm test` against the freshly built `dist/`, and
+publishes it via the GitHub Pages action. The test step sits between the build
+and the upload deliberately: the deploy goes straight to production, so a page
+that describes the wrong route has to be caught before the artifact exists.
 Repo Pages source must be **GitHub Actions** (not "Deploy from a branch") —
 the legacy mode would serve the source `index.html` referencing `/src/main.tsx`,
 which only resolves under `vite dev`, producing a blank page in production.
@@ -171,8 +183,12 @@ project-page repo.
 - Don't add runtime dependencies casually — the bundle is intentionally tiny
   (React + ReactDOM only). No icon libraries, no CSS-in-JS, no UI kits.
 - Run `npm run lint` after non-trivial TypeScript edits.
-- Run `npm run build` before claiming a change is production-ready — the SSR
-  step will fail loudly if `<App />` throws during render (e.g. browser-only
-  APIs accessed at module top level).
+- Run `npm run build && npm test` before claiming a change is production-ready
+  — the SSR step fails loudly if `<App />` throws during render (e.g.
+  browser-only APIs accessed at module top level), and the tests catch output
+  that builds cleanly but describes the wrong route.
+- Adding a route means adding it to the `pages` table in `prerender.mjs`; the
+  tests then cover it automatically, since they discover routes by walking
+  `dist/` rather than from a list of their own.
 - Respect `prefers-reduced-motion` when adding animations (see `useReveal`
   and existing CSS for the pattern).

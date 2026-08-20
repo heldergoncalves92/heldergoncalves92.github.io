@@ -27,6 +27,7 @@ npm run dev          # local dev at http://localhost:5173
 npm run build        # type-check + production build into ./dist
 npm run preview      # serve the production build at http://localhost:4173
 npm run lint         # type-check only (tsc -b --noEmit)
+npm test             # assert ./dist metadata, sitemap, robots (run after build)
 npm run cards        # re-render the social cards into public/ (needs Chrome)
 ```
 
