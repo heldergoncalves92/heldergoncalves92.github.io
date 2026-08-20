@@ -423,10 +423,15 @@
 .section {
   padding: 2rem 0 0.5rem;
 
+  // Negative: cancels most of the padding above so anchors don't land a
+  // second gap below the nav clearance in html's scroll-padding-top.
+  scroll-margin-top: -1rem;
+
   &:first-of-type { padding-top: 1.75rem; }
 
   @include md-up {
     padding: 3rem 0 1rem;
+    scroll-margin-top: -2rem;
 
     &:first-of-type { padding-top: 2.5rem; }
   }
