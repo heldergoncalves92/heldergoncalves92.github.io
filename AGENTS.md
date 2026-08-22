@@ -43,7 +43,10 @@ npm run cards    # re-render public/og-*.png from scripts/og-cards/ (manual)
 between canonical, `og:url` and the path the file is served from; non-empty
 pre-rendered markup; one parseable JSON-LD block per page; distinct markup per
 route; `sitemap.xml` listing exactly the built canonicals; `robots.txt`
-advertising it. The domain is read from `dist/CNAME` rather than hard-coded, so
+advertising it; and that no vendor-prefixed CSS declaration ships without its
+standard counterpart (see "Styling rules" — this one is about what the *minifier*
+emits, which no source-level check can see).
+The domain is read from `dist/CNAME` rather than hard-coded, so
 metadata is checked against the host Pages actually serves. It needs
 `npm run build` to have run first. There is no unit-test runner and no ESLint —
 verification is `npm run lint`, `npm run build && npm test`, and a manual
@@ -140,6 +143,15 @@ SASS partials in `src/styles/`:
 Conventions:
 
 - Use `@use 'variables' as *;` at the top of partials. Do not use `@import`.
+- **Never hand-write vendor prefixes.** Vite minifies with Lightning CSS and
+  adds the prefixes required by `build.target` (currently chrome111, edge111,
+  firefox114, safari16.4, ios16.4). Authoring a prefix yourself makes Lightning
+  CSS treat the pair as one declaration and keep only the prefixed form — that
+  is how `.nav`'s `backdrop-filter` shipped as `-webkit-` only, which Chromium
+  does not alias, so the nav blur worked in Safari and not in Chrome. Write the
+  standard property alone; `npm test` fails if a prefixed declaration reaches
+  `dist/` without its standard counterpart. `-webkit-font-smoothing` and
+  `-moz-osx-font-smoothing` are the exception — they have no standard form.
 - Colours that change with theme should reference the CSS custom properties
   (e.g. `var(--color-text)`) or the SASS aliases at the bottom of
   `_variables.scss` (`$color-text`, `$color-accent`, …). Reach for raw palette

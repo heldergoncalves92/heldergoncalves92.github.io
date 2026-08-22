@@ -1,10 +1,13 @@
-// Verifies that the built site in dist/ describes the routes it claims to.
+// Verifies that the built site in dist/ describes the routes it claims to, and
+// that the bundled stylesheet still reaches every engine.
 //
 // `tsc -b` proves the source compiles and the SSR build proves <App /> renders
 // without throwing. Neither notices when a route ships another route's
-// canonical, when the root div comes out empty, or when sitemap.xml disagrees
-// with the pages sitting next to it. Those ship green and only surface weeks
-// later in Search Console, so they get asserted here instead.
+// canonical, when the root div comes out empty, when sitemap.xml disagrees
+// with the pages sitting next to it, or when the CSS minifier drops a
+// declaration one browser needs. Those ship green and only surface weeks
+// later in Search Console or in a screenshot from someone else's browser, so
+// they get asserted here instead.
 //
 // Runs against build output, so `npm run build` must come first (see `npm test`
 // and the deploy workflow). No dependencies beyond node:test.
@@ -256,5 +259,42 @@ describe('robots.txt', () => {
       robots.includes(`Sitemap: ${site}/sitemap.xml`),
       `robots.txt does not advertise ${site}/sitemap.xml`,
     );
+  });
+});
+
+// Non-standard properties with no unprefixed counterpart to look for.
+const PREFIX_ONLY = new Set(['-webkit-font-smoothing', '-moz-osx-font-smoothing']);
+
+/** True if `prop` appears as a declaration rather than as part of a longer name. */
+function declares(css, prop) {
+  return new RegExp(`[{;\\s]${prop}\\s*:`).test(css);
+}
+
+describe('bundled stylesheet', () => {
+  test('every vendor-prefixed declaration ships its standard property too', async () => {
+    const assets = path.join(distDir, 'assets');
+    const sheets = (await fs.readdir(assets)).filter((f) => f.endsWith('.css'));
+    assert.ok(sheets.length > 0, 'no stylesheet in dist/assets');
+
+    for (const sheet of sheets) {
+      const css = await fs.readFile(path.join(assets, sheet), 'utf-8');
+      const prefixed = new Set(
+        [...css.matchAll(/[{;\s](-(?:webkit|moz|ms)-[a-z-]+)\s*:/g)].map((m) => m[1]),
+      );
+
+      for (const prop of prefixed) {
+        if (PREFIX_ONLY.has(prop)) continue;
+        const standard = prop.replace(/^-(?:webkit|moz|ms)-/, '');
+        // Lightning CSS treats a hand-written prefix as the authored value and
+        // collapses the pair, so authoring both can ship only the prefixed one.
+        // Chromium implements no -webkit- aliases, so it then gets nothing.
+        assert.ok(
+          declares(css, standard),
+          `${sheet} declares ${prop} but never ${standard} — engines without ` +
+            `that prefix get no declaration at all. Author the standard ` +
+            `property alone and let Lightning CSS add prefixes.`,
+        );
+      }
+    }
   });
 });

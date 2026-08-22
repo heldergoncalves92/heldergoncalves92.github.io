@@ -15,8 +15,11 @@
   position: sticky;
   top: 0;
   z-index: 50;
+  // Standard property only — Lightning CSS derives -webkit-backdrop-filter
+  // from build.target. Hand-writing the prefix alongside it made the minifier
+  // treat the pair as one declaration and keep only the prefixed form, and
+  // Chromium has no -webkit- alias, so the blur silently vanished there.
   backdrop-filter: saturate(140%) blur(10px);
-  -webkit-backdrop-filter: saturate(140%) blur(10px);
   background: $color-nav-bg;
   border-bottom: 1px solid $color-rule;
 
