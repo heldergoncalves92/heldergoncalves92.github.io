@@ -42,7 +42,7 @@ export const homelab: HomelabPageData = {
     {
       title: 'No inbound ports',
       description:
-        'All external traffic enters via Cloudflare Tunnel. The home router exposes nothing; the origin never needs a public IP.',
+        'All external traffic enters via Cloudflare Tunnel. Every service here is published outbound-only; none of them needs a forwarded port or a public IP.',
     },
     {
       title: 'One hostname everywhere',

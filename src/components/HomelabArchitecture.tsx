@@ -279,7 +279,7 @@ export function HomelabArchitecture() {
       <NarrowDiagram />
       <WideDiagram />
       <figcaption className="homelab-arch__caption-text">
-        Outbound tunnel only — no ports opened on the home router.
+        Outbound tunnel only — no ports opened for the services.
       </figcaption>
     </figure>
   );
