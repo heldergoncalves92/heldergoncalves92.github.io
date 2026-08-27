@@ -379,7 +379,8 @@
     stroke-width: 1.25;
 
     &--edge,
-    &--cf {
+    &--cf,
+    &--lan {
       fill: color-mix(in srgb, $color-accent 10%, $color-card);
       stroke: color-mix(in srgb, $color-accent 40%, $color-rule);
     }
@@ -465,6 +466,14 @@
     font-size: $fs-sm;
     line-height: 1.6;
     color: $color-text-soft;
+  }
+
+  &__evidence {
+    display: inline-block;
+    margin-top: 0.5rem;
+    font-size: $fs-sm;
+    font-weight: 600;
+    color: $color-accent;
   }
 }
 

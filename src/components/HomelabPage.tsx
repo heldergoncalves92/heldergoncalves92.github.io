@@ -87,6 +87,16 @@ export function HomelabPage() {
                 <div>
                   <h3 className="homelab-decisions__title">{decision.title}</h3>
                   <p className="homelab-decisions__desc">{decision.description}</p>
+                  {decision.evidence && (
+                    <a
+                      className="homelab-decisions__evidence"
+                      href={decision.evidence.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      {decision.evidence.label}
+                    </a>
+                  )}
                 </div>
               </li>
             ))}

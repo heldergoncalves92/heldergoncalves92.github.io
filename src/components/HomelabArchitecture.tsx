@@ -6,8 +6,9 @@ const TEXT = {
   title: 'Homelab architecture',
   desc:
     'Internet traffic reaches Cloudflare edge for DNS, WAF, TLS, and Access, then enters the ' +
-    'homelab through a Cloudflare Tunnel to a reverse proxy that routes to self-hosted ' +
-    'services. Pi-hole, Dockge, and monitoring run alongside, outside the request path.',
+    'homelab through a Cloudflare Tunnel. LAN and Tailscale clients resolve the same hostnames ' +
+    'via Pi-hole and, like the tunnel, land on a reverse proxy that applies per-host access lists ' +
+    'and routes to self-hosted services. Dockge and monitoring run alongside, outside the request path.',
   internet: 'Internet',
   httpsOnly: 'HTTPS only',
   cloudflare: 'Cloudflare (Edge)',
@@ -17,13 +18,13 @@ const TEXT = {
   boundary: 'Homelab (NAS)',
   cloudflared: 'cloudflared',
   cloudflaredSub: 'tunnel',
+  lan: 'LAN · Tailscale',
+  lanSub: 'Pi-hole · same names',
   proxy: 'Reverse proxy',
-  proxySub: 'NPM · HTTPS',
+  proxySub: 'NPM · HTTPS · ACLs',
   services: 'Self-hosted services',
   servicesSub: 'Immich · OpenCloud · ntfy · …',
   supporting: 'Supporting services · not in the request path',
-  pihole: 'Pi-hole',
-  piholeSub: 'DNS + LAN rewrites',
   dockge: 'Dockge',
   dockgeSub: 'stack management',
   monitoring: 'Monitoring',
@@ -64,7 +65,7 @@ function WideDiagram() {
   return (
     <svg
       className="homelab-arch__svg homelab-arch__svg--wide"
-      viewBox="0 0 720 420"
+      viewBox="0 0 720 464"
       role="img"
       aria-labelledby="homelab-arch-title-wide homelab-arch-desc-wide"
     >
@@ -98,65 +99,66 @@ function WideDiagram() {
         {TEXT.tunnel}
       </text>
 
-      <rect className="homelab-arch__boundary" x="24" y="176" width="672" height="228" rx="12" />
+      <rect className="homelab-arch__boundary" x="24" y="176" width="672" height="272" rx="12" />
       <text className="homelab-arch__boundary-label" x="44" y="198">
         {TEXT.boundary}
       </text>
 
-      <rect className="homelab-arch__box" x="48" y="216" width="140" height="56" rx="8" />
-      <text className="homelab-arch__label" x="118" y="240" textAnchor="middle">
+      <rect className="homelab-arch__box" x="48" y="216" width="168" height="56" rx="8" />
+      <text className="homelab-arch__label" x="132" y="240" textAnchor="middle">
         {TEXT.cloudflared}
       </text>
-      <text className="homelab-arch__sub" x="118" y="258" textAnchor="middle">
+      <text className="homelab-arch__sub" x="132" y="258" textAnchor="middle">
         {TEXT.cloudflaredSub}
       </text>
 
-      <line className="homelab-arch__line" x1="188" y1="244" x2="220" y2="244" markerEnd={arrow} />
+      <rect className="homelab-arch__box homelab-arch__box--lan" x="48" y="288" width="168" height="56" rx="8" />
+      <text className="homelab-arch__label" x="132" y="312" textAnchor="middle">
+        {TEXT.lan}
+      </text>
+      <text className="homelab-arch__sub" x="132" y="330" textAnchor="middle">
+        {TEXT.lanSub}
+      </text>
 
-      <rect className="homelab-arch__box" x="220" y="216" width="150" height="56" rx="8" />
-      <text className="homelab-arch__label" x="295" y="240" textAnchor="middle">
+      <line className="homelab-arch__line" x1="216" y1="244" x2="248" y2="244" markerEnd={arrow} />
+      <line className="homelab-arch__line" x1="216" y1="316" x2="248" y2="316" markerEnd={arrow} />
+
+      <rect className="homelab-arch__box" x="248" y="216" width="168" height="128" rx="8" />
+      <text className="homelab-arch__label" x="332" y="272" textAnchor="middle">
         {TEXT.proxy}
       </text>
-      <text className="homelab-arch__sub" x="295" y="258" textAnchor="middle">
+      <text className="homelab-arch__sub" x="332" y="292" textAnchor="middle">
         {TEXT.proxySub}
       </text>
 
-      <line className="homelab-arch__line" x1="370" y1="244" x2="402" y2="244" markerEnd={arrow} />
+      <line className="homelab-arch__line" x1="416" y1="280" x2="448" y2="280" markerEnd={arrow} />
 
-      <rect className="homelab-arch__box homelab-arch__box--accent" x="402" y="208" width="270" height="72" rx="8" />
-      <text className="homelab-arch__label" x="537" y="236" textAnchor="middle">
+      <rect className="homelab-arch__box homelab-arch__box--accent" x="448" y="216" width="224" height="128" rx="8" />
+      <text className="homelab-arch__label" x="560" y="272" textAnchor="middle">
         {TEXT.services}
       </text>
-      <text className="homelab-arch__sub" x="537" y="256" textAnchor="middle">
+      <text className="homelab-arch__sub" x="560" y="292" textAnchor="middle">
         {TEXT.servicesSub}
       </text>
 
       {/* Deliberately unconnected: these sit beside the ingress path, not in it. */}
-      <text className="homelab-arch__boundary-label" x="48" y="302">
+      <text className="homelab-arch__boundary-label" x="48" y="376">
         {TEXT.supporting}
       </text>
 
-      <rect className="homelab-arch__box" x="48" y="312" width="180" height="64" rx="8" />
-      <text className="homelab-arch__label" x="138" y="338" textAnchor="middle">
-        {TEXT.pihole}
-      </text>
-      <text className="homelab-arch__sub" x="138" y="356" textAnchor="middle">
-        {TEXT.piholeSub}
-      </text>
-
-      <rect className="homelab-arch__box" x="252" y="312" width="180" height="64" rx="8" />
-      <text className="homelab-arch__label" x="342" y="338" textAnchor="middle">
+      <rect className="homelab-arch__box" x="48" y="388" width="304" height="48" rx="8" />
+      <text className="homelab-arch__label" x="200" y="408" textAnchor="middle">
         {TEXT.dockge}
       </text>
-      <text className="homelab-arch__sub" x="342" y="356" textAnchor="middle">
+      <text className="homelab-arch__sub" x="200" y="424" textAnchor="middle">
         {TEXT.dockgeSub}
       </text>
 
-      <rect className="homelab-arch__box" x="456" y="312" width="216" height="64" rx="8" />
-      <text className="homelab-arch__label" x="564" y="338" textAnchor="middle">
+      <rect className="homelab-arch__box" x="368" y="388" width="304" height="48" rx="8" />
+      <text className="homelab-arch__label" x="520" y="408" textAnchor="middle">
         {TEXT.monitoring}
       </text>
-      <text className="homelab-arch__sub" x="564" y="356" textAnchor="middle">
+      <text className="homelab-arch__sub" x="520" y="424" textAnchor="middle">
         {TEXT.monitoringSub}
       </text>
     </svg>
@@ -166,15 +168,15 @@ function WideDiagram() {
 /**
  * Portrait layout for narrow viewports. The 360-unit viewBox is close to the
  * rendered pixel width on a phone, so type stays near its nominal size instead
- * of being scaled to roughly 44% as the landscape version was. The three
- * supporting services stack rather than sitting in a row.
+ * of being scaled to roughly 44% as the landscape version was. Ingress paths
+ * sit side by side so they visibly merge into the reverse proxy.
  */
 function NarrowDiagram() {
   const arrow = 'url(#homelab-arrow-narrow)';
   return (
     <svg
       className="homelab-arch__svg homelab-arch__svg--narrow"
-      viewBox="0 0 360 624"
+      viewBox="0 0 360 608"
       role="img"
       aria-labelledby="homelab-arch-title-narrow homelab-arch-desc-narrow"
     >
@@ -208,65 +210,68 @@ function NarrowDiagram() {
         {TEXT.tunnel}
       </text>
 
-      <rect className="homelab-arch__boundary" x="8" y="180" width="344" height="432" rx="12" />
+      <rect className="homelab-arch__boundary" x="8" y="180" width="344" height="416" rx="12" />
       <text className="homelab-arch__boundary-label" x="24" y="202">
         {TEXT.boundary}
       </text>
 
-      <rect className="homelab-arch__box" x="24" y="216" width="312" height="48" rx="8" />
-      <text className="homelab-arch__label" x="180" y="237" textAnchor="middle">
+      <rect className="homelab-arch__box" x="24" y="216" width="148" height="52" rx="8" />
+      <text className="homelab-arch__label" x="98" y="237" textAnchor="middle">
         {TEXT.cloudflared}
       </text>
-      <text className="homelab-arch__sub" x="180" y="254" textAnchor="middle">
+      <text className="homelab-arch__sub" x="98" y="254" textAnchor="middle">
         {TEXT.cloudflaredSub}
       </text>
 
-      <line className="homelab-arch__line" x1="180" y1="264" x2="180" y2="284" markerEnd={arrow} />
+      <rect className="homelab-arch__box homelab-arch__box--lan" x="188" y="216" width="148" height="52" rx="8" />
+      <text className="homelab-arch__label" x="262" y="237" textAnchor="middle">
+        {TEXT.lan}
+      </text>
+      <text className="homelab-arch__sub" x="262" y="254" textAnchor="middle">
+        {TEXT.lanSub}
+      </text>
 
-      <rect className="homelab-arch__box" x="24" y="284" width="312" height="48" rx="8" />
-      <text className="homelab-arch__label" x="180" y="305" textAnchor="middle">
+      <line className="homelab-arch__line" x1="98" y1="268" x2="98" y2="292" />
+      <line className="homelab-arch__line" x1="262" y1="268" x2="262" y2="292" />
+      <line className="homelab-arch__line" x1="98" y1="292" x2="262" y2="292" />
+      <line className="homelab-arch__line" x1="180" y1="292" x2="180" y2="312" markerEnd={arrow} />
+
+      <rect className="homelab-arch__box" x="24" y="312" width="312" height="48" rx="8" />
+      <text className="homelab-arch__label" x="180" y="333" textAnchor="middle">
         {TEXT.proxy}
       </text>
-      <text className="homelab-arch__sub" x="180" y="322" textAnchor="middle">
+      <text className="homelab-arch__sub" x="180" y="350" textAnchor="middle">
         {TEXT.proxySub}
       </text>
 
-      <line className="homelab-arch__line" x1="180" y1="332" x2="180" y2="352" markerEnd={arrow} />
+      <line className="homelab-arch__line" x1="180" y1="360" x2="180" y2="380" markerEnd={arrow} />
 
-      <rect className="homelab-arch__box homelab-arch__box--accent" x="24" y="352" width="312" height="52" rx="8" />
-      <text className="homelab-arch__label" x="180" y="374" textAnchor="middle">
+      <rect className="homelab-arch__box homelab-arch__box--accent" x="24" y="380" width="312" height="52" rx="8" />
+      <text className="homelab-arch__label" x="180" y="402" textAnchor="middle">
         {TEXT.services}
       </text>
-      <text className="homelab-arch__sub" x="180" y="392" textAnchor="middle">
+      <text className="homelab-arch__sub" x="180" y="420" textAnchor="middle">
         {TEXT.servicesSub}
       </text>
 
       {/* Deliberately unconnected: these sit beside the ingress path, not in it. */}
-      <text className="homelab-arch__boundary-label" x="24" y="424">
+      <text className="homelab-arch__boundary-label" x="24" y="464">
         {TEXT.supporting}
       </text>
 
-      <rect className="homelab-arch__box" x="24" y="436" width="312" height="48" rx="8" />
-      <text className="homelab-arch__label" x="180" y="457" textAnchor="middle">
-        {TEXT.pihole}
-      </text>
-      <text className="homelab-arch__sub" x="180" y="474" textAnchor="middle">
-        {TEXT.piholeSub}
-      </text>
-
-      <rect className="homelab-arch__box" x="24" y="492" width="312" height="48" rx="8" />
-      <text className="homelab-arch__label" x="180" y="513" textAnchor="middle">
+      <rect className="homelab-arch__box" x="24" y="476" width="312" height="48" rx="8" />
+      <text className="homelab-arch__label" x="180" y="497" textAnchor="middle">
         {TEXT.dockge}
       </text>
-      <text className="homelab-arch__sub" x="180" y="530" textAnchor="middle">
+      <text className="homelab-arch__sub" x="180" y="514" textAnchor="middle">
         {TEXT.dockgeSub}
       </text>
 
-      <rect className="homelab-arch__box" x="24" y="548" width="312" height="48" rx="8" />
-      <text className="homelab-arch__label" x="180" y="569" textAnchor="middle">
+      <rect className="homelab-arch__box" x="24" y="536" width="312" height="48" rx="8" />
+      <text className="homelab-arch__label" x="180" y="557" textAnchor="middle">
         {TEXT.monitoring}
       </text>
-      <text className="homelab-arch__sub" x="180" y="586" textAnchor="middle">
+      <text className="homelab-arch__sub" x="180" y="574" textAnchor="middle">
         {TEXT.monitoringSub}
       </text>
     </svg>
@@ -279,7 +284,7 @@ export function HomelabArchitecture() {
       <NarrowDiagram />
       <WideDiagram />
       <figcaption className="homelab-arch__caption-text">
-        Outbound tunnel only — no ports opened for the services.
+        Cloudflare Tunnel and Tailscale both dial out — LAN and VPN still hit the same reverse proxy. Nothing is port-forwarded.
       </figcaption>
     </figure>
   );
