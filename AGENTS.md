@@ -163,6 +163,36 @@ Conventions:
 - Print stylesheet (in `main.scss`) forces the light palette regardless of
   `data-theme`. Don't break that when adjusting dark-mode tokens.
 
+### Interaction vocabulary
+
+Every interactive element belongs to one of five named families, each a mixin
+in `_mixins.scss`. **Never invent a sixth at the call site** — that is how the
+same affordance ended up with three different hover states across two pages.
+Reach for the mixin; if nothing fits, add a family here and document why.
+
+| Family | Mixin | Used by | Hover |
+| --- | --- | --- | --- |
+| Action link | `action-link` (+ `action-link-primary`) | "View case study", "Live status page" | accent text + accent rule |
+| Prose link | `prose-link` | `.homelab-stack__note a`, `.footer a` | accent → accent-dark |
+| Nav control | `nav-control` | `.nav__cv`, `.theme-toggle` | accent tint deepens, border firms, press scales |
+| Hero button | `hero-button` | `.hero__contact`, `.homelab-cta` | white glass brightens, lifts 1px |
+| Nav link | — (`.nav__links a`) | in-nav section links | soft → accent |
+
+The families own *interaction*, not geometry: callers keep their own size,
+padding, radius, and resting colour. Two rules that follow from that:
+
+- `nav-control` deliberately doesn't set text colour. The CV pill's
+  `accent-dark` label is a contrast decision against its tinted background
+  (see the note in `_variables.scss`) and must survive the hover; the theme
+  toggle adds its own accent-on-hover because it rests muted.
+- `hero-button` uses `rgba($white, …)` rather than accent tokens. Both heroes
+  stay brand-blue in either theme, so a themed accent would sink into the
+  background — this is one of the sanctioned uses of raw palette values.
+- `prose-link` doesn't set `font-weight` either. Add `600` when the link sits
+  mid-sentence and has to be findable in body copy (the stack note); leave it
+  alone in a row that is mostly links (the footer), where bolding every one
+  makes a deliberately quiet line shout.
+
 ## Theming
 
 - `index.html` runs a tiny synchronous script in `<head>` that reads

@@ -30,6 +30,94 @@
   box-shadow: $shadow-card;
 }
 
+// Two link categories, so the same job looks the same on every page.
+//
+// `action-link` is the standalone link that closes a block and reads as a
+// call to action — "View case study" on the home page, "Live status page" in
+// the homelab decisions. `action-link-primary` raises one where it is the
+// block's main action. Buttons (`.homelab-cta`, `.nav__cv`) are a separate
+// vocabulary and don't belong here.
+@mixin action-link {
+  font-size: $fs-sm;
+  font-weight: 600;
+  color: $color-heading;
+  border-bottom: 1px solid color-mix(in srgb, $color-accent 35%, transparent);
+  padding-bottom: 0.05rem;
+  transition: color $dur-fast $ease, border-color $dur-fast $ease;
+
+  &:hover,
+  &:focus-visible {
+    color: $color-accent;
+    border-color: $color-accent;
+  }
+}
+
+@mixin action-link-primary {
+  color: $color-accent;
+  border-bottom-width: 2px;
+}
+
+// `prose-link` is the other category: a link inside running text, where a
+// bottom rule would fight the line spacing. Colour and its hover shift are the
+// whole family — weight stays with the caller. A link buried in a sentence
+// wants the extra emphasis to be findable; a line that is mostly links (the
+// footer) does not, and bolding all of them just makes the line shout.
+@mixin prose-link {
+  color: $color-accent;
+
+  &:hover,
+  &:focus-visible { color: $color-accent-dark; }
+}
+
+// Controls that live in the nav — the Download CV pill and the theme toggle,
+// which sit next to each other on every page. Their rest states differ on
+// purpose (one is the nav's primary action, the other a tertiary control), but
+// they deepen the same tint on hover and press by the same amount. Text colour
+// is left to the caller: the CV pill's accent-dark label is a contrast choice
+// against its tinted background and must survive the hover.
+@mixin nav-control {
+  transition:
+    color $dur-fast $ease,
+    background $dur-fast $ease,
+    border-color $dur-fast $ease,
+    transform $dur-fast $ease;
+
+  &:hover {
+    background: color-mix(in srgb, $color-accent 18%, transparent);
+    border-color: color-mix(in srgb, $color-accent 50%, transparent);
+  }
+
+  &:active { transform: scale(0.97); }
+}
+
+// Glass buttons sitting on a hero — contact chips on the home page, CTAs on the
+// homelab case study. White alpha rather than accent tokens because both heroes
+// keep their brand blue across themes, so a themed accent would sink into it.
+@mixin hero-button {
+  background: rgba($white, 0.12);
+  border: 1px solid rgba($white, 0.25);
+  transition:
+    color $dur-fast $ease,
+    background $dur-fast $ease,
+    border-color $dur-fast $ease,
+    transform $dur-fast $ease;
+
+  &:hover,
+  &:focus-visible {
+    background: rgba($white, 0.22);
+    border-color: rgba($white, 0.38);
+    transform: translateY(-1px);
+  }
+
+  // The themed accent ring would vanish into the blue.
+  &:focus-visible { @include focus-ring($white); }
+
+  &:active {
+    transform: translateY(0);
+    background: rgba($white, 0.28);
+  }
+}
+
 @mixin pill {
   display: inline-flex;
   align-items: center;

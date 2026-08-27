@@ -203,24 +203,9 @@
   }
 
   &__link {
-    font-size: $fs-sm;
-    font-weight: 600;
-    color: $color-heading;
-    text-decoration: none;
-    border-bottom: 1px solid color-mix(in srgb, $color-accent 35%, transparent);
-    padding-bottom: 0.05rem;
-    transition: color $dur-fast $ease, border-color $dur-fast $ease;
+    @include action-link;
 
-    &:hover,
-    &:focus-visible {
-      color: $color-accent;
-      border-color: $color-accent;
-    }
-
-    &--primary {
-      color: $color-accent;
-      border-bottom-width: 2px;
-    }
+    &--primary { @include action-link-primary; }
   }
 }
 
@@ -297,24 +282,14 @@
   font-weight: 600;
   text-decoration: none;
   color: $white;
-  background: rgba($white, 0.12);
-  border: 1px solid rgba($white, 0.28);
-  transition: background $dur-fast $ease, transform $dur-fast $ease;
+  @include hero-button;
 
   svg {
     width: 16px;
     height: 16px;
   }
 
-  &:hover,
-  &:focus-visible {
-    background: rgba($white, 0.2);
-    transform: translateY(-1px);
-  }
-
-  // Sits on the blue homelab hero, so the themed accent ring would vanish.
-  &:focus-visible { @include focus-ring($white); }
-
+  // Solid rather than glass, so it keeps its own edge through every state.
   &--primary {
     background: $white;
     color: $blue-700;
@@ -323,7 +298,10 @@
     &:hover,
     &:focus-visible {
       background: rgba($white, 0.92);
+      border-color: $white;
     }
+
+    &:active { background: $white; }
   }
 }
 
@@ -468,12 +446,13 @@
     color: $color-text-soft;
   }
 
+  // Same treatment as "View case study" on the home page: both are the
+  // closing action of a card, so they read as the same affordance.
   &__evidence {
+    @include action-link;
+    @include action-link-primary;
     display: inline-block;
-    margin-top: 0.5rem;
-    font-size: $fs-sm;
-    font-weight: 600;
-    color: $color-accent;
+    margin-top: 0.6rem;
   }
 }
 
@@ -517,8 +496,9 @@
     color: $color-text-muted;
     line-height: 1.55;
 
+    // Emphasised: this one sits mid-sentence and has to be findable in it.
     a {
-      color: $color-accent;
+      @include prose-link;
       font-weight: 600;
     }
   }

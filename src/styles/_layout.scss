@@ -98,23 +98,12 @@
   font-size: $fs-sm;
   font-weight: 600;
   white-space: nowrap;
-  transition:
-    color $dur-fast $ease,
-    background $dur-fast $ease,
-    border-color $dur-fast $ease,
-    transform $dur-fast $ease;
+  @include nav-control;
 
   svg {
     width: 16px;
     height: 16px;
   }
-
-  &:hover {
-    background: color-mix(in srgb, $color-accent 18%, transparent);
-    border-color: color-mix(in srgb, $color-accent 50%, transparent);
-  }
-
-  &:active { transform: scale(0.97); }
 
   @include md-up {
     padding: 0.4rem 0.85rem;
@@ -152,19 +141,11 @@
   background: transparent;
   color: $color-text-soft;
   cursor: pointer;
-  transition:
-    color $dur-fast $ease,
-    background $dur-fast $ease,
-    border-color $dur-fast $ease,
-    transform $dur-fast $ease;
+  @include nav-control;
 
-  &:hover {
-    color: $color-accent;
-    border-color: color-mix(in srgb, $color-accent 40%, transparent);
-    background: $color-accent-soft;
-  }
-
-  &:active { transform: scale(0.95); }
+  // Its resting colour is muted, unlike the CV pill's, so the accent has to
+  // arrive on hover for the control to look live.
+  &:hover { color: $color-accent; }
 
   &[disabled] {
     cursor: default;
@@ -295,13 +276,7 @@
     width: 44px;
     height: 44px;
     border-radius: 50%;
-    background: rgba($white, 0.12);
-    border: 1px solid rgba($white, 0.22);
-    transition:
-      color $dur-fast $ease,
-      background $dur-fast $ease,
-      border-color $dur-fast $ease,
-      transform $dur-fast $ease;
+    @include hero-button;
 
     svg {
       width: 18px;
@@ -323,20 +298,7 @@
       border: 0;
     }
 
-    &:hover {
-      color: $white;
-      background: rgba($white, 0.22);
-      border-color: rgba($white, 0.35);
-      transform: translateY(-1px);
-    }
-
-    // Sits on the blue hero, so the themed accent ring would vanish.
-    &:focus-visible { @include focus-ring($white); }
-
-    &:active {
-      transform: translateY(0);
-      background: rgba($white, 0.28);
-    }
+    &:hover { color: $white; }
 
     // Desktop: revert to inline icon + text link.
     @include md-up {
@@ -369,7 +331,10 @@
         border: 0;
       }
 
-      &:hover {
+      // Flattened to a text link here, so the glass surface drops away and only
+      // the lift and colour shift survive.
+      &:hover,
+      &:focus-visible {
         background: transparent;
         border-color: transparent;
       }
@@ -377,19 +342,6 @@
       &:active {
         background: transparent;
       }
-    }
-
-    &--button {
-      align-self: flex-start;
-      margin-top: 0.4rem;
-      padding: 0.5rem 0.85rem;
-      background: rgba($white, 0.14);
-      border: 1px solid rgba($white, 0.25);
-      border-radius: $radius-pill;
-
-      @include md-up { align-self: flex-end; }
-
-      &:hover { background: rgba($white, 0.22); }
     }
   }
 }
@@ -459,8 +411,5 @@
     margin-top: 3rem;
   }
 
-  a {
-    color: $color-accent;
-    &:hover { color: $color-accent-dark; }
-  }
+  a { @include prose-link; }
 }
