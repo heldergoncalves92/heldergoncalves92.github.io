@@ -49,7 +49,7 @@ export const homelab: HomelabPageData = {
     {
       title: 'One hostname everywhere',
       description:
-        'Public DNS resolves to Cloudflare; Pi-hole rewrites map the same names to internal IPs for LAN and VPN clients alike. Either way the request hits the same reverse proxy, with Cloudflare Access in front of anything arriving from the internet — same URLs, same TLS, same auth, one bookmark.',
+        'Public DNS resolves to Cloudflare; Pi-hole rewrites map the same names to internal IPs for LAN and VPN clients alike. Either way the request hits the same reverse proxy — same URLs, same TLS, same auth, one bookmark.',
     },
     {
       title: 'Auth at the edge',
