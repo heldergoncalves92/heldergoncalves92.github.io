@@ -11,7 +11,7 @@ export const cv: CvData = {
       'Currently driving the integration of Generative AI into the OutSystems IDE, architecting the systems that leverage LLMs to power conversational workflows.',
     ],
     contacts: [
-      { label: 'heldergoncalves92@gmail.com', href: 'mailto:heldergoncalves92@gmail.com', icon: 'email' },
+      { label: 'helderjgoncalves@proton.me', href: 'mailto:helderjgoncalves@proton.me', icon: 'email' },
       { label: 'linkedin.com/in/helderjgoncalves', href: 'https://linkedin.com/in/helderjgoncalves', icon: 'linkedin' },
       { label: 'github.com/helderjgoncalves', href: 'https://github.com/helderjgoncalves', icon: 'github' },
     ],
